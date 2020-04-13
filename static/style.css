@@ -1,4 +1,42 @@
+body {
+  /* background: rgb(230,230,230);
+  background-image: linear-gradient(rgb(230,230,230), rgb(182,186,194)); */
+  background-image: url(bg10.jpg), linear-gradient(rgb(230,230,230) 80%, rgb(182,186,194));
+  background-size: 1200px, cover;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 85%;
+ }
 .blocktext {
-  width: 80vw;
-  margin: auto;
+  margin-left: min(10vw, 50px);
+  width: min(50vw, 270px);
+}
+@media screen and (max-width: 500px) {
+  body {
+    background-size: 900px, cover;
+    background-position: 30% -10%;
+   }
+  .blocktext {
+    margin-left: min(5vw, 20px);
+    width: min(80vw, 170px);
+  }
+}
+@media screen and (max-width: 500px) {
+  body {
+    background-size: 900px, cover;
+    background-position: 20% -10%;
+   }
+  .blocktext {
+    margin-left: min(5vw, 20px);
+    width: min(80vw, 170px);
+  }
+}
+@media screen and (min-width: 1000px) {
+  body {
+    background-size: 100vw, cover;
+    background-position: 0% 0%;
+   }
+  .blocktext {
+    margin-left: min(10vw, 50px);
+    width: min(40vw, 300px);
+  }
 }
