@@ -5,7 +5,7 @@ from flask_session import Session
 import json
 import logging
 import sys
-import os
+import ossource
 import requests
 from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
@@ -27,8 +27,6 @@ app = Flask(__name__)
 #set up Flask-Sessions
 app.config.from_object(__name__)
 app.config['SESSION_TYPE'] = 'filesystem'
-
-Session(app)
 
 # trick from SO for properly relaoding CSS
 app.config['TEMPLATES_AUTO_RELOAD'] = True
