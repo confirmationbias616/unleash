@@ -13,13 +13,13 @@
       <h3>Can I take my dog off leash?</h3>
     </div>
     <br>
-    <div class='blocktext' style='width: 70%'>
+    <div class='blocktext'>
       <h1>
         <u>{{ 'Yes!' if permission else 'Nope.'}}</u>
       </h1>
     </div>
     {% if park_name %}
-    <div class='blocktext' style='width: 70%'>
+    <div class='blocktext'>
       <p>
         You are in <b>{{ park_name }}</b>.
       </p>
@@ -28,7 +28,7 @@
       </p>
     </div>
     {% else %}
-    <div class='blocktext' style='width: 70%'>
+    <div class='blocktext'>
       <p>
         You are not in a park! <br><br>
         Unless you're on private property and the owner
