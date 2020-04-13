@@ -5,7 +5,7 @@ from flask_session import Session
 import json
 import logging
 import sys
-import ossource
+import os
 import requests
 from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
