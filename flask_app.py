@@ -74,7 +74,7 @@ def offleash_response():
             print(f"not in {park['attributes']['NAME']}")
             continue
         print(f"You're in {park['attributes']['NAME']}")
-        park_name = park['attribute']['NAME']
+        park_name = park['attributes']['NAME']
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
         is_off_leash = True if int(response['features'][0]['attributes']['DOG_DESIGNATION']) <= 1 else False
         if is_off_leash:
