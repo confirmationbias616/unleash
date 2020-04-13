@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  {% extends 'base.html' %}
+  {% block head %}
+  {% endblock %}
+</head>
+<body>
+    {% block body %}
+    <br><br>    
+    <div class='blocktext'>
+      <h3>Can I take my dog off leash?</h3>
+    </div>
+    <br>
+    <div class='blocktext' style='width: 70%'>
+      <h1>
+        <u>{{ 'Yes!' if permission else 'Nope.'}}</u>
+      </h1>
+    </div>
+    {% if park_name %}
+    <div class='blocktext' style='width: 70%'>
+      <p>
+        You are in <b>{{ park_name }}</b>.
+      </p>
+      <p>
+        <i>{{ details }}</i>.
+      </p>
+    </div>
+    {% else %}
+    <div class='blocktext' style='width: 70%'>
+      <p>
+        You are not in a park! <br><br>
+        Unless you're on private property and the owner
+        advised you otherwise, your dog must remain on leash.
+      </p>
+    </div>
+    {% endif %}
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <div class='blocktext'>
+      <p>lat: {{ lat }}</p>
+      <p>lng: {{ lng }}</p>
+    </div>
+    {% endblock %}
+</body>
+</html>
