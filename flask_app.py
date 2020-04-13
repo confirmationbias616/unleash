@@ -57,6 +57,8 @@ def offleash():
 def offleash_response():
     lat = float(request.form.get('current_lat'))
     lng = float(request.form.get('current_lng'))
+    # lat = 45.477094
+    # lng = -75.488386
     current_location = Point(lng, lat)
     margin = 0.005
     api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=1%3D1&outFields=NAME,DOG_DESIGNATION,LONGITUDE,Shape,LATITUDE,Shape_Area,DOG_DESIGNATION_DETAILS&geometry={},{},{},{}&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outSR=4326&f=json'
