@@ -86,5 +86,5 @@ def offleash_response():
     return render_template('offleash_response.html', lat=lat, lng=lng, park_name=park_name, permission=permission, details=details)
 
 if __name__ == "__main__":
-	app.run(debug=True)
-    # app.run(debug=False)
+	# app.run(debug=True)
+    app.run(debug=False)
