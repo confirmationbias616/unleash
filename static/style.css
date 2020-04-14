@@ -91,8 +91,8 @@ button:hover {
 .details {
   color: rgb(60,60,60);
 }
-.summary {
-  outline: none;
+summary:focus{
+  outline-style: none;
 }
 details[open] summary ~ * {
   animation: sweep-details-from-left 0.1s ease-in-out;
