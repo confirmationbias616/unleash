@@ -36,7 +36,7 @@ button {
 @media screen and (max-width: 500px) {
   body {
     background-size: 900px, cover;
-    background-position: 20% -10%;
+    background-position: 20% 0%;
     font-size: min(1.8vh, 12px);
    }
   .blocktext {
