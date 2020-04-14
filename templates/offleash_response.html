@@ -12,26 +12,29 @@
     <div class='blocktext + question'>
       <h3>Can I take my dog off leash?</h3>
     </div>
-    <br>
-    <div class='blocktext + sweep_right'>
-      <h1>
-        <u>{{ 'Yes!' if permission else 'Nope.'}}</u>
-      </h1>
-    {% if park_name %}
-      <p>
-        You are in <b>{{ park_name }}</b>.
-      </p>
-      <p class='details'>
-        <i>{{ details }}</i>.
-      </p>
-    {% else %}
-      <p>
-        You are not in a park! <br>
-      </p>
-      <p class='details'>
-        Unless you're on private property and the owner
-        advised you otherwise, your dog must remain on leash.
-      </p>
+    <div id='current_park'>
+      <br>
+      <div class='blocktext + sweep_right'>
+        <h1>
+          <u>{{ 'Yes!' if permission else 'Nope.'}}</u>
+        </h1>
+      {% if park_name %}
+        <p>
+          You are in <b>{{ park_name }}</b>.
+        </p>
+        <p class='details'>
+          <i>{{ details }}</i>.
+        </p>
+      {% else %}
+        <p>
+          You are not in a park! <br>
+        </p>
+        <p class='details'>
+          Unless you're on private property and the owner
+          advised you otherwise, your dog must remain on leash.
+        </p>
+      </div>
+      {% endif %}
     </div>
     {% endif %}
     <br><br>
