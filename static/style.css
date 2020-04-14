@@ -94,6 +94,9 @@ button:hover {
 .details {
   color: rgb(60,60,60);
 }
+details[open] summary ~ * {
+  animation: sweep-details-from-left 0.1s ease-in-out;
+}
 /* .details::first-letter {
   color: black; 
   font-size: 120%;
