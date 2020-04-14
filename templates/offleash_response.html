@@ -8,59 +8,64 @@
 </head>
 <body>
     {% block body %}
-    <br>  
-    <div class='blocktext + question'>
-      <h3>Can I take my dog off leash?</h3>
-    </div>
-    <div id='current_park'>
+    <br>
+    <div style='height: 50vh; float: left'>
+      <div class='blocktext + question'>
+        <h3>Can I take my dog off leash?</h3>
+      </div>
       <br>
-      <div class='blocktext + sweep_right'>
-        <h1>
-          <u>{{ 'Yes!' if permission else 'Nope.'}}</u>
-        </h1>
-      {% if park_name %}
-        <p>
-          You are in <b>{{ park_name }}</b>.
-        </p>
-        <p class='details'>
-          <i>{{ details }}</i>.
-        </p>
-      {% else %}
-        <p>
-          You are not in a park! <br>
-        </p>
-        <p class='details'>
-          Unless you're on private property and the owner
-          advised you otherwise, your dog must remain on leash.
-        </p>
-      </div>
-      {% endif %}
-    </div>
-    <div id='nearby' class='blocktext + sweep_right' style='display: none; font-size: 90%;'>
-      {% for p in parks %}
-      <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: rgba(204,208,216,0.35); border-radius: 1em; padding: 0.2em 0.8em;'>
-        <summary> {{ p['attributes']['NAME'] }} </summary>
-        <div class='details' style='margin-left: 2vw; margin-top: max(1vh, 6px); font-size: 85%'>
-          {{ p['attributes']['DOG_DESIGNATION_DETAILS'] }}
-          <br>
-          <button class='white_button + direction_button' style='font-size: 100%;' onclick="window.open('{{ p['attributes']['directions'] }}', '_blank')"><b>directions</b></button>
+      <div style="overflow: auto; direction: ltr; height: 60vh; width: 60vw">
+        <div id='current_park'>
+          <div class='blocktext + sweep_right'>
+            <h1>
+              <u>{{ 'Yes!' if permission else 'Nope.'}}</u>
+            </h1>
+          {% if park_name %}
+            <p>
+              You are in <b>{{ park_name }}</b>.
+            </p>
+            <p class='details'>
+              <i>{{ details }}</i>.
+            </p>
+          {% else %}
+            <p>
+              You are not in a park! <br>
+            </p>
+            <p class='details'>
+              Unless you're on private property and the owner
+              advised you otherwise, your dog must remain on leash.
+            </p>
+          </div>
+          {% endif %}
         </div>
-      </details>
-      {% endfor %}
-    </div>
-    <div class='blocktext + fade_in' display='inline' style='width:50vw'>
-      <br><br>
-      <div id='switch_content'>
-        <button id='switch_content' class='white_button' onclick="display_nearby()"><b>show nearby parks</b></button>
-        <br><br>
+        <div id='nearby' class='blocktext + sweep_right' style='display: none; font-size: 90%;'>
+          {% for p in parks %}
+          <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: rgba(204,208,216,0.35); border-radius: 1em; padding: 0.2em 0.8em;'>
+            <summary> {{ p['attributes']['NAME'] }} </summary>
+            <div class='details' style='margin-left: 2vw; margin-top: max(1vh, 6px); font-size: 85%'>
+              {{ p['attributes']['DOG_DESIGNATION_DETAILS'] }}
+              <br>
+              <button class='white_button + direction_button' style='font-size: 100%;' onclick="window.open('{{ p['attributes']['directions'] }}', '_blank')"><b>directions</b></button>
+            </div>
+          </details>
+          {% endfor %}
+        </div>
+        <div class='blocktext + fade_in' display='inline' style='width:50vw'>
+          <br><br>
+          <div id='switch_content'>
+            <button id='switch_content' class='white_button' onclick="display_nearby()"><b>show nearby parks</b></button>
+            <br><br>
+          </div>
+          <button onclick="window.open('https://open.ottawa.ca/datasets/cfb079e407494c33b038e86c7e05288e_24', '_blank')"><b>data source</b></button>
+            <!-- Parks & Greenspace by Open Ottawa -->
+          <br><br>
+          <button onclick="window.open('https://ottawa.ca/en/recreation-and-parks/parks-and-green-space/dog-parks#map-dogs-parks', '_blank')"><b>interactive map</b></button>
+          <br><br>
+          <button class='red_button' onclick="window.location.href='/offleash'"><b>check again</b></button>
+          <br><br><br>
+          <button class='white_button + direction_button' style='font-size: 90%; color:rgba(99, 8, 185,0.7)' onclick="window.open('https://github.com/confirmationbias616', '_blank')"><b>hire me :)</b></button>
+        </div>
       </div>
-      <button onclick="window.open('https://open.ottawa.ca/datasets/cfb079e407494c33b038e86c7e05288e_24', '_blank')"><b>data source</b></button>
-        <!-- Parks & Greenspace by Open Ottawa -->
-      <br><br>
-      <button onclick="window.open('https://ottawa.ca/en/recreation-and-parks/parks-and-green-space/dog-parks#map-dogs-parks', '_blank')"><b>interactive map</b></button>
-      <br><br>
-      <button class='red_button' onclick="window.location.href='/offleash'"><b>check again</b></button>
-      <br><br>
     </div>
   <script>
       function display_nearby() {  
