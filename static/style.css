@@ -41,6 +41,9 @@ button:hover {
   background-color: rgb(221,34,59);
   color: rgb(230,220,220);
 }
+.error_msg {
+  color: rgb(221,34,59);
+}
 @media screen and (max-width: 500px) {
   body {
     background-size: 900px, cover;
