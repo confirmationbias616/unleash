@@ -38,13 +38,11 @@
     </div>
     <div id='nearby' class='blocktext' style='display: none;'>
       {% for p in parks %}
-      <br>
-      <details class='blocktext' style='margin-left: 3vw;'>
+      <details class='blocktext' style='margin-left: 3vw; margin-top: 0.6em; background-color: rgba(204,208,216,0.35); border-radius: 1em; padding: 0.2em 0.8em;'>
         <summary> {{ p['attributes']['NAME'] }} </summary>
         <div class='details' style='margin-left: 5vw; margin-top: max(1vh, 6px)'>
           {{ p['attributes']['DOG_DESIGNATION_DETAILS'] }}
-          <br><br>
-          <button onclick="window.open('{{ p['attributes']['directions'] }}', '_blank')"><b>directions</b></button>
+          <button class='white_button' style='margin-top: 1em; font-size: 80%;' onclick="window.open('{{ p['attributes']['directions'] }}', '_blank')"><b>directions</b></button>
         </div>
       </details>
       {% endfor %}
