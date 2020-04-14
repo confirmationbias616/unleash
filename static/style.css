@@ -47,6 +47,10 @@ button:hover {
   background-color: rgb(221,34,59);
   color: rgb(230,220,220);
 }
+.white_button {
+  background-color: rgb(230,220,220);
+  color: black;
+}
 .error_msg {
   color: rgb(221,34,59);
 }
