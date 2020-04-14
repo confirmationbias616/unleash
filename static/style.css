@@ -22,6 +22,9 @@ body {
 .fade_in {
   animation: fade-in 0.04s ease-in-out;
 }
+u{
+  text-decoration-color: rgb(221,34,59);
+}
 button {
   background-color: rgb(60,60,60);
   border: none;
