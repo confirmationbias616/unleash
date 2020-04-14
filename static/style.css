@@ -14,10 +14,10 @@ body {
   width: min(50vw, 270px);
 }
 .sweep_right {
-  animation: sweep-details-from-left 0.5s ease-in-out;
+  animation: sweep-details-from-left 0.09s ease-in-out;
 }
 .fade_in {
-  animation: fade-in 1s ease-in-out;
+  animation: fade-in 0.04s ease-in-out;
 }
 button {
   background-color: rgb(60,60,60);
