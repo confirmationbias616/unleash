@@ -1,33 +1,44 @@
 body {
+  background: rgb(182,186,194);
   /* background: rgb(230,230,230);
   background-image: linear-gradient(rgb(230,230,230), rgb(182,186,194)); */
   background-image: url(bg10.jpg), linear-gradient(rgb(230,230,230) 80%, rgb(182,186,194));
   background-size: 1200px, cover;
+  background-repeat: repeat-x;
   font-family: 'Noto Sans', sans-serif;
-  font-size: 85%;
+  /* font-size: 82%; */
+  font-size: 1vh + 0.5vw;
  }
 .blocktext {
   margin-left: min(10vw, 50px);
   width: min(50vw, 270px);
 }
-@media screen and (max-width: 500px) {
-  body {
-    background-size: 900px, cover;
-    background-position: 30% -10%;
-   }
-  .blocktext {
-    margin-left: min(5vw, 20px);
-    width: min(80vw, 170px);
-  }
+button {
+  background-color: rgb(60,60,60);
+  border: none;
+  color: rgb(210,210,210);
+  padding: 1em 2em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+}
+.red_button {
+  background-color: rgb(221,34,59);
+  color: rgb(230,220,220);
 }
 @media screen and (max-width: 500px) {
   body {
     background-size: 900px, cover;
     background-position: 20% -10%;
+    font-size: min(1.8vh, 12px);
    }
   .blocktext {
     margin-left: min(5vw, 20px);
-    width: min(80vw, 170px);
+    width: min(80vw, 150px);
+  }
+  button {
+    font-size: 12px;
   }
 }
 @media screen and (min-width: 1000px) {
