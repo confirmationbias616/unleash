@@ -1,6 +1,6 @@
 body {
   background: rgb(176,171,161);
-  background-image: url(bg10.jpg), linear-gradient( rgb(176,171,161) 100vh, rgba(204,208,216,1) 2%, rgb(176,171,161));
+  background-image: url(bg10.jpg), linear-gradient( rgb(176,171,161) 100vh, rgba(204,208,216,1), rgb(176,171,161));
   background-size: 1200px, cover;
   background-repeat: repeat-x;
   font-family: 'Noto Sans', sans-serif;
