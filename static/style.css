@@ -72,7 +72,12 @@ button:hover {
 @keyframes fade-in {
   0%    {opacity: 0; margin-left: -10vw;}
   100%  {opacity: 1; margin-left: -10vw;}
-}.details {
+}
+::selection {
+  color: rgb(221,34,59); 
+  background: rgb(60,60,60);
+}
+.details {
   color: rgb(60,60,60);
 }
 /* .details::first-letter {
