@@ -13,13 +13,13 @@
       <h3>Can I take my dog off leash?</h3>
     </div>
     <br>
-    <div class='blocktext'>
+    <div class='blocktext + sweep_right'>
       <h1>
         <u>{{ 'Yes!' if permission else 'Nope.'}}</u>
       </h1>
     </div>
     {% if park_name %}
-    <div class='blocktext'>
+    <div class='blocktext + sweep_right'>
       <p>
         You are in <b>{{ park_name }}</b>.
       </p>
@@ -28,7 +28,7 @@
       </p>
     </div>
     {% else %}
-    <div class='blocktext'>
+    <div class='blocktext + sweep_right'>
       <p>
         You are not in a park! <br><br>
         Unless you're on private property and the owner
@@ -37,7 +37,7 @@
     </div>
     {% endif %}
     <br><br>
-    <div class='blocktext' display='inline'>
+    <div class='blocktext + fade_in' display='inline'>
       <button onclick="window.location.href='https://open.ottawa.ca/datasets/cfb079e407494c33b038e86c7e05288e_24'"><b>data source</b></button>
       <!-- Parks & Greenspace by Open Ottawa -->
       <br><br>

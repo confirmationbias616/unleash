@@ -13,6 +13,12 @@ body {
   margin-left: min(10vw, 50px);
   width: min(50vw, 270px);
 }
+.sweep_right {
+  animation: sweep-details-from-left 0.5s ease-in-out;
+}
+.fade_in {
+  animation: fade-in 1s ease-in-out;
+}
 button {
   background-color: rgb(60,60,60);
   border: none;
@@ -50,4 +56,12 @@ button {
     margin-left: min(10vw, 50px);
     width: min(40vw, 300px);
   }
+}
+@keyframes sweep-details-from-left {
+  0%    {opacity: 0; margin-left: -20vw}
+  100%  {opacity: 1; margin-left: 0vw}
+}
+@keyframes fade-in {
+  0%    {opacity: 0; margin-left: -10vw;}
+  100%  {opacity: 1; margin-left: -10vw;}
 }
