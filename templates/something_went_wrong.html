@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  {% extends 'base.html' %}
+  {% block head %}
+  {% endblock %}
+</head>
+<body>
+    {% block body %}
+    <br><br>  
+    <div class='blocktext'>
+      <h3>Can I take my dog off leash?</h3>
+      <br>
+      <span style='color: red'>Oops... something went wrong. Let's try again!</span>
+    </div>
+    <br><br>
+    <form action="{{ url_for('offleash_response') }}" method="POST" hidden>
+      <input type="text" id="current_lat", name="current_lat">
+      <input type="text" id="current_lng", name="current_lng">
+    </form>
+    <br><br>
+    <script>
+      window.onload = function() {
+        var startPos;
+        var geoSuccess = function(position) {
+          startPos = position;
+          lat = startPos.coords.latitude;
+          lng = startPos.coords.longitude;
+          console.log(lat);
+          console.log(lng);
+          document.getElementById('current_lat').value=lat
+          document.getElementById('current_lng').value=lng
+          document.forms[0].submit()
+        };
+        navigator.geolocation.getCurrentPosition(geoSuccess);
+      };
+    </script>
+    {% endblock %}
+</body>
+</html>
