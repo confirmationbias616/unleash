@@ -69,7 +69,7 @@ button:hover {
     font-size: 12px;
   }
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1200px) {
   body {
     background-size: 100vw, cover;
     background-position: 0% 0%;
