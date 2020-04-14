@@ -77,7 +77,7 @@ def offleash_response():
     park_name = None
     details = None
     for park in parks:
-        park['attributes'].update({'directions': f"https://www.google.com/maps/dir/{lat},{lng}/{'+'.join(park['attributes']['NAME'].split(' '))},+Ottawa,+ON/@{lat},{lng}"})
+        park['attributes'].update({'directions': f"https://www.google.com/maps/dir/{lat},{lng}/{park['attributes']['LATITUDE']},{park['attributes']['LONGITUDE']}/@{lat},{lng}"})
         response_poly = Polygon(park['geometry']['rings'][0])
         in_park = response_poly.contains(current_location)
         if not in_park:
