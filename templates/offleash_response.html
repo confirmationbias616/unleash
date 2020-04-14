@@ -40,8 +40,9 @@
       {% for p in parks %}
       <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: rgba(204,208,216,0.35); border-radius: 1em; padding: 0.2em 0.8em;'>
         <summary> {{ p['attributes']['NAME'] }} </summary>
-        <div class='details' style='margin-left: 5vw; margin-top: max(1vh, 6px)'>
+        <div class='details' style='margin-left: 2vw; margin-top: max(1vh, 6px)'>
           {{ p['attributes']['DOG_DESIGNATION_DETAILS'] }}
+          <br>
           <button class='white_button' style='margin-top: 1em; font-size: 80%;' onclick="window.open('{{ p['attributes']['directions'] }}', '_blank')"><b>directions</b></button>
         </div>
       </details>
