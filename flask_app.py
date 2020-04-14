@@ -55,8 +55,13 @@ def offleash():
 
 @app.route('/offleash_response', methods=["POST", "GET"])
 def offleash_response():
-    lat = float(request.form.get('current_lat'))
-    lng = float(request.form.get('current_lng'))
+    lat = request.form.get('current_lat')
+    lng = request.form.get('current_lng')
+    lat = float(lat) if lat else None
+    lng = float(lng) if lng else None
+    print(lat)
+    if not lat:
+        return render_template('something_went_wrong.html')
     # lat = 45.477094
     # lng = -75.488386
     current_location = Point(lng, lat)
