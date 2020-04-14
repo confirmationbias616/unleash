@@ -17,18 +17,16 @@
       <h1>
         <u>{{ 'Yes!' if permission else 'Nope.'}}</u>
       </h1>
-    </div>
     {% if park_name %}
-    <div class='blocktext + sweep_right'>
+    <br>
       <p>
         You are in <b>{{ park_name }}</b>.
       </p>
       <p>
         <i>{{ details }}</i>.
       </p>
-    </div>
     {% else %}
-    <div class='blocktext + sweep_right'>
+    <br>
       <p>
         You are not in a park! <br><br>
         Unless you're on private property and the owner
