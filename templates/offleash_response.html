@@ -36,14 +36,60 @@
       </div>
       {% endif %}
     </div>
-    <div class='blocktext + fade_in' display='inline'>
+    <div id='nearby' class='blocktext' style='display: none;'>
+      {% for p in parks %}
+      <br>
+      <details class='blocktext' style='margin-left: 3vw;'>
+        <summary> {{ p['attributes']['NAME'] }} </summary>
+        <div class='details' style='margin-left: 5vw; margin-top: max(1vh, 6px)'>
+          {{ p['attributes']['DOG_DESIGNATION_DETAILS'] }}
+          <br><br>
+          <button onclick="window.open('{{ p['attributes']['directions'] }}', '_blank')"><b>directions</b></button>
+        </div>
+      </details>
+      {% endfor %}
+    </div>
+    <div class='blocktext + fade_in' display='inline' style='width:50vw'>
+      <br><br>
+      <button id='switch_content' class='white_button' onclick="display_nearby()"><b>show nearby parks</b></button>
+      <br><br>
       <button onclick="window.open('https://open.ottawa.ca/datasets/cfb079e407494c33b038e86c7e05288e_24', '_blank')"><b>data source</b></button>
         <!-- Parks & Greenspace by Open Ottawa -->
       <br><br>
       <button onclick="window.open('https://ottawa.ca/en/recreation-and-parks/parks-and-green-space/dog-parks#map-dogs-parks', '_blank')"><b>interactive map</b></button>
       <br><br>
       <button class='red_button' onclick="window.location.href='/offleash'"><b>check again</b></button>
+      <br><br>
     </div>
-    {% endblock %}
+  <script>
+      function display_nearby() {  
+        if (document.getElementById("nearby").style.display === 'none'){ 
+          document.getElementById("nearby").style.display = 'inline';
+          document.getElementById("current_park").style.display = 'none';
+          document.getElementById("switch_content").innerText = 'show current park';
+          document.getElementById("switch_content").style.fontFamily = "'Noto Sans', sans-serif";
+        }else{
+          document.getElementById("nearby").style.display = 'none';
+          document.getElementById("current_park").style.display = 'inline';
+          document.getElementById("switch_content").textContent = 'show nearby parks';
+        }  
+      }
+
+      // Fetch all the details element.
+      const details = document.querySelectorAll("details");
+
+      // Add the onclick listeners.
+      details.forEach((targetDetail) => {
+        targetDetail.addEventListener("click", () => {
+          // Close all the details that are not targetDetail.
+          details.forEach((detail) => {
+            if (detail !== targetDetail) {
+              detail.removeAttribute("open");
+            }
+          });
+        });
+      }); 
+  </script>
+  {% endblock %}
 </body>
 </html>
