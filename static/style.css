@@ -9,7 +9,7 @@ body {
  }
 .blocktext {
   margin-left: min(10vw, 50px);
-  width: min(50vw, 270px);
+  width: min(50vw, 250px);
 }
 .question {
   width: 60vw !important;
