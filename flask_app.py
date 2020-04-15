@@ -90,10 +90,12 @@ def offleash_response():
     for park in parks:
         park['attributes'].update({'directions': f"https://www.google.com/maps/dir/{lat},{lng}/{park['attributes']['LATITUDE']},{park['attributes']['LONGITUDE']}/@{lat},{lng}"})
     offleash_parks = [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '0']
+    near_parks = [park for park in parks if park['attributes']['NAME'] not in [park['attributes']['NAME'] for park in offleash_parks]]
+    near_parks = near_parks[:10]
     permission = False
     park_name = None
     details = None
-    for park in parks[:10]:
+    for park in near_parks + offleash_parks:
         response_poly = Polygon(park['geometry']['rings'][0])
         in_park = response_poly.contains(current_location)
         if not in_park:
@@ -109,8 +111,8 @@ def offleash_response():
         else:
             print("Unfortunately, it's not an offleash park!")
         break
-    return render_template('offleash_response.html', lat=lat, lng=lng, park_name=park_name, permission=permission, details=details, parks=parks, offleash_parks=offleash_parks)
+    return render_template('offleash_response.html', lat=lat, lng=lng, park_name=park_name, permission=permission, details=details, parks=near_parks, offleash_parks=offleash_parks)
 
 if __name__ == "__main__":
-	# app.run(debug=True)
-    app.run(debug=False)
+	app.run(debug=True)
+    # app.run(debug=False)
