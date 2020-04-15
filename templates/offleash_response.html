@@ -40,14 +40,16 @@
         </div>
         <div id='nearby' class='blocktext + sweep_right' style='display: none; font-size: 100%;'>
           <span>nearest offleash:</span>
+          {% for p in offleash_parks[:8] %}
           <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--blurry-background); border-radius: 1em; padding: 0.2em 0.8em;'>
-            <summary> {{ closest_offleash['attributes']['NAME'] }} </summary>
+            <summary> {{ p['attributes']['NAME'] }} </summary>
             <div class='details' style='margin-left: 2vw; margin-top: max(1vh, 6px); font-size: 92%'>
-              {{ closest_offleash['attributes']['DOG_DESIGNATION_DETAILS'] }}
+              {{ p['attributes']['DOG_DESIGNATION_DETAILS'] }}
               <br>
-              <button class='white_button + direction_button' style='font-size: 100%;' onclick="window.open('{{ closest_offleash['attributes']['directions'] }}', '_blank')"><b>directions</b></button>
+              <button class='white_button + direction_button' style='font-size: 100%;' onclick="window.open('{{ p['attributes']['directions'] }}', '_blank')"><b>directions</b></button>
             </div>
           </details>
+          {% endfor %}
           <br>
           <span class='blocktext'>nearest:</span>
           {% for p in parks[:8] %}

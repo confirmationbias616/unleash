@@ -69,22 +69,31 @@ def offleash_response():
     # lat = 45.474651
     # lng = -75.546493
     current_location = Point(lng, lat)
-    margin = 0.05
-    api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=1%3D1&outFields=NAME,DOG_DESIGNATION,LONGITUDE,Shape,LATITUDE,Shape_Area,DOG_DESIGNATION_DETAILS&geometry={},{},{},{}&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outSR=4326&f=json'
-    response = json.loads(requests.get(api_call.format(lng-margin, lat+margin, lng+margin, lat-margin)).content)
+    api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=1%3D1&outFields=NAME,DOG_DESIGNATION,LONGITUDE,Shape,LATITUDE,Shape_Area,DOG_DESIGNATION_DETAILS&geometry={},{},{},{}&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&returnCountOnly={}&outSR=4326&f=json'
+    margin = 0.02
+    count = 0
+    while True:
+        response = json.loads(requests.get(api_call.format(lng-margin, lat+margin, lng+margin, lat-margin, 'true')).content)
+        count = int(response['count'])
+        if count >= 20:
+            break
+        margin += 0.01
+        print(f"result count only at {count} increasing margin to {margin}")
+    response = json.loads(requests.get(api_call.format(lng-margin, lat+margin, lng+margin, lat-margin, 'false')).content)
     parks = response['features']
     def distance_to_edge(park):
         radius = park['attributes']['Shape_Area']**0.5
         distance = (((park['attributes']['LATITUDE']-lat)**2 + (park['attributes']['LONGITUDE']-lng)**2)**0.5)*100000
         return distance - radius
     parks.sort(key=lambda park: distance_to_edge(park))
-    closest_offleash = [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '0'][0]
-    closest_offleash['attributes'].update({'directions': f"https://www.google.com/maps/dir/{lat},{lng}/{closest_offleash['attributes']['LATITUDE']},{closest_offleash['attributes']['LONGITUDE']}/@{lat},{lng}"})
+    parks = parks[:30]
+    for park in parks:
+        park['attributes'].update({'directions': f"https://www.google.com/maps/dir/{lat},{lng}/{park['attributes']['LATITUDE']},{park['attributes']['LONGITUDE']}/@{lat},{lng}"})
+    offleash_parks = [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '0']
     permission = False
     park_name = None
     details = None
-    for park in parks:
-        park['attributes'].update({'directions': f"https://www.google.com/maps/dir/{lat},{lng}/{park['attributes']['LATITUDE']},{park['attributes']['LONGITUDE']}/@{lat},{lng}"})
+    for park in parks[:10]:
         response_poly = Polygon(park['geometry']['rings'][0])
         in_park = response_poly.contains(current_location)
         if not in_park:
@@ -100,7 +109,7 @@ def offleash_response():
         else:
             print("Unfortunately, it's not an offleash park!")
         break
-    return render_template('offleash_response.html', lat=lat, lng=lng, park_name=park_name, permission=permission, details=details, parks=parks, closest_offleash=closest_offleash)
+    return render_template('offleash_response.html', lat=lat, lng=lng, park_name=park_name, permission=permission, details=details, parks=parks, offleash_parks=offleash_parks)
 
 if __name__ == "__main__":
 	# app.run(debug=True)
