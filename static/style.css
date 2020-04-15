@@ -155,4 +155,23 @@ body::-webkit-scrollbar {
 /* Hide scrollbar for IE and Edge */
 body {
   -ms-overflow-style: none;
-} 
+}
+.advertise_banner_container{
+  background-color: var(--blurry-background);
+  /* display: flex; */
+  justify-content: center;
+}
+.advertise_banner {
+  padding: 0.2vw;
+  font-size: min(2.5vw, 10px);
+  text-align: center
+}
+.advertise_banner_text a{
+  color: var(--text_color);
+}
+.advertise_banner_text a:hover{
+  color: var(--highlight);
+}
+.advertise_banner {
+  font-size: calc(7px + 1vw);
+}
