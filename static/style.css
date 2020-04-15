@@ -65,13 +65,15 @@ button:hover {
 .error_msg {
   color: rgb(221,34,59);
 }
-@media screen and (max-width: 380px) {
-body {
-  background: rgb(127,124,110);
-  background-image: linear-gradient(to bottom, rgb(204,208,216) 80%, rgb(176,171,161));
-  background-image: url(bg11.jpg), linear-gradient(to bottom, rgb(127,124,110) 70vh, rgb(142,92,54));
-  background-size: 1200px, cover;
-  background-repeat: repeat-x;
+@media screen and (max-width: 299px) {
+  body {
+    background: rgb(127,124,110);
+    background-image: url(bg11.jpg);
+    background-size: 1200px, cover;
+    background-repeat: repeat-x;
+  }
+  .error_msg {
+    color: rgb(230,220,220);
   }
 }
 @media screen and (max-width: 500px) {
