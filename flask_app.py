@@ -62,8 +62,10 @@ def offleash_response():
     print(lat)
     if not lat:
         return render_template('refreshing.html')
-    # lat = 45.477094
-    # lng = -75.488386
+    # lat = 45.450648
+    # lng = -75.492437
+    # lat = 45.476678
+    # lng = -75.488533
     # lat = 45.445807
     # lng = -75.485049
     # lat = 45.474651
