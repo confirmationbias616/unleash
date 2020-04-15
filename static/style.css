@@ -1,8 +1,19 @@
 body {
+  --background_main: rgb(176,171,161);
+  --background_secondary: rgb(204,208,216);
+  --highlight: rgb(221,34,59);
+  --dark: rgb(60,60,60);
+  --text_color: black;
+  --text_alternate: rgb(210,210,210);
+  --highlight_button_text: rgb(230,220,220);
+  --inactive_shadow: rgba(100,100,100,0.4);
+  --blurry-background: rgba(204,208,216,0.35);
+  --active_shadow: rgba(100,100,100,0.75);
+  --hire_me_text: rgba(99, 8, 185,0.7);
+
   height: 100vh;
-  background: rgb(176,171,161);
-  background-image: linear-gradient(to bottom, rgb(176,171,161) 80%, rgb(204,208,216));
-  background-image: url(bg10.jpg), linear-gradient(to bottom, rgb(204,208,216) 70vh, rgba(176,171,161,1));
+  background: var(--background_main);
+  background-image: url(bg10.jpg), linear-gradient(to bottom, var(--background_secondary) 70vh, var(--background_main));
   background-size: 1200px, cover;
   background-repeat: repeat-x;
   font-family: 'Noto Sans', sans-serif;
@@ -23,57 +34,66 @@ body {
   animation: fade-in 0.04s ease-in-out;
 }
 u{
-  text-decoration-color: rgb(221,34,59);
+  text-decoration-color: var(--highlight);
 }
 button {
-  background-color: rgb(60,60,60);
+  background-color: var(--dark);
   border: none;
-  color: rgb(210,210,210);
+  color: var(--text_alternate);
   padding: 1em 2em;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 115%;
   border-radius: 4px;
-  box-shadow: 0px 4px 10px 3px rgba(100,100,100,0.4);
+  box-shadow: 0px 4px 10px 3px var(--inactive_shadow);
 }
 button:hover {
   transition: box-shadow 0.5s;
-  box-shadow: 0px 4px 10px 3px rgba(100,100,100,0.75);
+  box-shadow: 0px 4px 10px 3px var(--active_shadow);
   padding: 1em 2.05em;
 }
 .red_button {
-  background-color: rgb(221,34,59);
-  color: rgb(230,220,220);
+  background-color: var(--highlight);
+  color: var(--highlight_button_text);
 }
 .white_button {
-  background-color: rgb(230,220,220);
-  color: black;
+  background-color: var(--highlight_button_text);
+  color: var(--text_color);
 }
 .direction_button{
   margin-top: 0.7em;
   margin-bottom: 0.7em;
   font-size: 100%;
   padding: 0.5em 1.5em;
-  box-shadow: 0px 2px 5px 2px rgba(100,100,100,0.4);
+  box-shadow: 0px 2px 5px 2px var(--inactive_shadow);
 }
 .direction_button:hover {
   transition: box-shadow 0.5s;
-  box-shadow: 0px 2px 5px 2px rgba(100,100,100,0.75);
+  box-shadow: 0px 2px 5px 2px var(--active_shadow);
   padding: 0.5em 1.5em;
 }
 .error_msg {
-  color: rgb(221,34,59);
+  color: var(--highlight);
 }
-@media screen and (max-width: 299px) {
+@media screen and (max-width: 399px) {
   body {
-    background: rgb(127,124,110);
+    --background_main: rgb(127,124,110);
+    --highlight: rgb(126,67,29);
+    --dark: rgb(60,60,60);
+    --text_color: var(--dark);
+    --text_alternate: rgb(210,210,210);
+    --highlight_button_text: rgb(235, 226, 221);
+    --inactive_shadow: rgba(100,100,100,0.4);
+    --active_shadow: rgba(100,100,100,0.75);
+    --hire_me_text: rgba(99, 8, 185,0.7);
+    background: var(--background_main);
     background-image: url(bg11.jpg);
     background-size: 1200px, cover;
     background-repeat: repeat-x;
   }
   .error_msg {
-    color: rgb(230,220,220);
+    color: var(--highlight_button_text);
   }
 }
 @media screen and (max-width: 500px) {
@@ -109,11 +129,11 @@ button:hover {
   100%  {opacity: 1; margin-left: -10vw;}
 }
 ::selection {
-  color: rgb(221,34,59); 
-  background: rgb(60,60,60);
+  color: var(--highlight); 
+  background: var(--dark);
 }
 .details {
-  color: rgb(60,60,60);
+  color: var(--dark);
 }
 summary:focus{
   outline-style: none;
@@ -122,7 +142,7 @@ details[open] summary ~ * {
   animation: sweep-details-from-left 0.1s ease-in-out;
 }
 /* .details::first-letter {
-  color: black; 
+  color: var(--text_color); 
   font-size: 120%;
   margin-left: 1em;
 } */

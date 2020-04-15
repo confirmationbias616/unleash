@@ -40,7 +40,7 @@
         </div>
         <div id='nearby' class='blocktext + sweep_right' style='display: none; font-size: 100%;'>
           {% for p in parks %}
-          <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: rgba(204,208,216,0.35); border-radius: 1em; padding: 0.2em 0.8em;'>
+          <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--blurry-background); border-radius: 1em; padding: 0.2em 0.8em;'>
             <summary> {{ p['attributes']['NAME'] }} </summary>
             <div class='details' style='margin-left: 2vw; margin-top: max(1vh, 6px); font-size: 92%'>
               {{ p['attributes']['DOG_DESIGNATION_DETAILS'] }}
@@ -63,7 +63,7 @@
           <br><br>
           <button class='red_button' onclick="window.location.href='/offleash'"><b>check again</b></button>
           <br><br><br>
-          <button class='white_button + direction_button' style='font-size: 90%; color:rgba(99, 8, 185,0.7)' onclick="window.open('https://github.com/confirmationbias616', '_blank')"><b>hire me :)</b></button>
+          <button class='white_button + direction_button' style='font-size: 90%; color: var(--hire_me_text)' onclick="window.open('https://github.com/confirmationbias616', '_blank')"><b>hire me :)</b></button>
         </div>
       </div>
     </div>
