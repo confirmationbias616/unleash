@@ -13,6 +13,7 @@ body {
 
   height: 100vh;
   background: var(--background_main);
+  background-image: linear-gradient(to bottom, var(--background_secondary) 70vh, var(--background_main));
   background-image: url(bg10.jpg), linear-gradient(to bottom, var(--background_secondary) 70vh, var(--background_main));
   background-size: 1200px, cover;
   background-repeat: repeat-x;
