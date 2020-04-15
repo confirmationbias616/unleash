@@ -39,7 +39,18 @@
           {% endif %}
         </div>
         <div id='nearby' class='blocktext + sweep_right' style='display: none; font-size: 100%;'>
-          {% for p in parks %}
+          <span>closest offleash:</span>
+          <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--blurry-background); border-radius: 1em; padding: 0.2em 0.8em;'>
+            <summary> {{ closest_offleash['attributes']['NAME'] }} </summary>
+            <div class='details' style='margin-left: 2vw; margin-top: max(1vh, 6px); font-size: 92%'>
+              {{ closest_offleash['attributes']['DOG_DESIGNATION_DETAILS'] }}
+              <br>
+              <button class='white_button + direction_button' style='font-size: 100%;' onclick="window.open('{{ closest_offleash['attributes']['directions'] }}', '_blank')"><b>directions</b></button>
+            </div>
+          </details>
+          <br>
+          <span class='blocktext'>others:</span>
+          {% for p in parks[:8] %}
           <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--blurry-background); border-radius: 1em; padding: 0.2em 0.8em;'>
             <summary> {{ p['attributes']['NAME'] }} </summary>
             <div class='details' style='margin-left: 2vw; margin-top: max(1vh, 6px); font-size: 92%'>
@@ -62,7 +73,7 @@
           <button onclick="window.open('https://ottawa.ca/en/recreation-and-parks/parks-and-green-space/dog-parks#map-dogs-parks', '_blank')"><b>interactive map</b></button>
           <br><br>
           <button class='red_button' onclick="window.location.href='/offleash'"><b>check again</b></button>
-          <br><br><br>
+          <br><br>
           <button class='white_button + direction_button' style='font-size: 90%; color: var(--hire_me_text)' onclick="window.open('https://github.com/confirmationbias616', '_blank')"><b>hire me :)</b></button>
         </div>
       </div>
