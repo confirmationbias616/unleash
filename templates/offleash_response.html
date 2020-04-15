@@ -39,7 +39,7 @@
           {% endif %}
         </div>
         <div id='nearby' class='blocktext + sweep_right' style='display: none; font-size: 100%;'>
-          <span>nearest offleash:</span>
+          <span style="font-size: 120%;"><u>nearest offleash</u></span>
           {% for p in offleash_parks[:8] %}
           <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--blurry-background); border-radius: 1em; padding: 0.2em 0.8em;'>
             <summary> {{ p['attributes']['NAME'] }} </summary>
@@ -51,7 +51,7 @@
           </details>
           {% endfor %}
           <br>
-          <span class='blocktext'>nearest:</span>
+          <span class='blocktext' style="font-size: 120%;"><u>nearest</u></span>
           {% for p in parks[:8] %}
           <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--blurry-background); border-radius: 1em; padding: 0.2em 0.8em;'>
             <summary> {{ p['attributes']['NAME'] }} </summary>
