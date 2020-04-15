@@ -1,6 +1,8 @@
 body {
-  /* background: rgb(176,171,161); */
-  background-image: url(bg10.jpg), linear-gradient( rgb(176,171,161) 95%, rgba(204,208,216,1));
+  height: 100vh;
+  background: rgb(176,171,161);
+  background-image: linear-gradient(to bottom, rgb(176,171,161) 80%, rgb(204,208,216));
+  background-image: url(bg10.jpg), linear-gradient(to bottom, rgb(204,208,216) 70vh, rgba(176,171,161,1));
   background-size: 1200px, cover;
   background-repeat: repeat-x;
   font-family: 'Noto Sans', sans-serif;
@@ -62,6 +64,15 @@ button:hover {
 }
 .error_msg {
   color: rgb(221,34,59);
+}
+@media screen and (max-width: 500px) {
+body {
+  background: rgb(127,124,110);
+  background-image: linear-gradient(to bottom, rgb(204,208,216) 80%, rgb(176,171,161));
+  background-image: url(bg11.jpg), linear-gradient(to bottom, rgb(127,124,110) 70vh, rgb(142,92,54));
+  background-size: 1200px, cover;
+  background-repeat: repeat-x;
+  }
 }
 @media screen and (max-width: 500px) {
   body {
