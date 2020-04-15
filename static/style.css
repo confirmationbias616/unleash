@@ -10,15 +10,13 @@ body {
   --blurry-background: rgba(148, 118, 122, 0.25);
   --active_shadow: rgba(100,100,100,0.75);
   --hire_me_text: rgba(99, 8, 185,0.7);
-
-  height: 100vh;
   background: var(--background_main);
   background-image: linear-gradient(to bottom, var(--background_secondary) 70vh, var(--background_main));
   background-image: url(bg10.jpg), linear-gradient(to bottom, var(--background_secondary) 70vh, var(--background_main));
   background-size: 1200px, cover;
   background-repeat: repeat-x;
   font-family: 'Noto Sans', sans-serif;
-  /* font-size: 82%; */
+  height: 100vh;
   font-size: 1vh + 0.5vw;
  }
 .blocktext {
