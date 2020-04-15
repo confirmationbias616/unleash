@@ -39,7 +39,7 @@
           {% endif %}
         </div>
         <div id='nearby' class='blocktext + sweep_right' style='display: none; font-size: 100%;'>
-          <span style="font-size: 120%;"><u>nearest offleash</u></span>
+          <span style="font-size: 120%;"><u>offleash parks</u></span>
           {% for p in offleash_parks[:8] %}
           <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--blurry-background); border-radius: 1em; padding: 0.2em 0.8em;'>
             <summary> {{ p['attributes']['NAME'] }} </summary>
@@ -51,7 +51,7 @@
           </details>
           {% endfor %}
           <br>
-          <span class='blocktext' style="font-size: 120%;"><u>nearest</u></span>
+          <span class='blocktext + sweep_right' style="font-size: 120%;"><u>other nearby parks</u></span>
           {% for p in parks[:8] %}
           <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--blurry-background); border-radius: 1em; padding: 0.2em 0.8em;'>
             <summary> {{ p['attributes']['NAME'] }} </summary>
@@ -65,12 +65,13 @@
         </div>
         <div class='blocktext + fade_in' display='inline' style='width:50vw'>
           <br><br>
+          {% if not park_name %}
           <div id='switch_content'>
             <button id='switch_content' class='white_button' onclick="display_nearby()"><b>show nearby parks</b></button>
             <br><br>
           </div>
+          {% endif %}
           <button onclick="window.open('https://open.ottawa.ca/datasets/cfb079e407494c33b038e86c7e05288e_24', '_blank')"><b>data source</b></button>
-            <!-- Parks & Greenspace by Open Ottawa -->
           <br><br>
           <button onclick="window.open('https://ottawa.ca/en/recreation-and-parks/parks-and-green-space/dog-parks#map-dogs-parks', '_blank')"><b>interactive map</b></button>
           <br><br>
