@@ -85,6 +85,7 @@ button:hover {
     --text_alternate: rgb(210,210,210);
     --highlight_button_text: rgb(235, 226, 221);
     --inactive_shadow: rgba(100,100,100,0.4);
+    --blurry-background: rgba(126,67,29,0.35);
     --active_shadow: rgba(100,100,100,0.75);
     --hire_me_text: rgba(99, 8, 185,0.7);
     background: var(--background_main);
