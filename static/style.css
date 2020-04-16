@@ -159,7 +159,7 @@ body {
   -ms-overflow-style: none;
 }
 .advertise_banner_container{
-  background-color: var(--blurry-background);
+  background-color: var(--background_main);
   /* display: flex; */
   justify-content: center;
 }

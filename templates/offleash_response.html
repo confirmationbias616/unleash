@@ -40,7 +40,7 @@
         <div id='nearby' class='blocktext + sweep_right' style='display: none; font-size: 100%;'>
           <span style="font-size: 120%;"><u>offleash parks</u></span>
           {% for p in offleash_parks[:8] %}
-          <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--blurry-background); border-radius: 1em; padding: 0.2em 0.8em;'>
+          <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--background_main); border-radius: 0.4em; padding: 0.2em 0.8em;'>
             <summary> {{ p['attributes']['NAME'] }} </summary>
             <div class='details' style='margin-left: 2vw; margin-top: max(1vh, 6px); font-size: 92%'>
               {{ p['attributes']['DOG_DESIGNATION_DETAILS'] }}
@@ -54,7 +54,7 @@
           <br>
           <span class='blocktext + sweep_right' style="font-size: 120%;"><u>other nearby parks</u></span>
           {% for p in parks[:8] %}
-          <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--blurry-background); border-radius: 1em; padding: 0.2em 0.8em;'>
+          <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--background_main); border-radius: 0.4em; padding: 0.2em 0.8em;'>
             <summary> {{ p['attributes']['NAME'] }} </summary>
             <div class='details' style='margin-left: 2vw; margin-top: max(1vh, 6px); font-size: 92%'>
               {{ p['attributes']['DOG_DESIGNATION_DETAILS'] }}
