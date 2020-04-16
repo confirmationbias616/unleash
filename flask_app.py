@@ -73,12 +73,12 @@ def offleash_response():
     # lng = -75.546493
     # lat = 45.4152054
     # lng = -75.7292795
-    # North Bilberry Valley
-    lat = 45.47767229
-    lng = -75.53175637
-    # North Bilberry Valley
-    lat = 45.461881
-    lng = -75.503509
+    # # North Bilberry Valley
+    # lat = 45.47767229
+    # lng = -75.53175637
+    # # North Bilberry Valley
+    # lat = 45.461881
+    # lng = -75.503509
     current_location = Point(lng, lat)
     api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=1%3D1&outFields=NAME,DOG_DESIGNATION,LONGITUDE,Shape,LATITUDE,Shape_Area,DOG_DESIGNATION_DETAILS&geometry={},{},{},{}&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&returnCountOnly={}&outSR=4326&f=json'
     margin = 0.02
