@@ -13,7 +13,6 @@
       <div class='blocktext + question'>
         <h3>"Can I take my dog off leash?"</h3>
       </div>
-      <br>
       <div style="overflow: auto; direction: ltr; height: 80vh; width: 98vw">
         <div id='current_park'>
           <div class='blocktext + sweep_right'>
@@ -29,7 +28,7 @@
             </p>
           {% else %}
             <p>
-              You are not in a park! <br>
+              You are not in a park!
             </p>
             <p class='details'>
               Unless you're on private property and the owner
@@ -68,7 +67,7 @@
           {% endfor %}
         </div>
         <div class='blocktext + fade_in' display='inline' style='width:50vw'>
-          <br><br>
+          <br>
           {% if not park_name %}
           <div id='switch_content'>
             <button id='switch_content' class='white_button' onclick="display_nearby()"><i class="fas fa-list-ul"></i>&nbsp;&nbsp;<b>show nearby parks</b></button>
