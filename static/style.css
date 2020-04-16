@@ -23,7 +23,8 @@ body {
   width: min(50vw, 250px);
 }
 .question {
-  width: 60vw !important;
+  width: 75vw !important;
+  font-size: 115%
 }
 .sweep_right {
   animation: sweep-details-from-left 0.09s ease-in-out;
