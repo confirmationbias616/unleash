@@ -103,7 +103,7 @@ def offleash_response():
             parks[i]['attributes']['NAME'] = park_name + ' #' + str(all_park_names[park_name])
         else:
             all_park_names.update({park_name:1})
-            parks[i]['attributes']['NAME'] = park_name + ' #1'
+            # parks[i]['attributes']['NAME'] = park_name + ' #1'
     def distance_to_edge(park):
         radius = park['attributes']['Shape_Area']**0.5
         distance = (((park['attributes']['LATITUDE']-lat)**2 + (park['attributes']['LONGITUDE']-lng)**2)**0.5)*100000
