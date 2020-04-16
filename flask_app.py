@@ -95,6 +95,15 @@ def offleash_response():
         print(f"result count only at {count} increasing margin to {margin}")
     response = json.loads(requests.get(api_call.format(lng-margin, lat+margin, lng+margin, lat-margin, 'false')).content)
     parks = response['features']
+    all_park_names = {}
+    for i in range(len(parks)):
+        park_name = parks[i]['attributes']['NAME']
+        if park_name in all_park_names:
+            all_park_names.update({park_name: all_park_names[park_name] + 1})
+            parks[i]['attributes']['NAME'] = park_name + ' #' + str(all_park_names[park_name])
+        else:
+            all_park_names.update({park_name:1})
+            parks[i]['attributes']['NAME'] = park_name + ' #1'
     def distance_to_edge(park):
         radius = park['attributes']['Shape_Area']**0.5
         distance = (((park['attributes']['LATITUDE']-lat)**2 + (park['attributes']['LONGITUDE']-lng)**2)**0.5)*100000
