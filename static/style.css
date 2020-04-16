@@ -1,19 +1,20 @@
 body {
-  --background_main: rgb(127,124,110);
-  --highlight: rgb(126,67,29);
+  --background_main: rgb(176,171,161);
+  --background_secondary: rgb(204,208,216);
+  --highlight: rgb(221,34,59);
   --dark: rgb(60,60,60);
-  --text_color: var(--dark);
+  --text_color: black;
   --text_alternate: rgb(210,210,210);
-  --highlight_button_text: rgb(235, 226, 221);
+  --highlight_button_text: rgb(230,220,220);
   --inactive_shadow: rgba(100,100,100,0.4);
-  --blurry-background: rgba(126,67,29,0.35);
+  --blurry-background: rgba(148, 118, 122, 0.25);
   --active_shadow: rgba(100,100,100,0.75);
   --hire_me_text: rgba(99, 8, 185,0.7);
   background: var(--background_main);
-  background-image: url(bg11.jpg);
+  background-image: linear-gradient(to bottom, var(--background_secondary) 70vh, var(--background_main));
+  background-image: url(bg10.jpg), linear-gradient(to bottom, var(--background_secondary) 70vh, var(--background_main));
   background-size: 1200px, cover;
   background-repeat: repeat-x;
-  --background_main: rgb(176,171,161);
   font-family: 'Noto Sans', sans-serif;
   height: 100vh;
   font-size: 1vh + 0.5vw;
@@ -76,19 +77,18 @@ button:hover {
 }
 @media screen and (max-width: 399px) {
   body {
-    --background_secondary: rgb(204,208,216);
-    --highlight: rgb(221,34,59);
+    --background_main: rgb(127,124,110);
+    --highlight: rgb(126,67,29);
     --dark: rgb(60,60,60);
-    --text_color: black;
+    --text_color: var(--dark);
     --text_alternate: rgb(210,210,210);
-    --highlight_button_text: rgb(230,220,220);
+    --highlight_button_text: rgb(235, 226, 221);
     --inactive_shadow: rgba(100,100,100,0.4);
-    --blurry-background: rgba(148, 118, 122, 0.25);
+    --blurry-background: rgba(126,67,29,0.35);
     --active_shadow: rgba(100,100,100,0.75);
     --hire_me_text: rgba(99, 8, 185,0.7);
     background: var(--background_main);
-    background-image: linear-gradient(to bottom, var(--background_secondary) 70vh, var(--background_main));
-    background-image: url(bg10.jpg), linear-gradient(to bottom, var(--background_secondary) 70vh, var(--background_main));
+    background-image: url(bg11.jpg);
     background-size: 1200px, cover;
     background-repeat: repeat-x;
   }
