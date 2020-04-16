@@ -7,12 +7,11 @@ body {
   --text_alternate: rgb(210,210,210);
   --highlight_button_text: rgb(230,220,220);
   --inactive_shadow: rgba(100,100,100,0.4);
-  --blurry-background: rgba(148, 118, 122, 0.25);
+  --blurry-background: rgba(199, 154, 160, 0.5);
   --active_shadow: rgba(100,100,100,0.75);
   --hire_me_text: rgba(99, 8, 185,0.7);
   background: var(--background_main);
-  background-image: linear-gradient(to bottom, var(--background_secondary) 70vh, var(--background_main));
-  background-image: url(bg10.jpg), linear-gradient(to bottom, var(--background_secondary) 70vh, var(--background_main));
+  background-image: url(bg10.jpg), linear-gradient(var(--background_secondary) 70vh, var(--background_main));
   background-size: 1200px, cover;
   background-repeat: repeat-x;
   font-family: 'Noto Sans', sans-serif;
@@ -78,17 +77,18 @@ button:hover {
 @media screen and (max-width: 399px) {
   body {
     --background_main: rgb(127,124,110);
+    --background_secondary: rgb(60,60,60);
     --highlight: rgb(126,67,29);
     --dark: rgb(60,60,60);
     --text_color: var(--dark);
     --text_alternate: rgb(210,210,210);
     --highlight_button_text: rgb(235, 226, 221);
     --inactive_shadow: rgba(100,100,100,0.4);
-    --blurry-background: rgba(126,67,29,0.35);
+    --blurry-background: rgba(160, 138, 122, 0.5);
     --active_shadow: rgba(100,100,100,0.75);
     --hire_me_text: rgba(99, 8, 185,0.7);
     background: var(--background_main);
-    background-image: url(bg11.jpg);
+    background-image: url(bg11.jpg), linear-gradient(var(--background_secondary) 70vh, var(--background_main));
     background-size: 1200px, cover;
     background-repeat: repeat-x;
   }
