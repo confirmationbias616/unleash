@@ -8,25 +8,10 @@
 </head>
 <body>
     {% block body %}
-    <br>
-    <div class='blocktext + question'>
-      <h3>"Can I take my dog off leash?"</h3>
-    </div>
-    <br>
     <form action="{{ url_for('offleash_response') }}" method="POST" hidden>
       <input type="text" id="current_lat", name="current_lat">
       <input type="text" id="current_lng", name="current_lng">
     </form>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
     <script>
       window.onload = function() {
         var startPos;
