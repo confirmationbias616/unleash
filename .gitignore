@@ -3,6 +3,9 @@ unleash_env*
 
 flask_session/*
 
+# ignore all pictures
+*.png
+*.jpg
 
 # ignore cahces
 cache*
