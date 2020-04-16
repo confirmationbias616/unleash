@@ -74,7 +74,7 @@
           <br><br>
           <button onclick="window.open('https://ottawa.ca/en/recreation-and-parks/parks-and-green-space/dog-parks#map-dogs-parks', '_blank')"><i class="fas fa-external-link-alt"></i>&nbsp;&nbsp;<b>interactive map</b></button>
           <br><br>
-          <button class='red_button' onclick="window.location.href='/offleash'"><i class="fas fa-redo"></i>&nbsp;&nbsp;<b>check again</b></button>
+          <button class='red_button' onclick="window.location.href='{{ url_for('index')}}'"><i class="fas fa-redo"></i>&nbsp;&nbsp;<b>check again</b></button>
           <br><br>
           <button id='hire_me_button' class='white_button + direction_button' style='font-size: 90%; color: var(--hire_me_text)' onclick="show_hire_me()"><b>hire me :)</b></button>
             <div id='hire_me_container' style='display: none'>
