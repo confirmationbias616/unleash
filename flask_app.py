@@ -86,9 +86,9 @@ def offleash_response():
     while True:
         response = json.loads(requests.get(api_call.format(lng-margin, lat+margin, lng+margin, lat-margin, 'true')).content)
         count = int(response['count'])
-        if count >= 100:
+        if count >= 60:
             break
-        margin += 0.02
+        margin += 0.01
         print(f"result count only at {count} increasing margin to {margin}")
     response = json.loads(requests.get(api_call.format(lng-margin, lat+margin, lng+margin, lat-margin, 'false')).content)
     parks = response['features']
