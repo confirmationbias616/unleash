@@ -173,3 +173,11 @@ body {
 .advertise_banner {
   font-size: calc(7px + 1vw);
 }
+.disclaimer {
+  margin-left: 0px;
+  padding: 0.5em 0.5em;
+  font-size: 85%;
+  color: var(--text_color);
+  background-color: var(--active_shadow);
+  border-radius: 4px;
+}
