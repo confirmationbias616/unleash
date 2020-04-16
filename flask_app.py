@@ -119,7 +119,13 @@ def offleash_response():
     park_name = None
     details = None
     for park in near_parks + offleash_parks:
-        response_poly = Polygon(park['geometry']['rings'][0])
+        if len(park['geometry']['rings']) > 1:
+            polygons = []
+            for shape in park['geometry']['rings']:
+                polygons.append(Polygon(shape))
+            response_poly = cascaded_union(polygons)
+        else:
+            response_poly = Polygon(park['geometry']['rings'][0])
         in_park = response_poly.contains(current_location)
         if not in_park:
             print(f"not in {park['attributes']['NAME']}")
