@@ -76,7 +76,7 @@ button:hover {
 }
 .error_msg {
   color: var(--highlight);
-  margin-left: 5vw;
+  margin-left: 2vw;
 }
 @media screen and (max-width: 299px) {
   body {
