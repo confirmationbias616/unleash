@@ -91,6 +91,11 @@
                 be reporting inaccurate GPS data.
               </p>
             </div>
+            <div id='disclaimer_placeholder' style='display: block'>
+              <p class='blocktext + disclaimer' style='background-color: rgba(0,0,0,0);'>
+                <br><br><br><br><br>
+              </p>
+            </div>
         </div>
       </div>
     </div>
@@ -112,6 +117,7 @@
       function show_disclaimer() {  
           document.getElementById("disclaimer_container").style.display = 'inline';
           document.getElementById("disclaimer_button").style.display = 'none';
+          document.getElementById("disclaimer_placeholder").style.display = 'none';
       }
       function show_hire_me() {  
           document.getElementById("hire_me_container").style.display = 'inline';
