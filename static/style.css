@@ -7,7 +7,7 @@ body {
   --text_alternate: rgb(210,210,210);
   --highlight_button_text: rgb(230,220,220);
   --inactive_shadow: rgba(100,100,100,0.4);
-  --blurry-background: rgba(199, 154, 160, 0.5);
+  --blurry-background: rgba(209, 180, 180, 0.75);
   --active_shadow: rgba(100,100,100,0.75);
   --hire_me_text: rgba(99, 8, 185,0.7);
   background: var(--background_main);
