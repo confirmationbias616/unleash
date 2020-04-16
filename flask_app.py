@@ -61,7 +61,7 @@ def offleash_response():
     lng = float(lng) if lng else None
     print(lat)
     if not lat:
-        return render_template('refreshing.html')
+        return redirect(url_for('index'))
     # lat = 45.450648
     # lng = -75.492437
     # lat = 45.476678
