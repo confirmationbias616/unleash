@@ -54,6 +54,10 @@ def index():
 def offleash():
     return render_template('offleash.html')
 
+@app.route('/come_back', methods=["POST", "GET"])
+def come_back():
+    return render_template('come_back.html')
+
 @app.route('/offleash_response', methods=["POST", "GET"])
 def offleash_response():
     lat = request.form.get('current_lat')

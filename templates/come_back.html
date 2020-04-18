@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  {% extends 'base.html' %}
+  {% block head %}
+  {% endblock %}
+</head>
+<body>
+    {% block body %}
+    <br>
+    <div class='blocktext'>
+      <span class='error_msg'><i class="fas fa-asterisk fa-2x fa-spin fa-fw"></i><br><br>Come back once you've updated your location settings!</span>
+      <br><br><br><br>
+      <button class='white_button' onclick="window.open('{{ url_for('index') }}', '_self')"><b>"OK, I'm all set!"</b>&nbsp;&nbsp;<span style='color: green;'><i class="fas fa-check"></i></span></button>
+    </div>
+    {% endblock %}
+</body>
+</html>
