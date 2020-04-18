@@ -86,7 +86,7 @@ def offleash_response():
     while True:
         response = json.loads(requests.get(api_call.format(lng-margin, lat+margin, lng+margin, lat-margin, 'true')).content)
         count = int(response['count'])
-        if count >= 60:
+        if count >= 30 or margin > 0.14:
             break
         margin += 0.01
         print(f"result count only at {count} increasing margin to {margin}")
