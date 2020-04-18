@@ -10,9 +10,10 @@
     {% block body %}
     <br>
     <div class='blocktext'>
-      <span class='error_msg'><i class="fas fa-asterisk fa-2x fa-spin fa-fw"></i><br><br>Come back once you've updated your location settings!</span>
+      <span class='error_msg'><i class="fas fa-asterisk fa-2x fa-spin fa-fw"></i><br><br><br>Come back once you've updated your location settings!</span>
       <br><br><br><br>
-      <button class='white_button' onclick="window.open('{{ url_for('index') }}', '_self')"><b>"OK, I'm all set!"</b>&nbsp;&nbsp;<span style='color: green;'><i class="fas fa-check"></i></span></button>
+      <button class='white_button' onclick="window.open('{{ url_for('index') }}', '_self')" style="font-size: 75%"><b>"OK, I'm all set!"</b>&nbsp;&nbsp;<span style='color: green;'><i class="fas fa-check"></i></span></button>
+      <button class='white_button' onclick="window.open('https://stroly.zendesk.com/hc/en-us/articles/360034274111-How-to-turn-on-Location-Services-GPS-', '_self')" style="font-size: 75%"><b>"Help!"</b>&nbsp;&nbsp;<span style='color: red;'><i class="fas fa-question"></i></span></button>
     </div>
     {% endblock %}
 </body>

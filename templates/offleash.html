@@ -4,6 +4,7 @@
 <head>
   {% extends 'base.html' %}
   {% block head %}
+  <!-- <meta http-equiv="refresh" content="10"> -->
   {% endblock %}
 </head>
 <body>
@@ -20,13 +21,19 @@
       window.onload = function() {
         setTimeout(
           function() {
-            //alert("Browser settings for location access must be turned on for this app to activate. Approve request if prompted. If you don't get prompted, you can change your browser settings or try a different browser.");
-            if (confirm("OttLeash requires access to your location.\n\nPlease change browser settings or try with different browser. \n\nHit 'OK' if you need help with this.")) {
-              window.open('https://stroly.zendesk.com/hc/en-us/articles/360034274111-How-to-turn-on-Location-Services-GPS-', '_blank')
+            if (confirm("OttLeash requires access to your location.\n\nPlease change browser settings or try with different browser.")) {
+              // window.open("{{ url_for('index') }}", "_self");
+              window.open("{{ url_for('come_back') }}", "_self");
             }
             else {
-              window.open("{{url_for('come_back')}}", '_self')
+              window.open("{{ url_for('come_back') }}", "_self");
             }
+            // if (confirm("OttLeash requires access to your location.\n\nPlease change browser settings or try with different browser. \n\nHit 'OK' if you need help with this.")) {
+            //   window.open('https://stroly.zendesk.com/hc/en-us/articles/360034274111-How-to-turn-on-Location-Services-GPS-', '_self')
+            // }
+            // else {
+            //   window.open("{{url_for('come_back')}}", '_self')
+            // }
           }, 5000);
         var startPos;
         var geoSuccess = function(position) {
