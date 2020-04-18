@@ -79,7 +79,7 @@ button:hover {
   color: var(--highlight);
   margin-left: 2vw;
 }
-@media screen and (max-width: 399px) {
+@media screen and (max-width: 745px) {
   body {
     --background_main: rgb(127,124,110);
     --background_main: rgba(127,124,110,0.8);
