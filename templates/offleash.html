@@ -18,6 +18,10 @@
     </form>
     <script>
       window.onload = function() {
+        setTimeout(
+          function() {
+            alert("Browser settings for location access must be turned on for this app to activate. Approve request if prompted. Otherwise, change settings and refresh.");
+          }, 5000);
         var startPos;
         var geoSuccess = function(position) {
           startPos = position;
@@ -30,6 +34,7 @@
           document.forms[0].submit()
         };
         navigator.geolocation.getCurrentPosition(geoSuccess);
+        clearTimeout();
       };
     </script>
     {% endblock %}
