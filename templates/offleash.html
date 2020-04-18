@@ -21,7 +21,12 @@
         setTimeout(
           function() {
             //alert("Browser settings for location access must be turned on for this app to activate. Approve request if prompted. If you don't get prompted, you can change your browser settings or try a different browser.");
-            alert("OttLeash requires access to your location. Please change browser settings or try with different browser.");
+            if (confirm("OttLeash requires access to your location.\n\nPlease change browser settings or try with different browser. \n\nHit 'OK' if you need help with this.")) {
+              window.open('https://stroly.zendesk.com/hc/en-us/articles/360034274111-How-to-turn-on-Location-Services-GPS-', '_blank')
+            }
+            else {
+              window.open("{{url_for('index')}}", '_self')
+            }
           }, 5000);
         var startPos;
         var geoSuccess = function(position) {
