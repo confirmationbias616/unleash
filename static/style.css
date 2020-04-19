@@ -187,7 +187,7 @@ body {
 }
 #switch_content {
   animation: pulse 0.35s ease-in-out;
-  animation-delay: 2s;
+  animation-delay: 6s;
   animation-iteration-count: 3;
 }
 @keyframes pulse {
