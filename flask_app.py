@@ -6,6 +6,7 @@ import json
 import logging
 import sys
 import os
+from time import sleep
 import requests
 from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
@@ -88,13 +89,23 @@ def offleash_response():
     margin = 0.02
     count = 0
     while True:
-        response = json.loads(requests.get(api_call.format(lng-margin, lat+margin, lng+margin, lat-margin, 'true')).content)
+        while True:
+            try:
+                response = json.loads(requests.get(api_call.format(lng-margin, lat+margin, lng+margin, lat-margin, 'true')).content)
+                break
+            except requests.ConnectionError:
+                sleep(1)
         count = int(response['count'])
         if count >= 30 or margin > 0.14:
             break
         margin += 0.01
         print(f"result count only at {count} increasing margin to {margin}")
-    response = json.loads(requests.get(api_call.format(lng-margin, lat+margin, lng+margin, lat-margin, 'false')).content)
+    while True:
+        try:
+            response = json.loads(requests.get(api_call.format(lng-margin, lat+margin, lng+margin, lat-margin, 'false')).content)
+            break
+        except requests.ConnectionError:
+            sleep(1)
     parks = response['features']
     all_park_names = {}
     for i in range(len(parks)):
