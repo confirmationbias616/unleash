@@ -185,3 +185,13 @@ body {
   background-color: var(--active_shadow);
   border-radius: 4px;
 }
+#switch_content {
+  animation: pulse 0.35s ease-in-out;
+  animation-delay: 8s;
+  animation-iteration-count: 3;
+}
+@keyframes pulse {
+  0%    {font-size: 100%;}
+  50%    {font-size: 103%;}
+  100%    {font-size: 100%;}
+}
