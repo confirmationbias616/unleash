@@ -24,7 +24,7 @@ log_handler.setFormatter(
 logger.addHandler(log_handler)
 logger.setLevel(logging.INFO)
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='')
 
 #set up Flask-Sessions
 app.config.from_object(__name__)
