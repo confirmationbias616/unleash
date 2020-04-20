@@ -170,7 +170,7 @@ def offleash_response():
 def get_mini_map():
     lat = request.args.get('lat')
     lng = request.args.get('lng')
-    m = folium.Map(location=(lat, lng), zoom_start=13, min_zoom=8)
+    m = folium.Map(location=(lat, lng), zoom_start=14, min_zoom=8)
     popup=folium.map.Popup(html=f"""
             <style>
                 h4 {{
