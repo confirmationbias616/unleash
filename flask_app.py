@@ -148,6 +148,7 @@ def offleash_response():
     designation = 4
     park_name = None
     details = None
+    size = None
     for park in near_parks + offleash_parks:
         if len(park['geometry']['rings']) > 1:
             polygons = []
