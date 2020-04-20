@@ -32,6 +32,12 @@
             <p class='details'>
               <i>{{ details }}</i>.
             </p>
+            <div align='center'>
+              <button id="map_button_{{ lat }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{lat}}').style.display = 'inline'; document.getElementById('map_button_{{lat}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map</b></button>
+              <div id="map_container_{{ lat }}" style='display: none'>
+                <iframe src="{{ url_for('get_mini_map', name=park_name, lat=lat, lng=lng, size=size) }}" style='width: min(80vw, 400px); height:calc(20+4/1vw);'></iframe>
+              </div>
+            </div>
           {% else %}
             <p>
               You are not in a City of Ottawa park!

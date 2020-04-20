@@ -164,7 +164,8 @@ def offleash_response():
         park_name = park['attributes']['NAME']
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
         designation = int(park['attributes']['DOG_DESIGNATION'])
-    return render_template('offleash_response.html', lat=lat, lng=lng, park_name=park_name, designation=designation, details=details, parks=near_parks, offleash_parks=offleash_parks)
+        size = int(park['attributes']['Shape_Area'])
+    return render_template('offleash_response.html', lat=lat, lng=lng, park_name=park_name, designation=designation, details=details, parks=near_parks, offleash_parks=offleash_parks, size=size)
 
 @app.route('/get_mini_map', methods=["POST", "GET"])
 def get_mini_map():
