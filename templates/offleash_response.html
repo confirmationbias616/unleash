@@ -13,7 +13,17 @@
         <div id='current_park'>
           <div class='blocktext + sweep_right'>
             <h1>
-              <u>{{ 'Yes!' if permission else 'Nope.'}}</u>
+              {% if designation == 0 %}
+                <u>Yes!</u>
+              {% elif designation in [1, 4] %}
+                <u>Nope.</u>
+              {% elif designation == 2 %}
+                <u>Read below</u>&nbsp;&nbsp;<i class="far fa-hand-point-down"></i>
+              {% elif designation == 3 %}
+                <u>Leave now!</u>&nbsp;&nbsp;<i class="fas fa-ban"></i>
+              {% else %}
+                N/A - Error - N/A
+              {% endif %}
             </h1>
           {% if park_name %}
             <p>

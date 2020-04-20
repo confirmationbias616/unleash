@@ -143,7 +143,7 @@ def offleash_response():
     offleash_parks = [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '0']
     near_parks = [park for park in parks if park['attributes']['NAME'] not in [park['attributes']['NAME'] for park in offleash_parks]]
     near_parks = near_parks[:10]
-    permission = False
+    designation = 4
     park_name = None
     details = None
     for park in near_parks + offleash_parks:
@@ -161,14 +161,8 @@ def offleash_response():
         print(f"You're in {park['attributes']['NAME']}")
         park_name = park['attributes']['NAME']
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
-        is_off_leash = True if int(park['attributes']['DOG_DESIGNATION']) < 1 else False
-        if is_off_leash:
-            print("It's an offleash park!")
-            permission = True
-        else:
-            print("Unfortunately, it's not an offleash park!")
-        break
-    return render_template('offleash_response.html', lat=lat, lng=lng, park_name=park_name, permission=permission, details=details, parks=near_parks, offleash_parks=offleash_parks)
+        designation = int(park['attributes']['DOG_DESIGNATION'])
+    return render_template('offleash_response.html', lat=lat, lng=lng, park_name=park_name, designation=designation, details=details, parks=near_parks, offleash_parks=offleash_parks)
 
 if __name__ == "__main__":
 	app.run(debug=False)
