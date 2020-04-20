@@ -35,7 +35,7 @@
             <div align='center'>
               <button id="map_button_{{ lat }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{lat}}').style.display = 'inline'; document.getElementById('map_button_{{lat}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map</b></button>
               <div id="map_container_{{ lat }}" style='display: none'>
-                <iframe src="{{ url_for('get_mini_map', name=park_name, lat=lat, lng=lng, size=size) }}" style='width: min(80vw, 400px); height:calc(20+4/1vw);'></iframe>
+                <iframe src="{{ url_for('get_mini_map', name=park_name, lat=lat, lng=lng, size=size) }}" style='width: min(80vw, 400px); height:min(250px, 23vh); box-shadow: -2px -2px 8px 2px rgba(0, 0, 0, 0.17); background-color: rgba(0, 0, 0, 0.27);'></iframe>
               </div>
             </div>
           {% else %}
@@ -63,7 +63,7 @@
               <div align='center'>
                 <button id="map_button_{{ p['attributes']['LATITUDE'] }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{p['attributes']['LATITUDE']}}').style.display = 'inline'; document.getElementById('map_button_{{p['attributes']['LATITUDE']}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map</b></button>
                 <div id="map_container_{{ p['attributes']['LATITUDE'] }}" style='display: none'>
-                  <iframe src="{{ url_for('get_mini_map', name=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area']) }}" style='width: min(80vw, 400px); height:calc(20+4/1vw);'></iframe>
+                  <iframe src="{{ url_for('get_mini_map', name=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area']) }}" style='width: min(80vw, 400px); height:min(250px, 23vh); box-shadow: -2px -2px 8px 2px rgba(0, 0, 0, 0.17); background-color: rgba(0, 0, 0, 0.27);'></iframe>
                 </div>
               </div>
             </div>
@@ -83,7 +83,7 @@
               <div align='center'>
                 <button id="map_button_{{ p['attributes']['LATITUDE'] }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{p['attributes']['LATITUDE']}}').style.display = 'inline'; document.getElementById('map_button_{{p['attributes']['LATITUDE']}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map</b></button>
                 <div id="map_container_{{ p['attributes']['LATITUDE'] }}" style='display: none'>
-                  <iframe src="{{ url_for('get_mini_map', name=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area']) }}" style='width: min(80vw, 400px); height:calc(20+4/1vw);'></iframe>
+                  <iframe src="{{ url_for('get_mini_map', name=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area']) }}" style='width: min(80vw, 400px); height:min(250px, 23vh); box-shadow: -2px -2px 8px 2px rgba(0, 0, 0, 0.17); background-color: rgba(0, 0, 0, 0.27);'></iframe>
                 </div>
               </div>
             </div>

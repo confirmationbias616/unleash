@@ -175,7 +175,7 @@ def get_mini_map():
     lng = request.args.get('lng')
     size = request.args.get('size')
     size = f"{round(float(size)*0.00024710538146717,1)} acres" if size else 'unknown size'  # convert to acres
-    m = folium.Map(location=(lat, lng), zoom_start=14, min_zoom=8)
+    m = folium.Map(location=(lat, lng), zoom_start=14, min_zoom=8, width='100%', height='100%')
     popup=folium.map.Popup(html=f"""
             <style>
               root {{
@@ -192,12 +192,13 @@ def get_mini_map():
               {size}<br>
               {lat}, {lng}
             </p>
-        """, width='70vw', height='60vh', max_width='250', max_height='200')
+        """)
     m.add_child(folium.Marker(
         [lat, lng],
         popup=popup,
         icon=folium.Icon(prefix='fa', icon='circle', color='lightgray')
     ))
+    #, width='70vw', height='60vh', max_width='250', max_height='200'
     LocateControl().add_to(m)
     return m._repr_html_()
 
