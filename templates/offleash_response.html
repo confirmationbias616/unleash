@@ -52,7 +52,13 @@
               {{ p['attributes']['DOG_DESIGNATION_DETAILS'] }}
               <br>
               <div align='center'>
-              <button class='white_button + direction_button' style='font-size: 100%;' onclick="window.open('{{ p['attributes']['directions'] }}', '_self')"><i class="far fa-map"></i>&nbsp;&nbsp;<b>directions</b></button>
+                <button class='white_button + direction_button' style='font-size: 100%;' onclick="window.open('{{ p['attributes']['directions'] }}', '_self')"><i class="fas fa-route"></i>&nbsp;&nbsp;<b>directions</b></button>
+              </div>
+              <div align='center'>
+              <button id="map_button_{{ p['attributes']['LATITUDE'] }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{p['attributes']['LATITUDE']}}').style.display = 'inline'; document.getElementById('map_button_{{p['attributes']['LATITUDE']}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map</b></button>
+                <div id="map_container_{{ p['attributes']['LATITUDE'] }}" style='display: none'>
+                  <iframe src="{{ url_for('get_mini_map', lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE']) }}" style='width: min(80vw, 400px); height:calc(20+4/1vw);'></iframe>
+                </div>
               </div>
             </div>
           </details>
@@ -66,8 +72,14 @@
               {{ p['attributes']['DOG_DESIGNATION_DETAILS'] }}
               <br>
               <div align='center'>
-              <button class='white_button + direction_button' style='font-size: 100%;' onclick="window.open('{{ p['attributes']['directions'] }}', '_self')"><i class='fas fa-route'></i>&nbsp;&nbsp;<b>directions</b></button>
+                <button class='white_button + direction_button' style='font-size: 100%;' onclick="window.open('{{ p['attributes']['directions'] }}', '_self')"><i class='fas fa-route'></i>&nbsp;&nbsp;<b>directions</b></button>
               </div>
+              <div align='center'>
+                <button id="map_button_{{ p['attributes']['LATITUDE'] }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{p['attributes']['LATITUDE']}}').style.display = 'inline'; document.getElementById('map_button_{{p['attributes']['LATITUDE']}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map</b></button>
+                  <div id="map_container_{{ p['attributes']['LATITUDE'] }}" style='display: none'>
+                    <iframe src="{{ url_for('get_mini_map', lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE']) }}" style='width: min(80vw, 400px); height:calc(20+4/1vw);'></iframe>
+                  </div>
+                </div>
             </div>
           </details>
           {% endfor %}

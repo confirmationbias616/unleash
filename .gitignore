@@ -10,6 +10,10 @@ flask_session/*
 # ignore cahces
 cache*
 
+# ignore all generated map html code
+templates/mini_map*
+
+
 # ignore passwords and API keys
 .secret.json
 

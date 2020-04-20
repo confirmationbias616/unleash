@@ -11,6 +11,8 @@ import requests
 from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
 from shapely.ops import cascaded_union
+import folium
+from folium.plugins import MarkerCluster, HeatMapWithTime, HeatMap, LocateControl
 
 
 logger = logging.getLogger(__name__)
@@ -163,6 +165,29 @@ def offleash_response():
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
         designation = int(park['attributes']['DOG_DESIGNATION'])
     return render_template('offleash_response.html', lat=lat, lng=lng, park_name=park_name, designation=designation, details=details, parks=near_parks, offleash_parks=offleash_parks)
+
+@app.route('/get_mini_map', methods=["POST", "GET"])
+def get_mini_map():
+    lat = request.args.get('lat')
+    lng = request.args.get('lng')
+    m = folium.Map(location=(lat, lng), zoom_start=13, min_zoom=8)
+    popup=folium.map.Popup(html=f"""
+            <style>
+                h4 {{
+                    text-align: center;
+                    font-family: 'Montserrat', sans-serif
+                }}
+            </style>
+            <h4>{':)'}</h4>
+        """)
+    m.add_child(folium.Marker(
+        [lat, lng],
+        popup=popup,
+        icon=folium.Icon(prefix='fa', icon='circle', color='lightgray')
+    ))
+    LocateControl().add_to(m)
+    m.save(f"templates/mini_map{lat}&{lng}.html")
+    return render_template(f"mini_map{lat}&{lng}.html")
 
 if __name__ == "__main__":
 	app.run(debug=False)
