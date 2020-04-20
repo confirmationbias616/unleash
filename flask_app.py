@@ -186,8 +186,9 @@ def get_mini_map():
         icon=folium.Icon(prefix='fa', icon='circle', color='lightgray')
     ))
     LocateControl().add_to(m)
-    m.save(f"templates/mini_map{lat}&{lng}.html")
-    return render_template(f"mini_map{lat}&{lng}.html")
+    # m.save(f"templates/mini_map{lat}&{lng}.html")
+    # return render_template(f"mini_map{lat}&{lng}.html")
+    return m._repr_html_()
 
 if __name__ == "__main__":
 	app.run(debug=False)
