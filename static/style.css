@@ -82,7 +82,7 @@ button:hover {
 @media screen and (max-width: 745px) {
   body {
     --background_main: rgb(127,124,110);
-    --background_main: rgba(127,124,110,0.8);
+    --background_main: rgba(133, 117, 99, 0.8);
     --background_secondary: rgb(60,60,60);
     --highlight: rgb(126,67,29);
     --dark: rgb(60,60,60);
