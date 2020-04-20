@@ -67,22 +67,39 @@ def offleash_response():
     lng = float(lng) if lng else None
     if not lat:
         return redirect(url_for('index'))
-    # lat = 45.450648
-    # lng = -75.492437
+    # # Apollo Crater - Designation: 0
     # lat = 45.476678
     # lng = -75.488533
-    # lat = 45.445807
-    # lng = -75.485049
+    # # 6250 St Albans - Desgnation: 4 (Not even a park!)
     # lat = 45.474651
     # lng = -75.546493
-    # lat = 45.4152054
-    # lng = -75.7292795
-    # # North Bilberry Valley
+    # # North Bilberry Valley - Designation: 0
     # lat = 45.47767229
     # lng = -75.53175637
-    # # North Bilberry Valley
+    # # South Bilberry Valley - Designation: 0
     # lat = 45.461881
     # lng = -75.503509
+    # # Riverside Memorial Park - Desgnation: 3
+    # lat = 45.42453977
+    # lng = -75.6657053
+    # # Pony Park - Desgnation: 1
+    # lat = 45.28512057
+    # lng = -75.86566251
+    # # Strathcona Park - Desgnation: 2 - no off-leash at all
+    # lat = 45.42690936
+    # lng = -75.67184788
+    # Britannia Park - Desgnation: 2
+    # lat = 45.36227422
+    # lng = -75.8006748
+    # # Brewer Park - Desgnation: 2
+    # lat = 45.38694591
+    # lng = -75.6889477
+    # # Big Bird Park - Desgnation: 2
+    # lat = 45.48640872
+    # lng = -75.50788845
+    # # Jack Purcell Park - Desgnation: 2
+    # lat = 45.41522433
+    # lng = -75.68931824
     current_location = Point(lng, lat)
     api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=1%3D1&outFields=NAME,DOG_DESIGNATION,LONGITUDE,Shape,LATITUDE,Shape_Area,DOG_DESIGNATION_DETAILS&geometry={},{},{},{}&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&returnCountOnly={}&outSR=4326&f=json'
     margin = 0.02
