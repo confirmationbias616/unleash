@@ -75,9 +75,9 @@ def offleash_response():
     # # 6250 St Albans - Desgnation: 4 (Not even a park!)
     # lat = 45.474651
     # lng = -75.546493
-    # # North Bilberry Valley - Designation: 0
-    # lat = 45.47767229
-    # lng = -75.53175637
+    # North Bilberry Valley - Designation: 0
+    lat = 45.47767229
+    lng = -75.53175637
     # # South Bilberry Valley - Designation: 0
     # lat = 45.461881
     # lng = -75.503509
@@ -168,18 +168,29 @@ def offleash_response():
 
 @app.route('/get_mini_map', methods=["POST", "GET"])
 def get_mini_map():
+    name = request.args.get('name')
     lat = request.args.get('lat')
     lng = request.args.get('lng')
+    size = request.args.get('size')
+    size = f"{round(float(size)*0.00024710538146717,1)} acres" if size else 'unknown size'  # convert to acres
     m = folium.Map(location=(lat, lng), zoom_start=14, min_zoom=8)
     popup=folium.map.Popup(html=f"""
             <style>
-                h4 {{
-                    text-align: center;
-                    font-family: 'Montserrat', sans-serif
-                }}
+              root {{
+                text-align: center;
+                font-family: 'Noto Sans', sans-serif;
+                font-size: 20%;
+              }}
+              h6 {{
+                margin-bottom: -1em
+              }}
             </style>
-            <h4>{':)'}</h4>
-        """)
+            <h6>{name}</h6>
+            <p>
+              {size}<br>
+              {lat}, {lng}
+            </p>
+        """, width='70vw', height='60vh', max_width='250', max_height='200')
     m.add_child(folium.Marker(
         [lat, lng],
         popup=popup,
