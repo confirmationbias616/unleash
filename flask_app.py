@@ -75,9 +75,9 @@ def offleash_response():
     # # 6250 St Albans - Desgnation: 4 (Not even a park!)
     # lat = 45.474651
     # lng = -75.546493
-    # North Bilberry Valley - Designation: 0
-    lat = 45.47767229
-    lng = -75.53175637
+    # # North Bilberry Valley - Designation: 0
+    # lat = 45.47767229
+    # lng = -75.53175637
     # # South Bilberry Valley - Designation: 0
     # lat = 45.461881
     # lng = -75.503509
