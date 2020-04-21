@@ -51,11 +51,12 @@ def dated_url_for(endpoint, **values):
 
 @app.route('/', methods=["POST", "GET"])
 def index():
-    return redirect(url_for('offleash'))
+    return render_template('index.html')
 
 @app.route('/offleash', methods=["POST", "GET"])
 def offleash():
-    return render_template('offleash.html')
+    skip = request.args.get('skip', 'False')
+    return render_template('offleash.html', skip=skip)
 
 @app.route('/come_back', methods=["POST", "GET"])
 def come_back():
@@ -63,6 +64,7 @@ def come_back():
 
 @app.route('/offleash_response', methods=["POST", "GET"])
 def offleash_response():
+    skip = request.args.get('skip', 'False')
     lat = request.form.get('current_lat')
     lng = request.form.get('current_lng')
     lat = float(lat) if lat else None
@@ -145,7 +147,7 @@ def offleash_response():
     offleash_parks = [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '0']
     near_parks = [park for park in parks if park['attributes']['NAME'] not in [park['attributes']['NAME'] for park in offleash_parks]]
     near_parks = near_parks[:10]
-    designation = 4
+    designation = 4  #default of 'undesignated'
     park_name = None
     details = None
     size = None
@@ -166,7 +168,7 @@ def offleash_response():
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
         designation = int(park['attributes']['DOG_DESIGNATION'])
         size = int(park['attributes']['Shape_Area'])
-    return render_template('offleash_response.html', lat=lat, lng=lng, park_name=park_name, designation=designation, details=details, parks=near_parks, offleash_parks=offleash_parks, size=size)
+    return render_template('offleash_response.html', skip=skip, lat=lat, lng=lng, park_name=park_name, designation=designation, details=details, parks=near_parks, offleash_parks=offleash_parks, size=size)
 
 @app.route('/get_mini_map', methods=["POST", "GET"])
 def get_mini_map():
