@@ -146,12 +146,13 @@ def offleash_response():
         park['attributes'].update({'directions': f"https://www.google.com/maps/dir/{lat},{lng}/{park['attributes']['LATITUDE']},{park['attributes']['LONGITUDE']}/@{lat},{lng}"})
     offleash_parks = [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '0']
     near_parks = [park for park in parks if park['attributes']['NAME'] not in [park['attributes']['NAME'] for park in offleash_parks]]
+    near_parks = [park for park in near_parks if park['attributes']['DOG_DESIGNATION'] != '3']
     near_parks = near_parks[:10]
     designation = 4  #default of 'undesignated'
     park_name = None
     details = None
     size = None
-    for park in near_parks + offleash_parks:
+    for park in parks:
         if len(park['geometry']['rings']) > 1:
             polygons = []
             for shape in park['geometry']['rings']:
