@@ -199,6 +199,7 @@ def get_mini_map():
         icon=folium.Icon(prefix='fa', icon='circle', color='lightgray')
     ))
     #, width='70vw', height='60vh', max_width='250', max_height='200'
+    LocateControl().add_to(m)
     return m.get_root().render()
 
 if __name__ == "__main__":
