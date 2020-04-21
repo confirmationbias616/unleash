@@ -63,6 +63,7 @@
               <div align='center'>
                 <button id="map_button_{{ p['attributes']['LATITUDE'] }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{p['attributes']['LATITUDE']}}').style.display = 'inline'; document.getElementById('map_button_{{p['attributes']['LATITUDE']}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map / trails</b></button>
                 <div id="map_container_{{ p['attributes']['LATITUDE'] }}" style='display: none'>
+                  <button class='white_button + direction_button + mini_map' onclick="window.open('{{ url_for('get_mini_map', name=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area']) }}', '_blank', 'noopener')"><i class="fas fa-external-link-alt"></i></button>
                   <iframe src="{{ url_for('get_mini_map', name=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area']) }}" class='mini_map'></iframe>
                 </div>
               </div>
@@ -84,6 +85,7 @@
               <div align='center'>
                 <button id="map_button_{{ p['attributes']['LATITUDE'] }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{p['attributes']['LATITUDE']}}').style.display = 'inline'; document.getElementById('map_button_{{p['attributes']['LATITUDE']}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map / trails</b></button>
                 <div id="map_container_{{ p['attributes']['LATITUDE'] }}" style='display: none'>
+                  <button class='white_button + direction_button + mini_map' onclick="window.open('{{ url_for('get_mini_map', name=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area']) }}', '_blank', 'noopener')"><i class="fas fa-external-link-alt"></i></button>
                   <iframe src="{{ url_for('get_mini_map', name=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area']) }}" class='mini_map'></iframe>
                 </div>
               </div>
