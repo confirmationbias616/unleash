@@ -30,13 +30,12 @@
               You are in <b>{{ park_name }}</b>.
             </p>
             <p class='details'>
-              <i>{{ details }}</i>.
+              <i>{{ details }}</i>
             </p>
-            <div align='center'>
-              <button id="map_button_{{ lat }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{lat}}').style.display = 'inline'; document.getElementById('map_button_{{lat}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map</b></button>
-              <div id="map_container_{{ lat }}" style='display: none'>
-                <iframe src="{{ url_for('get_mini_map', name=park_name, lat=lat, lng=lng, size=size) }}" style='width: min(80vw, 400px); height:min(250px, 23vh); box-shadow: -2px -2px 8px 2px rgba(0, 0, 0, 0.17); background-color: rgba(0, 0, 0, 0.27);'></iframe>
-              </div>
+            <button align='centre' id="map_button_{{ lat }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{lat}}').style.display = 'inline'; document.getElementById('map_button_{{lat}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map / trails</b></button>
+            <div id="map_container_{{ lat }}" style='display: none;'>
+              <button class='white_button + direction_button + mini_map' onclick="window.open('{{ url_for('get_mini_map', name=park_name, lat=lat, lng=lng, size=size) }}', '_blank', 'noopener')"><i class="fas fa-external-link-alt"></i></button>
+              <iframe src="{{ url_for('get_mini_map', name=park_name, lat=lat, lng=lng, size=size) }}" class='mini_map' style='z-index: 2;'></iframe>
             </div>
           {% else %}
             <p>
@@ -52,18 +51,19 @@
         <div id='nearby' class='blocktext + sweep_right' style='display: none; font-size: 100%;'>
           <span style="font-size: 120%;"><u>offleash parks</u></span>
           {% for p in offleash_parks[:8] %}
-          <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--background_main); border-radius: 0.4em; padding: 0.2em 0.8em;'>
+          <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--background_details); border-radius: 0.4em; padding: 0.2em 0.8em;'>
             <summary> {{ p['attributes']['NAME'] }} </summary>
             <div class='details' style='margin-left: 2vw; margin-top: max(1vh, 6px); font-size: 92%'>
               {{ p['attributes']['DOG_DESIGNATION_DETAILS'] }}
               <br>
               <div align='center'>
-                <button class='white_button + direction_button' style='font-size: 100%;' onclick="window.open('{{ p['attributes']['directions'] }}', '_self')"><i class="fas fa-route"></i>&nbsp;&nbsp;<b>directions</b></button>
+                <button class='white_button + direction_button + open_self' style='font-size: 100%;' onclick="window.open('{{ p['attributes']['directions'] }}', '_self')"><i class="fas fa-route"></i>&nbsp;&nbsp;<b>directions</b></button>
+                <button class='white_button + direction_button + open_blank' style='font-size: 100%;' onclick="window.open('{{ p['attributes']['directions'] }}', '_blank', 'noopener')"><i class="fas fa-route"></i>&nbsp;&nbsp;<b>directions</b></button>
               </div>
               <div align='center'>
-                <button id="map_button_{{ p['attributes']['LATITUDE'] }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{p['attributes']['LATITUDE']}}').style.display = 'inline'; document.getElementById('map_button_{{p['attributes']['LATITUDE']}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map</b></button>
+                <button id="map_button_{{ p['attributes']['LATITUDE'] }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{p['attributes']['LATITUDE']}}').style.display = 'inline'; document.getElementById('map_button_{{p['attributes']['LATITUDE']}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map / trails</b></button>
                 <div id="map_container_{{ p['attributes']['LATITUDE'] }}" style='display: none'>
-                  <iframe src="{{ url_for('get_mini_map', name=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area']) }}" style='width: min(80vw, 400px); height:min(250px, 23vh); box-shadow: -2px -2px 8px 2px rgba(0, 0, 0, 0.17); background-color: rgba(0, 0, 0, 0.27);'></iframe>
+                  <iframe src="{{ url_for('get_mini_map', name=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area']) }}" class='mini_map'></iframe>
                 </div>
               </div>
             </div>
@@ -72,24 +72,26 @@
           <br>
           <span class='blocktext + sweep_right' style="font-size: 120%;"><u>other nearby parks</u></span>
           {% for p in parks[:8] %}
-          <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--background_main); border-radius: 0.4em; padding: 0.2em 0.8em;'>
+          <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--background_details); border-radius: 0.4em; padding: 0.2em 0.8em;'>
             <summary> {{ p['attributes']['NAME'] }} </summary>
             <div class='details' style='margin-left: 2vw; margin-top: max(1vh, 6px); font-size: 92%'>
               {{ p['attributes']['DOG_DESIGNATION_DETAILS'] }}
               <br>
               <div align='center'>
-                <button class='white_button + direction_button' style='font-size: 100%;' onclick="window.open('{{ p['attributes']['directions'] }}', '_self')"><i class='fas fa-route'></i>&nbsp;&nbsp;<b>directions</b></button>
+                <button class='white_button + direction_button + open_self' style='font-size: 100%;' onclick="window.open('{{ p['attributes']['directions'] }}', '_self')"><i class="fas fa-route"></i>&nbsp;&nbsp;<b>directions</b></button>
+                <button class='white_button + direction_button + open_blank' style='font-size: 100%;' onclick="window.open('{{ p['attributes']['directions'] }}', '_blank', 'noopener')"><i class="fas fa-route"></i>&nbsp;&nbsp;<b>directions</b></button>
               </div>
               <div align='center'>
-                <button id="map_button_{{ p['attributes']['LATITUDE'] }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{p['attributes']['LATITUDE']}}').style.display = 'inline'; document.getElementById('map_button_{{p['attributes']['LATITUDE']}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map</b></button>
+                <button id="map_button_{{ p['attributes']['LATITUDE'] }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{p['attributes']['LATITUDE']}}').style.display = 'inline'; document.getElementById('map_button_{{p['attributes']['LATITUDE']}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map / trails</b></button>
                 <div id="map_container_{{ p['attributes']['LATITUDE'] }}" style='display: none'>
-                  <iframe src="{{ url_for('get_mini_map', name=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area']) }}" style='width: min(80vw, 400px); height:min(250px, 23vh); box-shadow: -2px -2px 8px 2px rgba(0, 0, 0, 0.17); background-color: rgba(0, 0, 0, 0.27);'></iframe>
+                  <iframe src="{{ url_for('get_mini_map', name=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area']) }}" class='mini_map'></iframe>
                 </div>
               </div>
             </div>
           </details>
           {% endfor %}
         </div>
+        <br><br>
         <div class='blocktext + fade_in' display='inline' style='width:50vw'>
           <br>
           {% if not park_name %}
@@ -98,9 +100,9 @@
             <br><br>
           </div>
           {% endif %}
-          <button onclick="window.open('https://open.ottawa.ca/datasets/cfb079e407494c33b038e86c7e05288e_24', '_blank')"><i class="fas fa-external-link-alt"></i>&nbsp;&nbsp;<b>dataset</b></button>
+          <button onclick="window.open('https://open.ottawa.ca/datasets/cfb079e407494c33b038e86c7e05288e_24', '_blank', 'noopener')"><i class="fas fa-external-link-alt"></i>&nbsp;&nbsp;<b>dataset</b></button>
           <br><br>
-          <button onclick="window.open('https://ottawa.ca/en/recreation-and-parks/parks-and-green-space/dog-parks#map-dogs-parks', '_blank')"><i class="fas fa-external-link-alt"></i>&nbsp;&nbsp;<b>interactive map</b></button>
+          <button onclick="window.open('https://ottawa.ca/en/recreation-and-parks/parks-and-green-space/dog-parks#map-dogs-parks', '_blank', 'noopener')"><i class="fas fa-external-link-alt"></i>&nbsp;&nbsp;<b>interactive map</b></button>
           <br><br>
           <button class='red_button' onclick="window.location.href='{{ url_for('index')}}'"><i class="fas fa-redo"></i>&nbsp;&nbsp;<b>check again</b></button>
           <br><br>
