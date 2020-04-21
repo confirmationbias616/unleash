@@ -90,7 +90,7 @@ def offleash_response():
     # # Strathcona Park - Desgnation: 2 - no off-leash at all
     # lat = 45.42690936
     # lng = -75.67184788
-    # Britannia Park - Desgnation: 2
+    # # Britannia Park - Desgnation: 2
     # lat = 45.36227422
     # lng = -75.8006748
     # # Brewer Park - Desgnation: 2
