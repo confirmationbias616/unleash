@@ -110,7 +110,7 @@ button:hover {
    }
   .blocktext {
     margin-left: min(5vw, 20px);
-    width: max(35vw, 100px);
+    width: max(50vw, 100px);
   }
   button {
     font-size: max(9px, 100%);
