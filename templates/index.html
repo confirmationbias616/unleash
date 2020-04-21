@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  {% extends 'base.html' %}
+  {% block head %}
+  <!-- <meta http-equiv="refresh" content="10"> -->
+  {% endblock %}
+</head>
+<body>
+  {% block body %}
+  <br>
+  <div class='blocktext + question'>
+    <a href='offleash' class='question'>
+      <h3>
+          "Can I take my dog off leash?"
+      </h3>
+    </a>
+    <br><br>
+    <a href="{{ url_for('offleash', skip='True') }}" class='question'>
+      <h3>
+          "Where can I bring my dog?"
+      </h3>
+    </a>
+  </div>
+  {% endblock %}
+</body>
+</html>

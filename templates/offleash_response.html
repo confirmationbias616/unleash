@@ -8,8 +8,19 @@
 </head>
 <body>
     {% block body %}
+    <div class='blocktext + question'>
+      <h3 style="color: var(--text_question)";>
+        {% if skip == 'False' %}
+          "Can I take my dog off leash?"
+        {% else %}
+          "Where can I bring my dog?"
+        {% endif %}
+      </h3>
+    </div>
+    <br>
     <div style='height: 80vh; float: left'>
       <div style="overflow: auto; direction: ltr; height: 80vh; width: 98vw">
+        {% if skip == 'False' %}
         <div id='current_park'>
           <div class='blocktext + sweep_right'>
             <h1>
@@ -42,13 +53,14 @@
               You are not in a City of Ottawa park!
             </p>
             <p class='details'>
-              Unless you're on private property or NCC land and
-              have been advised otherwise, your dog must remain on leash.
+              Therefore, your dog must remain on leash. That is unless you're on private property or NCC land and
+              have been advised otherwise.
             </p>
           </div>
           {% endif %}
         </div>
-        <div id='nearby' class='blocktext + sweep_right' style='display: none; font-size: 100%;'>
+        {% endif %}
+        <div id='nearby' class='blocktext + sweep_right' style='display: {% if skip == 'False' %} none {% else %} inline {% endif %}; font-size: 100%;'>
           <span style="font-size: 120%;"><u>offleash parks</u></span>
           {% for p in offleash_parks[:8] %}
           <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--background_details); border-radius: 0.4em; padding: 0.2em 0.8em;'>
@@ -71,7 +83,7 @@
           </details>
           {% endfor %}
           <br>
-          <span class='blocktext + sweep_right' style="font-size: 120%;"><u>other nearby parks</u></span>
+          <span {% if skip == 'True' %} class='blocktext + sweep_right' {% endif %} style="font-size: 120%;"><u>other nearby parks</u></span>
           {% for p in parks[:8] %}
           <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--background_details); border-radius: 0.4em; padding: 0.2em 0.8em;'>
             <summary> {{ p['attributes']['NAME'] }} </summary>
@@ -96,9 +108,10 @@
         <br><br>
         <div class='blocktext + fade_in' display='inline' style='width:50vw'>
           <br>
-          {% if not park_name %}
+          {% if not park_name and skip == 'False' %}
           <div id='switch_content'>
-            <button id='switch_content' class='white_button' onclick="display_nearby()"><i class="fas fa-list-ul"></i>&nbsp;&nbsp;<b>show nearby parks</b></button>
+            <button id='switch_content' class='white_button' onclick="window.open('{{ url_for('offleash', skip='True') }}', '_self')"><i class="fas fa-list-ul"></i>&nbsp;&nbsp;<b>show nearby parks</b></button>
+            <!-- <button id='switch_content' class='white_button' onclick="display_nearby()"><i class="fas fa-list-ul"></i>&nbsp;&nbsp;<b>show nearby parks</b></button> -->
             <br><br>
           </div>
           {% endif %}
@@ -106,7 +119,7 @@
           <br><br>
           <button onclick="window.open('https://ottawa.ca/en/recreation-and-parks/parks-and-green-space/dog-parks#map-dogs-parks', '_blank', 'noopener')"><i class="fas fa-external-link-alt"></i>&nbsp;&nbsp;<b>interactive map</b></button>
           <br><br>
-          <button class='red_button' onclick="window.location.href='{{ url_for('index')}}'"><i class="fas fa-redo"></i>&nbsp;&nbsp;<b>check again</b></button>
+          <button class='red_button' onclick="window.location.href='{{ url_for('offleash', skip=skip)}}'"><i class="fas fa-redo"></i>&nbsp;&nbsp;<b>check again</b></button>
           <br><br>
           <button id='hire_me_button' class='white_button + direction_button' style='font-size: 90%; color: var(--hire_me_text)' onclick="show_hire_me()"><b>hire me :)</b></button>
             <div id='hire_me_container' style='display: none'>

@@ -28,6 +28,8 @@ body {
   width: 75vw !important;
   font-size: 120%;
   font-style: italic;
+  text-decoration: none;
+  color: var(--text_question);
 }
 .sweep_right {
   animation: sweep-details-from-left 0.09s ease-in-out;
