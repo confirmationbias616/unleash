@@ -269,7 +269,7 @@ def get_full_map():
             <i>{}</i>
         </details>
     """
-    m = folium.Map(tile=None, name='', location=(45.2, -75.8), zoom_start=12, min_zoom=12, width='100%', height='100%', disable_3D=False)
+    m = folium.Map(tile=None, name='', location=(45.416, -75.694), zoom_start=12, width='100%', height='100%', disable_3D=False)
     folium.TileLayer('openstreetmap', control=False, overlay=False, name='').add_to(m)
 
     mc = MarkerCluster()
