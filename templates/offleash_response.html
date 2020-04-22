@@ -43,8 +43,8 @@
             <p class='details'>
               <i>{{ details }}</i>
             </p>
-            <button align='centre' id="map_button_{{ lat }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{lat}}').style.display = 'inline'; document.getElementById('map_button_{{lat}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map / trails</b></button>
-            <div id="map_container_{{ lat }}" style='display: none;'>
+            <!-- <button align='centre' id="map_button_{{ lat }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{lat}}').style.display = 'inline'; document.getElementById('map_button_{{lat}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map / trails</b></button> -->
+            <div id="map_container_{{ lat }}">
               <button class='white_button + direction_button + mini_map' onclick="window.open('{{ url_for('get_mini_map', name=park_name, lat=lat, lng=lng, size=size) }}', '_blank', 'noopener')"><i class="fas fa-external-link-alt"></i></button>
               <iframe src="{{ url_for('get_mini_map', name=park_name, lat=lat, lng=lng, size=size) }}" class='mini_map' style='z-index: 2;'></iframe>
             </div>
@@ -73,8 +73,8 @@
                 <button class='white_button + direction_button + open_blank' style='font-size: 100%;' onclick="window.open('{{ p['attributes']['directions'] }}', '_blank', 'noopener')"><i class="fas fa-route"></i>&nbsp;&nbsp;<b>directions</b></button>
               </div>
               <div align='center'>
-                <button id="map_button_{{ p['attributes']['LATITUDE'] }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{p['attributes']['LATITUDE']}}').style.display = 'inline'; document.getElementById('map_button_{{p['attributes']['LATITUDE']}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map / trails</b></button>
-                <div id="map_container_{{ p['attributes']['LATITUDE'] }}" style='display: none'>
+                <!-- <button id="map_button_{{ p['attributes']['LATITUDE'] }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{p['attributes']['LATITUDE']}}').style.display = 'inline'; document.getElementById('map_button_{{p['attributes']['LATITUDE']}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map / trails</b></button> -->
+                <div id="map_container_{{ p['attributes']['LATITUDE'] }}">
                   <button class='white_button + direction_button + mini_map' onclick="window.open('{{ url_for('get_mini_map', name=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area']) }}', '_blank', 'noopener')"><i class="fas fa-external-link-alt"></i></button>
                   <iframe src="{{ url_for('get_mini_map', name=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area']) }}" class='mini_map'></iframe>
                 </div>
@@ -95,8 +95,8 @@
                 <button class='white_button + direction_button + open_blank' style='font-size: 100%;' onclick="window.open('{{ p['attributes']['directions'] }}', '_blank', 'noopener')"><i class="fas fa-route"></i>&nbsp;&nbsp;<b>directions</b></button>
               </div>
               <div align='center'>
-                <button id="map_button_{{ p['attributes']['LATITUDE'] }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{p['attributes']['LATITUDE']}}').style.display = 'inline'; document.getElementById('map_button_{{p['attributes']['LATITUDE']}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map / trails</b></button>
-                <div id="map_container_{{ p['attributes']['LATITUDE'] }}" style='display: none'>
+                <!-- <button id="map_button_{{ p['attributes']['LATITUDE'] }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{p['attributes']['LATITUDE']}}').style.display = 'inline'; document.getElementById('map_button_{{p['attributes']['LATITUDE']}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map / trails</b></button> -->
+                <div id="map_container_{{ p['attributes']['LATITUDE'] }}">
                   <button class='white_button + direction_button + mini_map' onclick="window.open('{{ url_for('get_mini_map', name=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area']) }}', '_blank', 'noopener')"><i class="fas fa-external-link-alt"></i></button>
                   <iframe src="{{ url_for('get_mini_map', name=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area']) }}" class='mini_map'></iframe>
                 </div>
