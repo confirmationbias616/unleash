@@ -215,5 +215,269 @@ def get_mini_map():
     LocateControl().add_to(m)
     return m.get_root().render()
 
+@app.route('/get_full_map', methods=["POST", "GET"])
+def get_full_map():
+    logger.info('starting to build map...')
+    def get_all_parks():
+        api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%200%20AND%20OBJECTID%20%3C%3D%201000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=false&outSR=4326&f=json'
+        response = json.loads(requests.get(api_call).content)
+        parks_1 = response['features']
+        api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%201001%20AND%20OBJECTID%20%3C%3D%205000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=false&outSR=4326&f=json'
+        response = json.loads(requests.get(api_call).content)
+        parks_2 = response['features']
+        parks = parks_1 + parks_2
+        return parks
+    logger.info('done loading...')
+    while True:
+        try:
+            parks = get_all_parks()
+            break
+        except requests.ConnectionError:
+            sleep(1)
+    all_park_names = {}
+    for i in range(len(parks)):
+        park_name = parks[i]['attributes']['NAME']
+        if park_name in all_park_names:
+            all_park_names.update({park_name: all_park_names[park_name] + 1})
+            parks[i]['attributes']['NAME'] = park_name + ' #' + str(all_park_names[park_name])
+        else:
+            all_park_names.update({park_name:1})
+    
+    m = folium.Map(tile=None, name='', location=(45.476678, -75.488533), zoom_start=12, min_zoom=12, width='100%', height='100%', disable_3D=False)
+    folium.TileLayer('openstreetmap', control=False, overlay=False, name='').add_to(m)
+
+    mc = MarkerCluster()
+    feature_group = folium.FeatureGroup(name="off leash", overlay=True, show=True)
+    for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '0']:
+        name = park['attributes']['NAME']
+        lat = park['attributes']['LATITUDE']
+        lng = park['attributes']['LONGITUDE']
+        size = park['attributes']['Shape_Area']
+        details = park['attributes']['DOG_DESIGNATION_DETAILS']
+        if size:
+            size_in_acres = round(float(size)*0.00024710538146717,1)
+            size_text= f"{size_in_acres} acres"
+        else:
+            size_text = 'unknown size'
+        popup=folium.map.Popup(html=f"""
+                <style>
+                root {{
+                    text-align: center;
+                    font-family: 'Noto Sans', sans-serif;
+                    font-size: 20%;
+                }}
+                h6 {{
+                    font-size:110%;
+                }}
+                </style>
+                <h6 align='center'>{name}</h6>
+                <table style="width:100%">
+                    <tr>
+                        <th><b>Park Area</b></th>
+                        <td>{size_text}</td>
+                    </tr>
+                </table>
+                <br>
+                <details open>
+                    <summary><u>Undesignated Park</u></summary>
+                    <i>{details}</i>
+                </details>
+            """, max_width='220', max_height='200')
+        mc.add_child(folium.Marker(
+            [lat, lng],
+            popup=popup,
+            icon=folium.Icon(prefix='fa', icon='circle', color='green')
+        ))
+    feature_group.add_child(mc)
+    feature_group.add_to(m)
+
+    mc = MarkerCluster()
+    feature_group = folium.FeatureGroup(name="on leash", overlay=True, show=False)
+    for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '1']:
+        name = park['attributes']['NAME']
+        lat = park['attributes']['LATITUDE']
+        lng = park['attributes']['LONGITUDE']
+        size = park['attributes']['Shape_Area']
+        details = park['attributes']['DOG_DESIGNATION_DETAILS']
+        if size:
+            size_in_acres = round(float(size)*0.00024710538146717,1)
+            size_text= f"{size_in_acres} acres"
+        else:
+            size_text = 'unknown size'
+        popup=folium.map.Popup(html=f"""
+                <style>
+                root {{
+                    text-align: center;
+                    font-family: 'Noto Sans', sans-serif;
+                    font-size: 20%;
+                }}
+                h6 {{
+                    font-size:110%;
+                }}
+                </style>
+                <h6 align='center'>{name}</h6>
+                <table style="width:100%">
+                    <tr>
+                        <th><b>Park Area</b></th>
+                        <td>{size_text}</td>
+                    </tr>
+                </table>
+                <br>
+                <details open>
+                    <summary><u>Details</u></summary>
+                    <i>{details}</i>
+                </details>
+            """, max_width='220', max_height='200')
+        mc.add_child(folium.Marker(
+            [lat, lng],
+            popup=popup,
+            icon=folium.Icon(prefix='fa', icon='circle', color='lightgray')
+        ))
+    feature_group.add_child(mc)
+    feature_group.add_to(m)
+
+    mc = MarkerCluster()
+    feature_group = folium.FeatureGroup(name="mixed designation", overlay=True, show=False)
+    for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '2']:
+        name = park['attributes']['NAME']
+        lat = park['attributes']['LATITUDE']
+        lng = park['attributes']['LONGITUDE']
+        size = park['attributes']['Shape_Area']
+        details = park['attributes']['DOG_DESIGNATION_DETAILS']
+        if size:
+            size_in_acres = round(float(size)*0.00024710538146717,1)
+            size_text= f"{size_in_acres} acres"
+        else:
+            size_text = 'unknown size'
+        popup=folium.map.Popup(html=f"""
+                <style>
+                root {{
+                    text-align: center;
+                    font-family: 'Noto Sans', sans-serif;
+                    font-size: 20%;
+                }}
+                h6 {{
+                    font-size:110%;
+                }}
+                </style>
+                <h6 align='center'>{name}</h6>
+                <table style="width:100%">
+                    <tr>
+                        <th><b>Park Area</b></th>
+                        <td>{size_text}</td>
+                    </tr>
+                </table>
+                <br>
+                <details open>
+                    <summary><u>Details</u></summary>
+                    <i>{details}</i>
+                </details>
+            """, max_width='220', max_height='200')
+        mc.add_child(folium.Marker(
+            [lat, lng],
+            popup=popup,
+            icon=folium.Icon(prefix='fa', icon='circle', color='white')
+        ))
+    feature_group.add_child(mc)
+    feature_group.add_to(m)
+    
+    mc = MarkerCluster()
+    feature_group = folium.FeatureGroup(name="No dogs allowed", overlay=True, show=False)
+    for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '3']:
+        name = park['attributes']['NAME']
+        lat = park['attributes']['LATITUDE']
+        lng = park['attributes']['LONGITUDE']
+        size = park['attributes']['Shape_Area']
+        details = park['attributes']['DOG_DESIGNATION_DETAILS']
+        if size:
+            size_in_acres = round(float(size)*0.00024710538146717,1)
+            size_text= f"{size_in_acres} acres"
+        else:
+            size_text = 'unknown size'
+        popup=folium.map.Popup(html=f"""
+                <style>
+                root {{
+                    text-align: center;
+                    font-family: 'Noto Sans', sans-serif;
+                    font-size: 20%;
+                }}
+                h6 {{
+                    font-size:110%;
+                }}
+                </style>
+                <h6 align='center'>{name}</h6>
+                <table style="width:100%">
+                    <tr>
+                        <th><b>Park Area</b></th>
+                        <td>{size_text}</td>
+                    </tr>
+                </table>
+                <br>
+                <details open>
+                    <summary><u>Details</u></summary>
+                    <i>{details}</i>
+                </details>
+            """, max_width='220', max_height='200')
+        mc.add_child(folium.Marker(
+            [lat, lng],
+            popup=popup,
+            icon=folium.Icon(prefix='fa', icon='circle', color='red')
+        ))
+    feature_group.add_child(mc)
+    feature_group.add_to(m)
+
+    mc = MarkerCluster()
+    feature_group = folium.FeatureGroup(name="undesignated", overlay=True, show=False)
+    for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '4']:
+        name = park['attributes']['NAME']
+        lat = park['attributes']['LATITUDE']
+        lng = park['attributes']['LONGITUDE']
+        size = park['attributes']['Shape_Area']
+        details = park['attributes']['DOG_DESIGNATION_DETAILS']
+        if size:
+            size_in_acres = round(float(size)*0.00024710538146717,1)
+            size_text= f"{size_in_acres} acres"
+        else:
+            size_text = 'unknown size'
+        popup=folium.map.Popup(html=f"""
+                <style>
+                root {{
+                    text-align: center;
+                    font-family: 'Noto Sans', sans-serif;
+                    font-size: 20%;
+                }}
+                h6 {{
+                    font-size:110%;
+                }}
+                </style>
+                <h6 align='center'>{name}</h6>
+                <table style="width:100%">
+                    <tr>
+                        <th><b>Park Area</b></th>
+                        <td>{size_text}</td>
+                    </tr>
+                </table>
+                <br>
+                <details open>
+                    <summary><u>Details</u></summary>
+                    <i>{details}</i>
+                </details>
+            """, max_width='220', max_height='200')
+        mc.add_child(folium.Marker(
+            [lat, lng],
+            popup=popup,
+            icon=folium.Icon(prefix='fa', icon='circle', color='gray')
+        ))
+    feature_group.add_child(mc)
+    feature_group.add_to(m)
+    folium.LayerControl(collapsed=True).add_to(m)
+    LocateControl().add_to(m)
+    logger.info('ok, map is ready')
+    return m.get_root().render()
+
+@app.route('/map', methods=["POST", "GET"])
+def map():
+    return render_template('map.html')
+
 if __name__ == "__main__":
 	app.run(debug=False)

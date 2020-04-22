@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  {% extends 'base.html' %}
+  {% block head %}
+  <!-- <meta http-equiv="refresh" content="10"> -->
+  {% endblock %}
+</head>
+<body>
+  {% block body %}
+  <!-- <div class='full_map'> -->
+    <iframe src="{{ url_for('get_full_map') }}" class='full_map'></iframe>
+  <!-- </div> -->
+  {% endblock %}
+</body>
+</html>
