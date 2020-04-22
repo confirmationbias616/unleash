@@ -12,6 +12,8 @@ cache*
 
 # ignore all generated map html code
 templates/mini_map*
+templates/full_map.html
+
 
 
 # ignore passwords and API keys

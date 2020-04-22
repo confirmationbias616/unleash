@@ -2,6 +2,7 @@
 
 from flask import Flask, render_template, url_for, request, redirect, session
 from flask_session import Session
+from jinja2.exceptions import TemplateNotFound
 import json
 import logging
 import sys
@@ -217,6 +218,10 @@ def get_mini_map():
 
 @app.route('/get_full_map', methods=["POST", "GET"])
 def get_full_map():
+    try:
+        return render_template('full_map.html')
+    except TemplateNotFound:
+        pass
     logger.info('starting to build map...')
     def get_all_parks():
         api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%200%20AND%20OBJECTID%20%3C%3D%201000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=false&outSR=4326&f=json'
@@ -373,6 +378,7 @@ def get_full_map():
     folium.LayerControl(collapsed=True).add_to(m)
     LocateControl().add_to(m)
     logger.info('ok, map is ready')
+    m.save('templates/full_map.html')
     return m.get_root().render()
 
 @app.route('/map', methods=["POST", "GET"])
