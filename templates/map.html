@@ -9,9 +9,7 @@
 </head>
 <body>
   {% block body %}
-  <!-- <div class='full_map'> -->
-    <iframe src="{{ url_for('get_full_map') }}" class='full_map'></iframe>
-  <!-- </div> -->
+  <iframe src="{{ url_for('get_full_map') }}" class='full_map'></iframe>
   {% endblock %}
 </body>
 </html>
