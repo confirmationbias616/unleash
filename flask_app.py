@@ -256,16 +256,25 @@ def get_full_map():
         </style>
         <h6 align='center'>{}</h6>
         <div align='center'>
-            <button onclick="window.open('{}', '_blank', 'noopener')" style='font-weight: bold;'>directions</button>
-        </div>
-        <table style="width:100%">
-            <tr>
-                <th><b>Park Area</b></th>
-                <td>{}</td>
-            </tr>
-        </table>
+            <br><br>
+            <table align='center' style="width:100%">
+                <tr>
+                    <th><b>park area</b></th>
+                    <td>{}</td>
+                </tr>
+                <tr>
+                    <th><b>latitude</b></th>
+                    <td>{}</td>
+                </tr>
+                <tr>
+                    <th><b>longitude</b></th>
+                    <td>{}</td>
+                </tr>
+            </table>
+        </div
+        <br>
         <details open>
-            <summary>Undesignated Park</summary>
+            <summary><b>details</b></summary>
             <i>{}</i>
         </details>
     """
@@ -286,7 +295,7 @@ def get_full_map():
             size_text= f"{size_in_acres} acres"
         else:
             size_text = 'unknown size'
-        popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, details), max_width='220', max_height='200')
+        popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, lat, lng, details), max_width='220', max_height='200')
         mc.add_child(folium.Marker(
             [lat, lng],
             popup=popup,
@@ -308,7 +317,7 @@ def get_full_map():
             size_text= f"{size_in_acres} acres"
         else:
             size_text = 'unknown size'
-        popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, details), max_width='220', max_height='200')
+        popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, lat, lng, details), max_width='220', max_height='200')
         mc.add_child(folium.Marker(
             [lat, lng],
             popup=popup,
@@ -330,7 +339,7 @@ def get_full_map():
             size_text= f"{size_in_acres} acres"
         else:
             size_text = 'unknown size'
-        popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, details), max_width='220', max_height='200')
+        popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, lat, lng, details), max_width='220', max_height='200')
         mc.add_child(folium.Marker(
             [lat, lng],
             popup=popup,
@@ -352,7 +361,7 @@ def get_full_map():
             size_text= f"{size_in_acres} acres"
         else:
             size_text = 'unknown size'
-        popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, details), max_width='220', max_height='200')
+        popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, lat, lng, details), max_width='220', max_height='200')
         mc.add_child(folium.Marker(
             [lat, lng],
             popup=popup,
