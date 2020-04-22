@@ -43,6 +43,9 @@ body {
 .fade_in {
   animation: fade-in 0.04s ease-in-out;
 }
+.fade_in_landing {
+  animation: fade-in 0.6s ease-in-out;
+}
 u{
   text-decoration-color: var(--highlight);
 }
