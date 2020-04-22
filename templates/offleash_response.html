@@ -46,7 +46,7 @@
             <!-- <button align='centre' id="map_button_{{ lat }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{lat}}').style.display = 'inline'; document.getElementById('map_button_{{lat}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map / trails</b></button> -->
             <div id="map_container_{{ lat }}">
               <button class='white_button + direction_button + mini_map' onclick="window.open('{{ url_for('get_mini_map', name=park_name, lat=lat, lng=lng, size=size) }}', '_blank', 'noopener')"><i class="fas fa-external-link-alt"></i></button>
-              <iframe src="{{ url_for('get_mini_map', name=park_name, lat=lat, lng=lng, size=size) }}" class='mini_map' style='z-index: 2;'></iframe>
+              <iframe src="{{ url_for('get_mini_map', name=park_name, lat=park_lat, lng=park_lng, size=size) }}" class='mini_map' style='z-index: 2;'></iframe>
             </div>
           {% else %}
             <p>

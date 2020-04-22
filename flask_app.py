@@ -150,6 +150,8 @@ def offleash_response():
     near_parks = near_parks[:10]
     designation = 4  #default of 'undesignated'
     park_name = None
+    park_lat = None
+    park_lng = None
     details = None
     size = None
     for park in parks:
@@ -166,10 +168,12 @@ def offleash_response():
             continue
         print(f"You're in {park['attributes']['NAME']}")
         park_name = park['attributes']['NAME']
+        park_lat = park['attributes']['LATITUDE']
+        park_lng = park['attributes']['LONGITUDE']
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
         designation = int(park['attributes']['DOG_DESIGNATION'])
         size = int(park['attributes']['Shape_Area'])
-    return render_template('offleash_response.html', skip=skip, lat=lat, lng=lng, park_name=park_name, designation=designation, details=details, parks=near_parks, offleash_parks=offleash_parks, size=size)
+    return render_template('offleash_response.html', skip=skip, lat=lat, lng=lng, park_name=park_name, park_lat=park_lat, park_lng=park_lng, designation=designation, details=details, parks=near_parks, offleash_parks=offleash_parks, size=size)
 
 @app.route('/get_mini_map', methods=["POST", "GET"])
 def get_mini_map():
