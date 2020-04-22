@@ -9,19 +9,15 @@
 </head>
 <body>
   {% block body %}
-  <br>
-  <div class='blocktext + question'>
-    <a href='offleash' class='question'>
-      <h3>
-          "Can I take my dog off leash?"
-      </h3>
-    </a>
-    <br><br>
-    <a href="{{ url_for('offleash', skip='True') }}" class='question'>
-      <h3>
-          "Where can I bring my dog?"
-      </h3>
-    </a>
+  <br><br>
+  <div align='center'>
+    <button class='landing_button + sweep_left_landing' onclick="window.open('{{ url_for('offleash') }}', '_self')">
+      "Can I take my dog off leash?"
+    </button>
+    <br><br><br><br>
+    <button class='landing_button + sweep_right_landing' onclick="window.open('{{ url_for('offleash', skip='True') }}', '_self')">
+      "Where can I bring my dog?"
+    </button>
   </div>
   {% endblock %}
 </body>

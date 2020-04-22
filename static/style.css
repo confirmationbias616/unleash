@@ -34,6 +34,12 @@ body {
 .sweep_right {
   animation: sweep-details-from-left 0.09s ease-in-out;
 }
+.sweep_right_landing {
+  animation: sweep-details-from-left-landing 0.4s ease-in-out;
+}
+.sweep_left_landing {
+  animation: sweep-details-from-right-landing 0.4s ease-in-out;
+}
 .fade_in {
   animation: fade-in 0.04s ease-in-out;
 }
@@ -57,6 +63,11 @@ button:hover {
   box-shadow: 0px 4px 10px 3px var(--active_shadow);
   padding: 1em 2.05em;
 }
+.landing a:hover {
+  transition: box-shadow 0.5s;
+  box-shadow: 0px 4px 10px 3px var(--active_shadow);
+  padding: 1em 2.05em;
+}
 .red_button {
   background-color: var(--highlight);
   color: var(--highlight_button_text);
@@ -76,6 +87,17 @@ button:hover {
   transition: box-shadow 0.5s;
   box-shadow: 0px 2px 5px 2px var(--active_shadow);
   padding: 0.5em 1.5em;
+}
+.landing_button {
+  font-size: calc(10px + 3vw);
+  padding: 0.2em 0.5em;
+  box-shadow: 0px 2px 5px 2px black;
+}
+.landing_button:hover {
+  transition: padding 0.02s;
+  /* font-size: 5.5vw; */
+  padding: 0.3em 0.6em;
+  box-shadow: 0px 2px 5px 2px black;
 }
 .error_msg {
   color: var(--highlight);
@@ -129,6 +151,14 @@ button:hover {
 @keyframes sweep-details-from-left {
   0%    {opacity: 0; margin-left: -20vw}
   100%  {opacity: 1; margin-left: 0vw}
+}
+@keyframes sweep-details-from-left-landing {
+  0%    {opacity: 0; margin-left: -50vw}
+  100%  {opacity: 1; margin-left: 0vw}
+}
+@keyframes sweep-details-from-right-landing {
+  0%    {opacity: 0; margin-right: -50vw}
+  100%  {opacity: 1; margin-right: 0vw}
 }
 @keyframes fade-in {
   0%    {opacity: 0; margin-left: -10vw;}
