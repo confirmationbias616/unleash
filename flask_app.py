@@ -177,8 +177,14 @@ def get_mini_map():
     lat = request.args.get('lat')
     lng = request.args.get('lng')
     size = request.args.get('size')
-    size = f"{round(float(size)*0.00024710538146717,1)} acres" if size else 'unknown size'  # convert to acres
-    m = folium.Map(location=(lat, lng), zoom_start=14, min_zoom=11, width='100%', height='100%', disable_3D=False)
+    if size:
+        size_in_acres = round(float(size)*0.00024710538146717,1)
+        size_text= f"{size_in_acres} acres"
+        zoom_start = int(15 + 10 / size_in_acres)
+    else:
+        size_text = 'unknown size'
+        zoom_start = 14
+    m = folium.Map(location=(lat, lng), zoom_start=zoom_start, min_zoom=12, width='100%', height='100%', disable_3D=False)
     popup=folium.map.Popup(html=f"""
             <style>
               root {{
@@ -192,7 +198,7 @@ def get_mini_map():
             </style>
             <h6>{name}</h6>
             <p>
-              {size}<br>
+              {size_text}<br>
               {lat}, {lng}
             </p>
         """)
