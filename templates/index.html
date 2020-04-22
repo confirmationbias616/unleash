@@ -10,7 +10,7 @@
 <body>
   {% block body %}
   <br><br>
-  <div align='center'>
+  <div class='landing'>
     <button class='landing_button + sweep_left_landing' onclick="window.open('{{ url_for('offleash') }}', '_self')">
       "Can I take my dog off leash?"
     </button>
@@ -19,7 +19,7 @@
       "Where should I bring my dog?"
     </button>
     <br><br><br><br>
-    <button class='landing_button + fade_in_landing' onclick="window.open('{{ url_for('map') }}', '_self')">
+    <button class='landing_button + sweep_left_landing' onclick="window.open('{{ url_for('map') }}', '_self')">
       "Let me explore!"
     </button>
   </div>
