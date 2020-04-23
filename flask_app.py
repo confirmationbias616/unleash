@@ -4,6 +4,7 @@ from flask import Flask, render_template, url_for, request, redirect, session
 from flask_session import Session
 from jinja2.exceptions import TemplateNotFound
 import json
+import re
 import logging
 import sys
 import os
@@ -216,6 +217,37 @@ def get_mini_map():
     LocateControl().add_to(m)
     return m.get_root().render()
 
+@app.route('/get_mini_map_2', methods=["POST", "GET"])
+def get_mini_map_2():
+    lat = request.args.get('lat')
+    lng = request.args.get('lng')
+    size = request.args.get('size')
+    designation = int(request.args.get('designation'))
+    designation = 1 if designation == 4 else designation
+    if size:
+        size_in_acres = round(float(size)*0.00024710538146717,1)
+        size_text= f"{size_in_acres} acres"
+        zoom_start = int(15 + 10 / size_in_acres)
+    else:
+        size_text = 'unknown size'
+        zoom_start = 14
+    with open('templates/full_map.html', 'r+') as f:
+        reloc_map = f.read()
+    reloc_map = reloc_map.replace(
+        'center: [45.4166666, -75.6944444]',
+        f'center: [{lat}, {lng}]'
+    )
+    reloc_map = reloc_map.replace(
+        'zoom: 12',
+        f'zoom: {zoom_start}'
+    )
+    group_ids = {x[0]:x[1] for x in zip([0,1,2,3], re.findall("""\".*\" : feature_group_(.*),""", reloc_map))}
+    reloc_map = reloc_map.replace(f"feature_group_{group_ids[designation]}.remove();", f"feature_group_{group_ids[0]}.remove();")
+    try:
+        return reloc_map
+    except TemplateNotFound:
+        pass
+
 @app.route('/get_full_map', methods=["POST", "GET"])
 def get_full_map():
     try:
@@ -287,7 +319,7 @@ def get_full_map():
         </details>
     """
 
-    m = folium.Map(tile=None, name='', location=(45.416, -75.694), zoom_start=12, width='100%', height='100%', disable_3D=False)
+    m = folium.Map(tile=None, name='', location=(45.4166666, -75.6944444), zoom_start=12, width='100%', height='100%', disable_3D=False)
     folium.TileLayer('openstreetmap', control=False, overlay=False, name='').add_to(m)
 
     feature_group = folium.FeatureGroup(name="off leash", overlay=True, show=True)
