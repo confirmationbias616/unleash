@@ -287,7 +287,6 @@ def get_full_map():
     m = folium.Map(tile=None, name='', location=(45.416, -75.694), zoom_start=12, width='100%', height='100%', disable_3D=False)
     folium.TileLayer('openstreetmap', control=False, overlay=False, name='').add_to(m)
 
-    mc = MarkerCluster()
     feature_group = folium.FeatureGroup(name="off leash", overlay=True, show=True)
     for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '0']:
         name = park['attributes']['NAME']
@@ -302,15 +301,13 @@ def get_full_map():
         else:
             size_text = 'unknown size'
         popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, lat, lng, details), max_width='220', max_height='200')
-        mc.add_child(folium.Marker(
+        folium.Marker(
             [lat, lng],
             popup=popup,
             icon=folium.Icon(prefix='fa', icon='circle', color='green')
-        ))
-    feature_group.add_child(mc)
+        ).add_to(feature_group)
     feature_group.add_to(m)
 
-    mc = MarkerCluster()
     feature_group = folium.FeatureGroup(name="on leash", overlay=True, show=False)
     for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] in ['1', '4']]:
         name = park['attributes']['NAME']
@@ -324,15 +321,13 @@ def get_full_map():
         else:
             size_text = 'unknown size'
         popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, lat, lng, details), max_width='220', max_height='200')
-        mc.add_child(folium.Marker(
+        folium.Marker(
             [lat, lng],
             popup=popup,
             icon=folium.Icon(prefix='fa', icon='circle', color='lightgray')
-        ))
-    feature_group.add_child(mc)
+        ).add_to(feature_group)
     feature_group.add_to(m)
 
-    mc = MarkerCluster()
     feature_group = folium.FeatureGroup(name="mixed designation", overlay=True, show=False)
     for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '2']:
         name = park['attributes']['NAME']
@@ -346,15 +341,13 @@ def get_full_map():
         else:
             size_text = 'unknown size'
         popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, lat, lng, details), max_width='220', max_height='200')
-        mc.add_child(folium.Marker(
+        folium.Marker(
             [lat, lng],
             popup=popup,
             icon=folium.Icon(prefix='fa', icon='circle', color='white')
-        ))
-    feature_group.add_child(mc)
+        ).add_to(feature_group)
     feature_group.add_to(m)
     
-    mc = MarkerCluster()
     feature_group = folium.FeatureGroup(name="no dogs allowed", overlay=True, show=False)
     for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '3']:
         name = park['attributes']['NAME']
@@ -368,12 +361,11 @@ def get_full_map():
         else:
             size_text = 'unknown size'
         popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, lat, lng, details), max_width='220', max_height='200')
-        mc.add_child(folium.Marker(
+        folium.Marker(
             [lat, lng],
             popup=popup,
             icon=folium.Icon(prefix='fa', icon='circle', color='red')
-        ))
-    feature_group.add_child(mc)
+        ).add_to(feature_group)
     feature_group.add_to(m)
 
     folium.LayerControl(collapsed=True).add_to(m)
