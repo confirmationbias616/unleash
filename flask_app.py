@@ -258,7 +258,7 @@ def get_mini_map_3():
     if size:
         size_in_acres = round(float(size)*0.00024710538146717,1)
         size_text= f"{size_in_acres} acres"
-        zoom_start = int(15 + 10 / size_in_acres)
+        zoom_start = int(14 + 10 / size_in_acres)
     else:
         size_text = 'unknown size'
         zoom_start = 14
