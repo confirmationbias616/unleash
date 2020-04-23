@@ -261,6 +261,7 @@ def get_full_map():
         </style>
         <h6 align='center'>{}</h6>
         <div align='center'>
+            <button onclick="window.open('{}', '_blank', 'noopener')" style='font-weight: bold;'>directions</button>
             <br><br>
             <table align='center' style="width:100%">
                 <tr>
@@ -276,7 +277,7 @@ def get_full_map():
                     <td>{}</td>
                 </tr>
             </table>
-        </div
+        </div>
         <br>
         <details open>
             <summary><b>details</b></summary>
