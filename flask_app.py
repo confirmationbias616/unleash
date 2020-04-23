@@ -224,10 +224,10 @@ def get_full_map():
         pass
     logger.info('starting to build map...')
     def get_all_parks():
-        api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%200%20AND%20OBJECTID%20%3C%3D%201000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=false&outSR=4326&f=json'
+        api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%200%20AND%20OBJECTID%20%3C%3D%201000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=true&outSR=4326&f=json'
         response = json.loads(requests.get(api_call).content)
         parks_1 = response['features']
-        api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%201001%20AND%20OBJECTID%20%3C%3D%205000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=false&outSR=4326&f=json'
+        api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%201001%20AND%20OBJECTID%20%3C%3D%205000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=true&outSR=4326&f=json'
         response = json.loads(requests.get(api_call).content)
         parks_2 = response['features']
         parks = parks_1 + parks_2
@@ -248,6 +248,8 @@ def get_full_map():
         else:
             all_park_names.update({park_name:1})
     
+    fill_opacity = 0.08
+    line_weight = 3
     popup_html = """
         <style>
         root {{
@@ -284,10 +286,12 @@ def get_full_map():
             <i>{}</i>
         </details>
     """
+
     m = folium.Map(tile=None, name='', location=(45.416, -75.694), zoom_start=12, width='100%', height='100%', disable_3D=False)
     folium.TileLayer('openstreetmap', control=False, overlay=False, name='').add_to(m)
 
     feature_group = folium.FeatureGroup(name="off leash", overlay=True, show=True)
+    layer_color = 'green'
     for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '0']:
         name = park['attributes']['NAME']
         lat = park['attributes']['LATITUDE']
@@ -304,11 +308,34 @@ def get_full_map():
         folium.Marker(
             [lat, lng],
             popup=popup,
-            icon=folium.Icon(prefix='fa', icon='circle', color='green')
+            icon=folium.Icon(prefix='fa', icon='circle', color=layer_color)
+        ).add_to(feature_group)
+        geojson = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            ring for ring in park['geometry']['rings']
+                        ]
+                    },
+                },
+            ]
+        }
+        folium.features.Choropleth(
+            geo_data=geojson,
+            highlight=True,
+            line_color=layer_color,
+            fill_color=layer_color,
+            fill_opacity = fill_opacity,
+            line_weight=line_weight
         ).add_to(feature_group)
     feature_group.add_to(m)
 
     feature_group = folium.FeatureGroup(name="on leash", overlay=True, show=False)
+    layer_color = 'black'
     for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] in ['1', '4']]:
         name = park['attributes']['NAME']
         lat = park['attributes']['LATITUDE']
@@ -324,11 +351,34 @@ def get_full_map():
         folium.Marker(
             [lat, lng],
             popup=popup,
-            icon=folium.Icon(prefix='fa', icon='circle', color='lightgray')
+            icon=folium.Icon(prefix='fa', icon='circle', color=layer_color)
+        ).add_to(feature_group)
+        geojson = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            ring for ring in park['geometry']['rings']
+                        ]
+                    },
+                },
+            ]
+        }
+        folium.features.Choropleth(
+            geo_data=geojson,
+            highlight=True,
+            line_color=layer_color,
+            fill_color=layer_color,
+            fill_opacity=fill_opacity,
+            line_weight=line_weight
         ).add_to(feature_group)
     feature_group.add_to(m)
 
     feature_group = folium.FeatureGroup(name="mixed designation", overlay=True, show=False)
+    layer_color = 'purple'
     for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '2']:
         name = park['attributes']['NAME']
         lat = park['attributes']['LATITUDE']
@@ -344,11 +394,34 @@ def get_full_map():
         folium.Marker(
             [lat, lng],
             popup=popup,
-            icon=folium.Icon(prefix='fa', icon='circle', color='white')
+            icon=folium.Icon(prefix='fa', icon='circle', color=layer_color)
+        ).add_to(feature_group)
+        geojson = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            ring for ring in park['geometry']['rings']
+                        ]
+                    },
+                },
+            ]
+        }
+        folium.features.Choropleth(
+            geo_data=geojson,
+            highlight=True,
+            line_color=layer_color,
+            fill_color=layer_color,
+            fill_opacity=fill_opacity,
+            line_weight=line_weight
         ).add_to(feature_group)
     feature_group.add_to(m)
     
     feature_group = folium.FeatureGroup(name="no dogs allowed", overlay=True, show=False)
+    layer_color = 'red'
     for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '3']:
         name = park['attributes']['NAME']
         lat = park['attributes']['LATITUDE']
@@ -364,7 +437,29 @@ def get_full_map():
         folium.Marker(
             [lat, lng],
             popup=popup,
-            icon=folium.Icon(prefix='fa', icon='circle', color='red')
+            icon=folium.Icon(prefix='fa', icon='circle', color=layer_color)
+        ).add_to(feature_group)
+        geojson = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            ring for ring in park['geometry']['rings']
+                        ]
+                    },
+                },
+            ]
+        }
+        folium.features.Choropleth(
+            geo_data=geojson,
+            highlight=False,
+            line_color=layer_color,
+            fill_color=layer_color,
+            fill_opacity = 0.5,  #overwrite
+            line_weight=line_weight
         ).add_to(feature_group)
     feature_group.add_to(m)
 
