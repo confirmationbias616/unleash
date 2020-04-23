@@ -76,7 +76,7 @@
                 <!-- <button id="map_button_{{ p['attributes']['LATITUDE'] }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{p['attributes']['LATITUDE']}}').style.display = 'inline'; document.getElementById('map_button_{{p['attributes']['LATITUDE']}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map / trails</b></button> -->
                 <div id="map_container_{{ p['attributes']['LATITUDE'] }}">
                   <button class='white_button + direction_button + mini_map' onclick="window.open('{{ url_for('get_mini_map_2', lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area'], designation=p['attributes']['DOG_DESIGNATION']) }}', '_blank', 'noopener')"><i class="fas fa-external-link-alt"></i></button>
-                  <iframe src="{{ url_for('get_mini_map_2', lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area'], designation=p['attributes']['DOG_DESIGNATION']) }}" class='mini_map' style='z-index: 2;'></iframe>
+                  <iframe src="{{ url_for('get_mini_map_3', focus=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area'], designation=p['attributes']['DOG_DESIGNATION']) }}" class='mini_map' style='z-index: 2;'></iframe>
                 </div>
               </div>
             </div>
@@ -98,7 +98,7 @@
                 <!-- <button id="map_button_{{ p['attributes']['LATITUDE'] }}" class='white_button + direction_button' style='font-size: 100%;' onclick="document.getElementById('map_container_{{p['attributes']['LATITUDE']}}').style.display = 'inline'; document.getElementById('map_button_{{p['attributes']['LATITUDE']}}').style.display = 'none';"><i class="far fa-map"></i>&nbsp;&nbsp;<b>map / trails</b></button> -->
                 <div id="map_container_{{ p['attributes']['LATITUDE'] }}">
                   <button class='white_button + direction_button + mini_map' onclick="window.open('{{ url_for('get_mini_map_2', lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area'], designation=p['attributes']['DOG_DESIGNATION']) }}', '_blank', 'noopener')"><i class="fas fa-external-link-alt"></i></button>
-                  <iframe src="{{ url_for('get_mini_map_2', lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area'], designation=p['attributes']['DOG_DESIGNATION']) }}" class='mini_map' style='z-index: 2;'></iframe>
+                  <iframe src="{{ url_for('get_mini_map_3', focus=p['attributes']['NAME'], lat=p['attributes']['LATITUDE'], lng=p['attributes']['LONGITUDE'], size=p['attributes']['Shape_Area'], designation=p['attributes']['DOG_DESIGNATION']) }}" class='mini_map' style='z-index: 2;'></iframe>
                 </div>
               </div>
             </div>

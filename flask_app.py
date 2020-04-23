@@ -248,6 +248,79 @@ def get_mini_map_2():
     except TemplateNotFound:
         pass
 
+@app.route('/get_mini_map_3', methods=["POST", "GET"])
+def get_mini_map_3():
+    focus = request.args.get('focus', None)
+    lat = request.args.get('lat')
+    lng = request.args.get('lng')
+    size = request.args.get('size')
+    designation = str(request.args.get('designation'))
+    if size:
+        size_in_acres = round(float(size)*0.00024710538146717,1)
+        size_text= f"{size_in_acres} acres"
+        zoom_start = int(15 + 10 / size_in_acres)
+    else:
+        size_text = 'unknown size'
+        zoom_start = 14
+    def get_all_parks():
+        api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%200%20AND%20OBJECTID%20%3C%3D%201000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=true&outSR=4326&f=json'
+        response = json.loads(requests.get(api_call).content)
+        parks_1 = response['features']
+        api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%201001%20AND%20OBJECTID%20%3C%3D%205000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=true&outSR=4326&f=json'
+        response = json.loads(requests.get(api_call).content)
+        parks_2 = response['features']
+        parks = parks_1 + parks_2
+        return parks
+    logger.info('done loading...')
+    while True:
+        try:
+            parks = get_all_parks()
+            break
+        except requests.ConnectionError:
+            sleep(1)
+    parks = [park for park in parks if park['attributes']['NAME'] == focus]
+    fill_opacity = 0.08
+    line_weight = 3
+    m = folium.Map(tile=None, name='', location=(lat, lng), zoom_start=zoom_start, width='100%', height='100%', disable_3D=False)
+    #folium.TileLayer('openstreetmap', control=False, overlay=False, name='').add_to(m)
+    feature_group = folium.FeatureGroup(name="off leash", overlay=False, show=True, control=False)
+    color_map = {'0':'green', '1':'black', '2':'purple', '3':'red', '4':'black'}
+    layer_color = color_map[designation]
+    for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] == designation]:
+        geojson = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            ring for ring in park['geometry']['rings']
+                        ]
+                    },
+                },
+            ]
+        }
+        folium.features.Choropleth(
+            geo_data=geojson,
+            highlight=True,
+            line_color=layer_color,
+            fill_color=layer_color,
+            fill_opacity = fill_opacity,
+            line_weight=line_weight
+        ).add_to(feature_group)
+    feature_group.add_to(m)
+    # folium.LayerControl(collapsed=True).add_to(m)
+    # LocateControl().add_to(m)
+    return m.get_root().render()
+
+
+
+
+
+
+
+
 @app.route('/get_full_map', methods=["POST", "GET"])
 def get_full_map():
     try:
