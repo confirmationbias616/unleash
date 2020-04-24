@@ -145,7 +145,7 @@ def offleash_response():
     parks.sort(key=lambda park: distance_to_edge(park))
     parks = parks[:30]
     for park in parks:
-        park['attributes'].update({'directions': f"https://www.google.com/maps/dir/{lat},{lng}/{park['attributes']['LATITUDE']},{park['attributes']['LONGITUDE']}/@{lat},{lng}"})
+        park['attributes'].update({'directions': f"https://www.google.com/maps/dir/?api=1&destination={lat}%2C{lng}"})
     offleash_parks = [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '0']
     near_parks = [park for park in parks if park['attributes']['NAME'] not in [park['attributes']['NAME'] for park in offleash_parks]]
     near_parks = [park for park in near_parks if park['attributes']['DOG_DESIGNATION'] != '3']
@@ -403,7 +403,7 @@ def get_full_map():
         lng = park['attributes']['LONGITUDE']
         size = park['attributes']['Shape_Area']
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
-        directions = f"https://www.google.com/maps/dir/{lat},{lng}/{park['attributes']['LATITUDE']},{park['attributes']['LONGITUDE']}/@{lat},{lng}"
+        directions = f"https://www.google.com/maps/dir/?api=1&destination={lat}%2C{lng}"
         if size:
             size_in_acres = round(float(size)*0.00024710538146717,1)
             size_text= f"{size_in_acres} acres"
