@@ -44,7 +44,7 @@ body {
   animation: fade-in 0.04s ease-in-out;
 }
 .sweep_up {
-  animation: sweep-from-bottom 0.2s ease-in-out;
+  animation: sweep-from-bottom 1s ease-in-out;
 }
 u{
   text-decoration-color: var(--highlight);
