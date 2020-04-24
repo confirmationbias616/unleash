@@ -43,6 +43,9 @@ body {
 .fade_in {
   animation: fade-in 0.04s ease-in-out;
 }
+.sweep_up {
+  animation: sweep-from-bottom 0.2s ease-in-out;
+}
 u{
   text-decoration-color: var(--highlight);
 }
@@ -191,6 +194,10 @@ div.landing {
 @keyframes sweep-details-from-right-landing {
   0%    {opacity: 0; margin-right: -50vw}
   100%  {opacity: 1; margin-right: 0vw}
+}
+@keyframes sweep-from-bottom {
+  0%    {transform: translateY(100%)}
+  100%    {transform: translateY(0%)}
 }
 ::selection {
   color: var(--highlight); 
