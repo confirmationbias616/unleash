@@ -231,6 +231,7 @@ def get_mini_map_2():
     else:
         size_text = 'unknown size'
         zoom_start = 14
+    zoom_start -= 2
     with open('templates/full_map.html', 'r+') as f:
         reloc_map = f.read()
     reloc_map = reloc_map.replace(
@@ -262,7 +263,6 @@ def get_mini_map_3():
     else:
         size_text = 'unknown size'
         zoom_start = 14
-    zoom_start -= 2
     def get_all_parks():
         api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%200%20AND%20OBJECTID%20%3C%3D%201000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=true&outSR=4326&f=json'
         response = json.loads(requests.get(api_call).content)
