@@ -55,6 +55,10 @@ def dated_url_for(endpoint, **values):
 def index():
     return render_template('index.html')
 
+@app.route('/about', methods=["POST", "GET"])
+def about():
+    return render_template('about.html')
+
 @app.route('/offleash', methods=["POST", "GET"])
 def offleash():
     skip = request.args.get('skip', 'False')
