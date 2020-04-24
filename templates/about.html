@@ -9,6 +9,7 @@
 </head>
 <body>
   {% block body %}
+  <br><br>
   <div class='blocktext'>
     <button onclick="window.open('https://open.ottawa.ca/datasets/cfb079e407494c33b038e86c7e05288e_24', '_blank', 'noopener')"><i class="fas fa-external-link-alt"></i>&nbsp;&nbsp;<b>dataset</b></button>
     <br><br>
@@ -19,7 +20,7 @@
     <br>
     <button id='disclaimer_button' class='white_button + direction_button' style='font-size: 90%; color: var(--text_color)' onclick="show_disclaimer()"><b>disclaimer</b></button>
     <div id='disclaimer_container' style='display: none; width: 70% !important;'>
-      <p class='disclaimer' style='width: 172% !important;'>
+      <p class='disclaimer' style='width: 172% !important; color: whitesmoke;''>
         Please use common sense and good judgement when acting on information within
         this app. The Open Ottawa data could be out outdated and/or your device could
         be reporting inaccurate GPS data.
@@ -31,6 +32,17 @@
       </p>
     </div>
   </div>
+  <script>
+    function show_disclaimer() {  
+      document.getElementById("disclaimer_container").style.display = 'inline';
+      document.getElementById("disclaimer_button").style.display = 'none';
+      document.getElementById("disclaimer_placeholder").style.display = 'none';
+    }
+    function show_hire_me() {  
+      document.getElementById("hire_me_container").style.display = 'inline';
+      document.getElementById("hire_me_button").style.display = 'none';
+    }
+  </script>
   {% endblock %}
 </body>
 </html>
