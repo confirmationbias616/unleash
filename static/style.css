@@ -99,9 +99,9 @@ button:hover {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: min(30px, 150%);
-  font-weight: bold;
-  font-style: italic;
+  font-size: min(30px, 110%);
+  /* font-weight: bold;
+  font-style: italic; */
   border-radius: 4px;
   box-shadow: 0px 4px 10px 3px var(--inactive_shadow);
   /* font-size: calc(10px + 3vw);
@@ -315,6 +315,14 @@ button.mini_map {
 .open_self {
   display: none;
 }
+hr.landing_spacing {
+  height: max(7vh, 20px);
+  color: rgba(0,0,0,0);
+}
+hr.top_landing_spacing {
+  height: 15vh;
+  color: rgba(0,0,0,0);
+}
 @media screen and (max-width: 500px) {
   .open_blank {
     display: none;
@@ -330,10 +338,14 @@ button.mini_map {
   .open_self {
     display: inline-block;
   }
+  hr.landing_spacing {
+    height: 2vh;
+  }
+  hr.top_landing_spacing {
+    height: 0vh;
+  }
 }
 .navbar {
-  margin-top: 0.5em;
-  margin-bottom: 0.2em;
   margin-right: 3vw;
   margin-left: 3vw;
   width: 94vw;
@@ -351,4 +363,5 @@ button.mini_map {
   float: left;
   color: black;
   text-decoration: none;
+  text-shadow: 0em 0em 0.03em whitesmoke;
 }

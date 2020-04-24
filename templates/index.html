@@ -9,16 +9,18 @@
 </head>
 <body>
   {% block body %}
-  <br><br>
   <div class='landing'>
+    <hr class='top_landing_spacing'>
     <button class='landing_button + sweep_left_landing' onclick="window.open('{{ url_for('offleash') }}', '_self')">
       "Can I take my dog off leash?"
     </button>
-    <br><br><br><br>
+    <hr class='landing_spacing'>
+    <!-- <br><br><br><br> -->
     <button class='landing_button + sweep_right_landing' onclick="window.open('{{ url_for('offleash', skip='True') }}', '_self')">
       "Where should I bring my dog?"
     </button>
-    <br><br><br><br>
+    <hr class='landing_spacing'>
+    <!-- <br><br><br><br> -->
     <button class='landing_button + sweep_left_landing' onclick="window.open('{{ url_for('map') }}', '_self')">
       "Let me explore!"
     </button>

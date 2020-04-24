@@ -23,11 +23,14 @@
 </head>
 <body>
     <div class="navbar">
-        <a class="title" href={{ url_for('index') }}>
-            <img src="favicon.png" alt="" style='width: 1em; height: 1em;'>
-            OttLeash
+        <a class="title" href={{ url_for('index') }} style="padding: 0.2em 0;">
+            <img src="mobile_icon.png" alt="" style='float:left; width: 1.8em; height: 1.8em; border-radius: 0.3em; border: 0.12em solid black;'>
+            <div style="float: left; padding: 0.3em 0em;">
+                &nbsp;
+                <span style="letter-spacing: 0.2em;">OttLeash</span>
+            </div>
         </a>
-        <a class="links" href={{ url_for('about') }}>about</a>
+        <a class="links" href={{ url_for('about') }} style="padding: 0.45em 0em 0em 0em;">about</a>
     </div>
     <div class="advertise_banner_container">
         <div class="advertise_banner">
@@ -43,7 +46,6 @@
             </span>
         </div>
     </div>
-    <br>
     {% block body %}
     {% endblock %}
 </body>
