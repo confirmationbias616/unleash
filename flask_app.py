@@ -145,7 +145,7 @@ def offleash_response():
     parks.sort(key=lambda park: distance_to_edge(park))
     parks = parks[:30]
     for park in parks:
-        park['attributes'].update({'directions': f"https://www.google.com/maps/dir/?api=1&destination={lat}%2C{lng}"})
+        park['attributes'].update({'directions': f"https://www.google.com/maps/dir/?api=1&destination={park['attributes']['LONGITUDE']}%2C{park['attributes']['LONGITUDE']}"})
     offleash_parks = [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '0']
     near_parks = [park for park in parks if park['attributes']['NAME'] not in [park['attributes']['NAME'] for park in offleash_parks]]
     near_parks = [park for park in near_parks if park['attributes']['DOG_DESIGNATION'] != '3']
