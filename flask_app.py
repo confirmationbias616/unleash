@@ -319,13 +319,6 @@ def get_mini_map_3():
     # LocateControl().add_to(m)
     return m.get_root().render()
 
-
-
-
-
-
-
-
 @app.route('/get_full_map', methods=["POST", "GET"])
 def get_full_map():
     try:
@@ -452,6 +445,7 @@ def get_full_map():
         lng = park['attributes']['LONGITUDE']
         size = park['attributes']['Shape_Area']
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
+        directions = f"https://www.google.com/maps/dir/?api=1&destination={lat}%2C{lng}"
         if size:
             size_in_acres = round(float(size)*0.00024710538146717,1)
             size_text= f"{size_in_acres} acres"
@@ -495,6 +489,7 @@ def get_full_map():
         lng = park['attributes']['LONGITUDE']
         size = park['attributes']['Shape_Area']
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
+        directions = f"https://www.google.com/maps/dir/?api=1&destination={lat}%2C{lng}"
         if size:
             size_in_acres = round(float(size)*0.00024710538146717,1)
             size_text= f"{size_in_acres} acres"
@@ -538,6 +533,7 @@ def get_full_map():
         lng = park['attributes']['LONGITUDE']
         size = park['attributes']['Shape_Area']
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
+        directions = f"https://www.google.com/maps/dir/?api=1&destination={lat}%2C{lng}"
         if size:
             size_in_acres = round(float(size)*0.00024710538146717,1)
             size_text= f"{size_in_acres} acres"
