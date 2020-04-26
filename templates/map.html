@@ -12,12 +12,10 @@
   {% block body %}
   <div class='sweep_up' align='center'>
     <div style="width: 60vw; margin: auto; position: relative; z-index: 10000000000;font-size: 12px !important;">
-      <form style="display: inline;">
-        <!-- <label for="locate">search for specific location or park</label><br> -->
+      <form style="display: inline;" onsubmit="return refresh()">
         <input type="text" id="locate" name="locate" style='box-shadow: 0px 4px 10px 3px var(--inactive_shadow);'>
-        <!-- <input type="submit" value="fuck"> -->
+        <input type="submit" value='search' style="display: inline; padding: 0.05em 0.3em;">
       </form>
-      <button onclick="refresh()" style="display: inline; padding: 0.05em 0.3em;">search</button>
     </div>
     <iframe id='main_popup_map' src="{{ url_for('get_full_map') }}" class='full_map'></iframe>
   </div>
@@ -27,7 +25,8 @@
       var locate = document.getElementById('locate').value;
       console.log(locate);
       ifr.src="{{ url_for('get_full_map') }}"+`?locate=${locate}`;
-      }
+      return false;
+    }
   </script>
   {% endblock %}
 </body>
