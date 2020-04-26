@@ -249,7 +249,7 @@ def get_mini_map_2():
     with open('templates/full_map.html', 'r+') as f:
         reloc_map = f.read()
     reloc_map = reloc_map.replace(
-        'center: [45.4166666, -75.6944444]',
+        'center: [45.4096666, -75.6944444]',
         f'center: [{lat}, {lng}]'
     )
     reloc_map = reloc_map.replace(
@@ -377,7 +377,7 @@ def get_full_map():
         </details>
     """
 
-    m = folium.Map(tile=None, name='', location=(45.4166666, -75.6944444), zoom_start=12, width='100%', height='100%', disable_3D=False)
+    m = folium.Map(tile=None, name='', location=(45.4096666, -75.6944444), zoom_start=12, width='100%', height='100%', disable_3D=False)
     folium.TileLayer('openstreetmap', control=False, overlay=False, name='').add_to(m)
 
     feature_group = folium.FeatureGroup(name="off leash", overlay=True, show=True)
