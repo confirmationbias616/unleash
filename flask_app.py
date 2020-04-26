@@ -51,6 +51,16 @@ def dated_url_for(endpoint, **values):
             values["q"] = int(os.stat(file_path).st_mtime)
     return url_for(endpoint, **values)
 
+def get_all_parks():
+    api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%200%20AND%20OBJECTID%20%3C%3D%201000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=true&outSR=4326&f=json'
+    response = json.loads(requests.get(api_call).content)
+    parks_1 = response['features']
+    api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%201001%20AND%20OBJECTID%20%3C%3D%205000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=true&outSR=4326&f=json'
+    response = json.loads(requests.get(api_call).content)
+    parks_2 = response['features']
+    parks = parks_1 + parks_2
+    return parks
+
 @app.route('/', methods=["POST", "GET"])
 def index():
     return render_template('index.html')
@@ -267,15 +277,7 @@ def get_mini_map_3():
     else:
         size_text = 'unknown size'
         zoom_start = 14
-    def get_all_parks():
-        api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%200%20AND%20OBJECTID%20%3C%3D%201000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=true&outSR=4326&f=json'
-        response = json.loads(requests.get(api_call).content)
-        parks_1 = response['features']
-        api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%201001%20AND%20OBJECTID%20%3C%3D%205000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=true&outSR=4326&f=json'
-        response = json.loads(requests.get(api_call).content)
-        parks_2 = response['features']
-        parks = parks_1 + parks_2
-        return parks
+
     logger.info('done loading...')
     while True:
         try:
@@ -321,21 +323,6 @@ def get_mini_map_3():
 
 @app.route('/get_full_map', methods=["POST", "GET"])
 def get_full_map():
-    try:
-        return render_template('full_map.html')
-    except TemplateNotFound:
-        pass
-    logger.info('starting to build map...')
-    def get_all_parks():
-        api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%200%20AND%20OBJECTID%20%3C%3D%201000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=true&outSR=4326&f=json'
-        response = json.loads(requests.get(api_call).content)
-        parks_1 = response['features']
-        api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%201001%20AND%20OBJECTID%20%3C%3D%205000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=true&outSR=4326&f=json'
-        response = json.loads(requests.get(api_call).content)
-        parks_2 = response['features']
-        parks = parks_1 + parks_2
-        return parks
-    logger.info('done loading...')
     while True:
         try:
             parks = get_all_parks()
