@@ -352,19 +352,20 @@ def get_full_map():
                     lat, lng = locate.split(', ')
                 except ValueError:
                     pass
-            if not lat:  # location not found
-                return render_template('full_map.html')
-            with open('templates/full_map.html', 'r+') as f:
-                reloc_map = f.read()
-            reloc_map = reloc_map.replace(
-                'center: [45.4096666, -75.6944444]',
-                f'center: [{lat}, {lng}]'
-            )
-            reloc_map = reloc_map.replace(
-                'zoom: 12',
-                'zoom: 16'
-            )
-            return reloc_map
+            if lat: 
+                with open('templates/full_map.html', 'r+') as f:
+                    reloc_map = f.read()
+                reloc_map = reloc_map.replace(
+                    'center: [45.4096666, -75.6944444]',
+                    f'center: [{lat}, {lng}]'
+                )
+                reloc_map = reloc_map.replace(
+                    'zoom: 12',
+                    'zoom: 16'
+                )
+                return reloc_map
+        else: # location not found or not specified
+            return render_template('full_map.html')
     except TemplateNotFound:
         logger.info("template 'full_map.html' requested but not found")
         pass
