@@ -334,24 +334,49 @@ def get_mini_map_3():
 
 @app.route('/get_full_map', methods=["POST", "GET"])
 def get_full_map():
+    logger.info('yup')
+    try:
+        with open(".secret.json") as f:
+            api_key = json.load(f)["geo_api_key"]
+    except FileNotFoundError:  # no `.secret.json` file if running in CI
+        api_key = None
+
+    def api_call(address_param):
+        if not api_key:
+            return {}
+        api_request = "https://maps.googleapis.com/maps/api/geocode/json?address={}, Ottawa, Ontario, Canada&bounds=41.6765559,-95.1562271|56.931393,-74.3206479&key={}"
+        response = requests.get(api_request.format(address_param, api_key))
+        results_list = json.loads(response.content)['results']
+        for result in results_list:
+            if 'ottawa' in str(result).lower():
+                return result
+        return {}
+
+    def get_address_latlng(address_input):
+        if (not address_input) or (address_input == 'null'):
+            return {}
+        info = api_call(f"{address_input}")
+        if info:
+            return info['geometry']['location']
+        return {}
+        
     try:
         locate = request.args.get('locate')
         if locate:
             lat, lng = None, None
-            # see if query is park name
             try:
                 parks
             except NameError:
                 parks = get_all_parks()
-            for park in parks:
+            for park in parks:  # see if query is park name
                 if locate.lower() in park['attributes']['NAME'].lower():
                     lat = park['attributes']['LATITUDE']
                     lng = park['attributes']['LONGITUDE']
-            if not lat:  # must be lat, lng
-                try:
-                    lat, lng = locate.split(', ')
-                except ValueError:
-                    pass
+            if not lat:  # get google to geocode it
+                geocode_result = get_address_latlng(locate)
+                logger.info(f"geocode_result: {geocode_result}")
+                lat = geocode_result.get('lat')
+                lng = geocode_result.get('lng')
             if lat: 
                 with open('templates/full_map.html', 'r+') as f:
                     reloc_map = f.read()
