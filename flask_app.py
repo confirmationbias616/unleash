@@ -329,6 +329,35 @@ def get_full_map():
             break
         except requests.ConnectionError:
             sleep(1)
+    try:
+        locate = request.args.get('locate')
+        if locate:
+            lat, lng = None, None
+            # see if query is park name
+            for park in parks:
+                if locate.lower() in park['attributes']['NAME'].lower():
+                    lat = park['attributes']['LATITUDE']
+                    lng = park['attributes']['LONGITUDE']
+            if not lat:  # must be lat, lng
+                try:
+                    lat, lng = locate.split(', ')
+                except ValueError:
+                    pass
+            if not lat:  # location not found
+                return render_template('full_map.html')
+            with open('templates/full_map.html', 'r+') as f:
+                reloc_map = f.read()
+            reloc_map = reloc_map.replace(
+                'center: [45.4096666, -75.6944444]',
+                f'center: [{lat}, {lng}]'
+            )
+            reloc_map = reloc_map.replace(
+                'zoom: 12',
+                'zoom: 16'
+            )
+            return reloc_map
+    except TemplateNotFound:
+        pass
     all_park_names = {}
     for i in range(len(parks)):
         park_name = parks[i]['attributes']['NAME']
