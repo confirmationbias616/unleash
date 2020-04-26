@@ -366,6 +366,7 @@ def get_full_map():
             )
             return reloc_map
     except TemplateNotFound:
+        logger.info("template 'full_map.html' requested but not found")
         pass
     fill_opacity = 0.08
     line_weight = 3
