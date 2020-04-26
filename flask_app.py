@@ -113,9 +113,9 @@ def offleash_response():
     # # South Bilberry Valley - Designation: 0
     # lat = 45.461881
     # lng = -75.503509
-    # Riverside Memorial Park - Desgnation: 3
-    lat = 45.42453977
-    lng = -75.6657053
+    # # Riverside Memorial Park - Desgnation: 3
+    # lat = 45.42453977
+    # lng = -75.6657053
     # # Pony Park - Desgnation: 1
     # lat = 45.28512057
     # lng = -75.86566251
