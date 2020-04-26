@@ -52,14 +52,28 @@ def dated_url_for(endpoint, **values):
     return url_for(endpoint, **values)
 
 def get_all_parks():
-    api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%200%20AND%20OBJECTID%20%3C%3D%201000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=true&outSR=4326&f=json'
-    response = json.loads(requests.get(api_call).content)
-    parks_1 = response['features']
-    api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%201001%20AND%20OBJECTID%20%3C%3D%205000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=true&outSR=4326&f=json'
-    response = json.loads(requests.get(api_call).content)
-    parks_2 = response['features']
-    parks = parks_1 + parks_2
-    return parks
+    while True:
+        try:
+            api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%200%20AND%20OBJECTID%20%3C%3D%201000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=true&outSR=4326&f=json'
+            response = json.loads(requests.get(api_call).content)
+            parks_1 = response['features']
+            api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=OBJECTID%20%3E%3D%201001%20AND%20OBJECTID%20%3C%3D%205000&outFields=NAME,ADDRESS,PARK_TYPE,DOG_DESIGNATION,LATITUDE,LONGITUDE,DOG_DESIGNATION_DETAILS,OBJECTID,PARK_ID,OPEN,ACCESSIBLE,WARD_NAME,WATERBODY_ACCESS,Shape_Area&returnGeometry=true&outSR=4326&f=json'
+            response = json.loads(requests.get(api_call).content)
+            parks_2 = response['features']
+            parks = parks_1 + parks_2
+            for park in parks:
+                park['attributes'].update({'directions': f"https://www.google.com/maps/dir/?api=1&destination={park['attributes']['LATITUDE']}%2C{park['attributes']['LONGITUDE']}"})
+            all_park_names = {}
+            for i in range(len(parks)):
+                park_name = parks[i]['attributes']['NAME']
+                if park_name in all_park_names:
+                    all_park_names.update({park_name: all_park_names[park_name] + 1})
+                    parks[i]['attributes']['NAME'] = park_name + ' #' + str(all_park_names[park_name])
+                else:
+                    all_park_names.update({park_name:1})
+            return parks
+        except requests.ConnectionError:
+            sleep(1)
 
 @app.route('/', methods=["POST", "GET"])
 def index():
@@ -99,9 +113,9 @@ def offleash_response():
     # # South Bilberry Valley - Designation: 0
     # lat = 45.461881
     # lng = -75.503509
-    # # Riverside Memorial Park - Desgnation: 3
-    # lat = 45.42453977
-    # lng = -75.6657053
+    # Riverside Memorial Park - Desgnation: 3
+    lat = 45.42453977
+    lng = -75.6657053
     # # Pony Park - Desgnation: 1
     # lat = 45.28512057
     # lng = -75.86566251
@@ -142,27 +156,27 @@ def offleash_response():
             break
         except requests.ConnectionError:
             sleep(1)
-    parks = response['features']
+    parks_in_area = response['features']
     all_park_names = {}
-    for i in range(len(parks)):
-        park_name = parks[i]['attributes']['NAME']
+    for i in range(len(parks_in_area)):
+        park_name = parks_in_area[i]['attributes']['NAME']
         if park_name in all_park_names:
             all_park_names.update({park_name: all_park_names[park_name] + 1})
-            parks[i]['attributes']['NAME'] = park_name + ' #' + str(all_park_names[park_name])
+            parks_in_area[i]['attributes']['NAME'] = park_name + ' #' + str(all_park_names[park_name])
         else:
             all_park_names.update({park_name:1})
-            # parks[i]['attributes']['NAME'] = park_name + ' #1'
+            # parks_in_area[i]['attributes']['NAME'] = park_name + ' #1'
     def distance_to_edge(park):
         radius = park['attributes']['Shape_Area']**0.5
         distance = (((park['attributes']['LATITUDE']-lat)**2 + (park['attributes']['LONGITUDE']-lng)**2)**0.5)*100000
         return distance - radius
-    parks.sort(key=lambda park: distance_to_edge(park))
-    parks = parks[:30]
-    for park in parks:
+    parks_in_area.sort(key=lambda park: distance_to_edge(park))
+    parks_in_area = parks_in_area[:30]
+    for park in parks_in_area:
         park['attributes'].update({'directions': f"https://www.google.com/maps/dir/?api=1&destination={park['attributes']['LATITUDE']}%2C{park['attributes']['LONGITUDE']}"})
-    offleash_parks = [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '0']
-    near_parks = [park for park in parks if park['attributes']['NAME'] not in [park['attributes']['NAME'] for park in offleash_parks]]
-    near_parks = [park for park in near_parks if park['attributes']['DOG_DESIGNATION'] != '3']
+    offleash_parks = [park for park in parks_in_area if park['attributes']['DOG_DESIGNATION'] == '0']
+    near_parks = [park for park in parks_in_area if park['attributes']['NAME'] not in [park['attributes']['NAME'] for park in offleash_parks]]
+    near_parks = [park for park in parks_in_area if park['attributes']['DOG_DESIGNATION'] != '3']
     near_parks = near_parks[:10]
     designation = 4  #default of 'undesignated'
     park_name = None
@@ -170,7 +184,7 @@ def offleash_response():
     park_lng = None
     details = None
     size = None
-    for park in parks:
+    for park in parks_in_area:
         if len(park['geometry']['rings']) > 1:
             polygons = []
             for shape in park['geometry']['rings']:
@@ -279,13 +293,7 @@ def get_mini_map_3():
         zoom_start = 14
 
     logger.info('done loading...')
-    while True:
-        try:
-            parks = get_all_parks()
-            break
-        except requests.ConnectionError:
-            sleep(1)
-    parks = [park for park in parks if park['attributes']['NAME'] == focus]
+    parks_in_focus = [park for park in parks if park['attributes']['NAME'] == focus]
     fill_opacity = 0.08
     line_weight = 3
     m = folium.Map(tile=None, name='', location=(lat, lng), zoom_start=zoom_start, width='100%', height='100%', disable_3D=False)
@@ -293,7 +301,7 @@ def get_mini_map_3():
     feature_group = folium.FeatureGroup(name="off leash", overlay=False, show=True, control=False)
     color_map = {'0':'green', '1':'black', '2':'purple', '3':'red', '4':'black'}
     layer_color = color_map[designation]
-    for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] == designation]:
+    for park in [park for park in parks_in_focus if park['attributes']['DOG_DESIGNATION'] == designation]:
         geojson = {
             "type": "FeatureCollection",
             "features": [
@@ -323,12 +331,6 @@ def get_mini_map_3():
 
 @app.route('/get_full_map', methods=["POST", "GET"])
 def get_full_map():
-    while True:
-        try:
-            parks = get_all_parks()
-            break
-        except requests.ConnectionError:
-            sleep(1)
     try:
         locate = request.args.get('locate')
         if locate:
@@ -358,15 +360,6 @@ def get_full_map():
             return reloc_map
     except TemplateNotFound:
         pass
-    all_park_names = {}
-    for i in range(len(parks)):
-        park_name = parks[i]['attributes']['NAME']
-        if park_name in all_park_names:
-            all_park_names.update({park_name: all_park_names[park_name] + 1})
-            parks[i]['attributes']['NAME'] = park_name + ' #' + str(all_park_names[park_name])
-        else:
-            all_park_names.update({park_name:1})
-    
     fill_opacity = 0.08
     line_weight = 3
     popup_html = """
@@ -417,7 +410,7 @@ def get_full_map():
         lng = park['attributes']['LONGITUDE']
         size = park['attributes']['Shape_Area']
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
-        directions = f"https://www.google.com/maps/dir/?api=1&destination={lat}%2C{lng}"
+        directions = park['attributes']['directions']
         if size:
             size_in_acres = round(float(size)*0.00024710538146717,1)
             size_text= f"{size_in_acres} acres"
@@ -461,7 +454,7 @@ def get_full_map():
         lng = park['attributes']['LONGITUDE']
         size = park['attributes']['Shape_Area']
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
-        directions = f"https://www.google.com/maps/dir/?api=1&destination={lat}%2C{lng}"
+        directions = park['attributes']['directions']
         if size:
             size_in_acres = round(float(size)*0.00024710538146717,1)
             size_text= f"{size_in_acres} acres"
@@ -505,7 +498,7 @@ def get_full_map():
         lng = park['attributes']['LONGITUDE']
         size = park['attributes']['Shape_Area']
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
-        directions = f"https://www.google.com/maps/dir/?api=1&destination={lat}%2C{lng}"
+        directions = park['attributes']['directions']
         if size:
             size_in_acres = round(float(size)*0.00024710538146717,1)
             size_text= f"{size_in_acres} acres"
@@ -549,7 +542,7 @@ def get_full_map():
         lng = park['attributes']['LONGITUDE']
         size = park['attributes']['Shape_Area']
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
-        directions = f"https://www.google.com/maps/dir/?api=1&destination={lat}%2C{lng}"
+        directions = park['attributes']['directions']
         if size:
             size_in_acres = round(float(size)*0.00024710538146717,1)
             size_text= f"{size_in_acres} acres"
@@ -597,3 +590,4 @@ def map():
 
 if __name__ == "__main__":
 	app.run(debug=False)
+    parks = get_all_parks()
