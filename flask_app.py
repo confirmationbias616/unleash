@@ -404,6 +404,10 @@ def get_full_map():
 
     feature_group = folium.FeatureGroup(name="off leash", overlay=True, show=True)
     layer_color = 'green'
+    try:
+        parks
+    except NameError:
+        parks = get_all_parks()
     for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '0']:
         name = park['attributes']['NAME']
         lat = park['attributes']['LATITUDE']
