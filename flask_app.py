@@ -291,7 +291,10 @@ def get_mini_map_3():
     else:
         size_text = 'unknown size'
         zoom_start = 14
-
+    try:
+        parks
+    except NameError:
+        parks = get_all_parks()
     logger.info('done loading...')
     parks_in_focus = [park for park in parks if park['attributes']['NAME'] == focus]
     fill_opacity = 0.08
@@ -336,6 +339,10 @@ def get_full_map():
         if locate:
             lat, lng = None, None
             # see if query is park name
+            try:
+                parks
+            except NameError:
+                parks = get_all_parks()
             for park in parks:
                 if locate.lower() in park['attributes']['NAME'].lower():
                     lat = park['attributes']['LATITUDE']
