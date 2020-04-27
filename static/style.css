@@ -232,7 +232,7 @@ body {
 }
 .advertise_banner {
   padding: 0.2vw;
-  font-size: 95%;
+  font-size: 90%;
   text-align: center
 }
 .advertise_banner_text a{
@@ -241,11 +241,16 @@ body {
 .advertise_banner_text a:hover{
   color: var(--highlight);
 }
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 500px) and (max-height: 500px) {
   advertise_banner {
     font-size: 16px;
   }
 }
+/* @media screen and (max-height: 500px) {
+  advertise_banner {
+    font-size: 12px;
+  }
+} */
 .disclaimer {
   margin-left: 0px;
   padding: 0.5em 0.5em;
@@ -370,28 +375,25 @@ hr.top_landing_spacing {
   text-decoration: none;
   text-shadow: 0.03em 0.03em 0.03em whitesmoke;
 }
-#search_container {
-  width: 80vw;
-  margin: auto;
-  position: relative;
-  z-index: 100000;
+/* #search_container {
+  width: 80vw; margin-left: 10vw; margin-right: 10vw; position: relative; z-index: 100000;
 }
 #locate {
-  box-shadow: 0px 4px 10px 3px var(--inactive_shadow);
-  width: 40vw;
-  border-radius: 0.4em;
+  box-shadow: 0px 4px 10px 3px var(--inactive_shadow); width: 40vw; border-radius: 0.4em;
 }
 #search_spinner {
-  text-align: right;
-  position: relative;
-  margin-left: -2em;
-  color: var(--highlight);
-}
-#search_spinner, #locate {
+  text-align: right; position: relative; margin-left: -2em; color: var(--highlight);
+} */
+/* #search_spinner, #locate {
   font-size: 1.4vw;
-}
-@media screen and (max-width: 500px) {
+} */
+/* @media screen and (max-width: 500px) {
   #search_spinner, #locate {
     font-size: 12px;
   }
 }
+@media screen and (max-height: 500px) {
+  #search_spinner, #locate {
+    font-size: 12px;
+  }
+} */
