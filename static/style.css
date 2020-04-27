@@ -197,7 +197,7 @@ div.landing {
 }
 @keyframes sweep-from-bottom {
   0%    {transform: translateY(100vh)}
-  100%    {transform: translateY(-5vh)}
+  100%    {transform: translateY(-7vh)}
 }
 ::selection {
   color: var(--highlight); 
@@ -232,7 +232,7 @@ body {
 }
 .advertise_banner {
   padding: 0.2vw;
-  font-size: 105%;
+  font-size: 95%;
   text-align: center
 }
 .advertise_banner_text a{
@@ -240,6 +240,11 @@ body {
 }
 .advertise_banner_text a:hover{
   color: var(--highlight);
+}
+@media screen and (min-width: 500px) {
+  advertise_banner {
+    font-size: 16px;
+  }
 }
 .disclaimer {
   margin-left: 0px;
@@ -270,14 +275,14 @@ iframe.full_map{
   margin-left: 1vw;
   width: 95vw;
   height: 95vh;
-  transform: translateY(-5vh);
+  transform: translateY(-7vh);
   background-color: rgba(70,70,70,0.7);
   box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.27);
   border-radius: 0px;
 }
 button.mini_map {
   position: relative;
-  z-index: 1000;
+  z-index: 10;
   background-color: rgb(255,255,255);
   font-size: 13px;
   bottom: -1em;
@@ -364,4 +369,29 @@ hr.top_landing_spacing {
   color: black;
   text-decoration: none;
   text-shadow: 0.03em 0.03em 0.03em whitesmoke;
+}
+#search_container {
+  width: 80vw;
+  margin: auto;
+  position: relative;
+  z-index: 100000;
+}
+#locate {
+  box-shadow: 0px 4px 10px 3px var(--inactive_shadow);
+  width: 40vw;
+  border-radius: 0.4em;
+}
+#search_spinner {
+  text-align: right;
+  position: relative;
+  margin-left: -2em;
+  color: var(--highlight);
+}
+#search_spinner, #locate {
+  font-size: 1.4vw;
+}
+@media screen and (max-width: 500px) {
+  #search_spinner, #locate {
+    font-size: 12px;
+  }
 }
