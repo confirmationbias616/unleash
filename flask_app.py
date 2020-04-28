@@ -61,6 +61,7 @@ def get_all_parks():
             response = json.loads(requests.get(api_call).content)
             parks_2 = response['features']
             parks = parks_1 + parks_2
+            parks = [park for park in parks if park['attributes']['NAME']]  # filter out NoneType names
             for park in parks:
                 park['attributes'].update({'directions': f"https://www.google.com/maps/dir/?api=1&destination={park['attributes']['LATITUDE']}%2C{park['attributes']['LONGITUDE']}"})
             all_park_names = {}
