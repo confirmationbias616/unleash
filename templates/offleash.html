@@ -28,22 +28,22 @@
     </form>
     <script>
       window.onload = function() {
-        setTimeout(
-          function() {
-            if (confirm("OttLeash requires access to your location.\n\nPlease change browser settings or try with different browser.")) {
-              // window.open("{{ url_for('index') }}", "_self");
-              window.open("{{ url_for('come_back') }}", "_self");
-            }
-            else {
-              window.open("{{ url_for('come_back') }}", "_self");
-            }
-            // if (confirm("OttLeash requires access to your location.\n\nPlease change browser settings or try with different browser. \n\nHit 'OK' if you need help with this.")) {
-            //   window.open('https://stroly.zendesk.com/hc/en-us/articles/360034274111-How-to-turn-on-Location-Services-GPS-', '_self')
-            // }
-            // else {
-            //   window.open("{{url_for('come_back')}}", '_self')
-            // }
-          }, 8000);
+        // setTimeout(
+        //   function() {
+        //     if (confirm("OttLeash requires access to your location.\n\nPlease change browser settings or try with different browser.")) {
+        //       // window.open("{{ url_for('index') }}", "_self");
+        //       window.open("{{ url_for('come_back') }}", "_self");
+        //     }
+        //     else {
+        //       window.open("{{ url_for('come_back') }}", "_self");
+        //     }
+        //     // if (confirm("OttLeash requires access to your location.\n\nPlease change browser settings or try with different browser. \n\nHit 'OK' if you need help with this.")) {
+        //     //   window.open('https://stroly.zendesk.com/hc/en-us/articles/360034274111-How-to-turn-on-Location-Services-GPS-', '_self')
+        //     // }
+        //     // else {
+        //     //   window.open("{{url_for('come_back')}}", '_self')
+        //     // }
+        //   }, 8000);
         var startPos;
         var geoSuccess = function(position) {
           startPos = position;
@@ -56,7 +56,7 @@
           document.forms[0].submit()
         };
         navigator.geolocation.getCurrentPosition(geoSuccess);
-        clearTimeout();
+        // clearTimeout();
       };
     </script>
     {% endblock %}
