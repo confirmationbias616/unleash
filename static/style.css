@@ -389,7 +389,7 @@ hr.top_landing_spacing {
   float: left;
   color: black;
   text-decoration: none;
-  text-shadow: 0.03em 0.03em 0.03em whitesmoke;
+  text-shadow: -0.05em -0.00em 0.12em whitesmoke;
 }
 #location_not_enabled {
   color: var(--highlight);
