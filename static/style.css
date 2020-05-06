@@ -129,7 +129,7 @@ div.landing {
   text-align: center;
 }
 h2 {
-  width: 50vw;
+  width: min(50vw, 380px);
   color: var(--text_question);
   /* text-shadow: 0em 0em 0.2em black var(--highlight); */
 }
