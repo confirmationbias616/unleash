@@ -167,7 +167,7 @@ div.landing {
     font-size: max(9px, 100%);
   }
 }
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 200px) {
   div.landing {
     text-align: left;
     margin: 5vw;
