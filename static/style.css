@@ -128,6 +128,11 @@ button:hover {
 div.landing {
   text-align: center;
 }
+h2 {
+  width: 50vw;
+  color: var(--text_question);
+  /* text-shadow: 0em 0em 0.2em black var(--highlight); */
+}
 .error_msg {
   color: var(--highlight);
   margin-left: 2vw;
@@ -334,12 +339,12 @@ button.mini_map {
   display: none;
 }
 hr.landing_spacing {
-  height: max(7vh, 20px);
+  height: max(3vh, 10px);
   clear: both;
   visibility: hidden;
 }
 hr.top_landing_spacing {
-  height: 15vh;
+  height: max(2vh, 6px);
   clear: both;
   visibility: hidden;
 }
