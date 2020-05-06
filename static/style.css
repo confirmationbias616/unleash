@@ -43,10 +43,20 @@ body {
 .fade_in {
   animation: fade-in 0.04s ease-in-out;
 }
+.slow_fade_in {
+  animation: fade-in 2s ease-in-out;
+  animation-delay: 5s;
+  animation-fill-mode: forwards;
+}
+.very_slow_fade_in {
+  animation: fade-in 2s ease-in-out;
+  animation-delay: 8s;
+  animation-fill-mode: forwards;
+}
 .sweep_up {
   animation: sweep-from-bottom 1s ease-in-out;
 }
-u{
+u {
   text-decoration-color: var(--highlight);
 }
 button {
@@ -184,8 +194,8 @@ div.landing {
   100%  {opacity: 1; margin-left: 0vw}
 }
 @keyframes fade-in {
-  0%    {opacity: 0; margin-left: -10vw;}
-  100%  {opacity: 1; margin-left: -10vw;}
+  0%    {opacity: 0;}
+  100%  {opacity: 1; visibility: visible;}
 }
 @keyframes sweep-details-from-left-landing {
   0%    {opacity: 0; margin-left: -50vw}
@@ -374,6 +384,12 @@ hr.top_landing_spacing {
   color: black;
   text-decoration: none;
   text-shadow: 0.03em 0.03em 0.03em whitesmoke;
+}
+#location_not_enabled {
+  color: var(--highlight);
+}
+.slow_fade_in, .very_slow_fade_in{
+  visibility: hidden;
 }
 /* #search_container {
   width: 80vw; margin-left: 10vw; margin-right: 10vw; position: relative; z-index: 100000;
