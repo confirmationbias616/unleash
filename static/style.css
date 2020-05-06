@@ -215,6 +215,9 @@ h2 {
   0%    {transform: translateY(950vh)}
   100%    {transform: translateY(-8vh)}
 }
+#search_container {
+  transform: translateY(40px);
+}
 ::selection {
   color: var(--highlight); 
   background: var(--dark);
@@ -324,11 +327,17 @@ button.mini_map {
     0%    {transform: translateY(950vh)}
     100%    {transform: translateY(-7vh)}
   }
+  #search_container {
+    transform: translateY(50px);
+  }
 }
 @media screen and (min-width: 1000px) {
   @keyframes sweep-from-bottom {
     0%    {transform: translateY(950vh)}
     100%    {transform: translateY(-10vh)}
+  }
+  #search_container {
+    transform: translateY(60px);
   }
 }
 @media screen and (max-height: 500px) {
