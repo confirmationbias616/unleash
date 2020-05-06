@@ -262,11 +262,11 @@ body {
     font-size: 16px;
   }
 } */
-@media screen and (max-height: 500px) {
+/* @media screen and (max-height: 500px) {
   advertise_banner {
     font-size: 9px;
   }
-}
+} */
 .disclaimer {
   margin-left: 0px;
   padding: 0.5em 0.5em;
