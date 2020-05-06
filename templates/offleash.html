@@ -26,9 +26,11 @@
     <div class='blocktext'>
       <span class='slow_fade_in' id='location_not_enabled'>
         Hmm... looks like your browser's location services are disabled.
-      </span> <br><br><br>
-      <button class='white_button + very_slow_fade_in' onclick="window.open('https://stroly.zendesk.com/hc/en-us/articles/360034274111-How-to-turn-on-Location-Services-GPS-', '_self')" style="font-size: 80%; padding: 0.3em 0.45em;"><b>"Help me!"</b>&nbsp;&nbsp;</button>
-    </div>      
+      </span> <br><br>
+    </div>
+    <div class='blocktext' style='display: block; text-align: left;'>
+      <button class='white_button + very_slow_fade_in' onclick="window.open('https://stroly.zendesk.com/hc/en-us/articles/360034274111-How-to-turn-on-Location-Services-GPS-', '_self')"><b>"Help me!"</b>&nbsp;&nbsp;</button>
+    </div>
     <form action="{{ url_for('offleash_response', skip=skip) }}" method="POST" hidden>
       <input type="text" id="current_lat", name="current_lat">
       <input type="text" id="current_lng", name="current_lng">
