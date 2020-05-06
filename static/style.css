@@ -248,7 +248,7 @@ body {
 }
 .advertise_banner {
   padding: 0.2vw;
-  font-size: 90%;
+  font-size: min(90%, 12px);
   text-align: center
 }
 .advertise_banner_text a{
