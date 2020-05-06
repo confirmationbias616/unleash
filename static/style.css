@@ -55,6 +55,7 @@ body {
 }
 .sweep_up {
   animation: sweep-from-bottom 1s ease-in-out;
+  animation-fill-mode: both;
 }
 u {
   text-decoration-color: var(--highlight);
@@ -211,8 +212,8 @@ h2 {
   100%  {opacity: 1; margin-right: 0vw}
 }
 @keyframes sweep-from-bottom {
-  0%    {transform: translateY(100vh)}
-  100%    {transform: translateY(-60px)}
+  0%    {transform: translateY(950vh)}
+  100%    {transform: translateY(-8vh)}
 }
 ::selection {
   color: var(--highlight); 
@@ -296,7 +297,6 @@ iframe.full_map{
   margin-left: 1vw;
   width: 95vw;
   height: 95vh;
-  transform: translateY(-60px);
   background-color: rgba(70,70,70,0.7);
   box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.27);
   border-radius: 0px;
@@ -320,6 +320,16 @@ button.mini_map {
   button.mini_map {
     bottom: -0.3em;
   }
+  @keyframes sweep-from-bottom {
+    0%    {transform: translateY(950vh)}
+    100%    {transform: translateY(-7vh)}
+  }
+}
+@media screen and (min-width: 1000px) {
+  @keyframes sweep-from-bottom {
+    0%    {transform: translateY(950vh)}
+    100%    {transform: translateY(-10vh)}
+  }
 }
 @media screen and (max-height: 500px) {
   iframe.mini_map, div.mini_map {
@@ -331,6 +341,10 @@ button.mini_map {
   }
   button.mini_map {
     bottom: -0.3em;
+  }
+  @keyframes sweep-from-bottom {
+    0%    {transform: translateY(950vh)}
+    100%    {transform: translateY(-20vh)}
   }
 }
 .open_blank {
