@@ -434,7 +434,7 @@ def get_full_map():
         </details>
     """
 
-    m = folium.Map(tile=None, name='', location=(45.4096666, -75.6944444), zoom_start=12, width='100%', height='100%', disable_3D=False)
+    m = folium.Map(tile=None, name='', location=(45.4096666, -75.6944444), zoom_start=13, width='100%', height='100%', disable_3D=False)
     folium.TileLayer('openstreetmap', control=False, overlay=False, name='').add_to(m)
 
     feature_group = folium.FeatureGroup(name="off leash", overlay=True, show=True)
@@ -485,7 +485,7 @@ def get_full_map():
         ).add_to(feature_group)
     feature_group.add_to(m)
 
-    feature_group = folium.FeatureGroup(name="on leash", overlay=True, show=False)
+    feature_group = folium.FeatureGroup(name="on leash", overlay=True, show=True)
     layer_color = 'black'
     for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] in ['1', '4']]:
         name = park['attributes']['NAME']
@@ -529,7 +529,7 @@ def get_full_map():
         ).add_to(feature_group)
     feature_group.add_to(m)
 
-    feature_group = folium.FeatureGroup(name="mixed designation", overlay=True, show=False)
+    feature_group = folium.FeatureGroup(name="mixed designation", overlay=True, show=True)
     layer_color = 'purple'
     for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '2']:
         name = park['attributes']['NAME']
@@ -629,4 +629,4 @@ def map():
 
 if __name__ == "__main__":
     parks = get_all_parks()
-    app.run(debug=False)
+    app.run(debug=True)
