@@ -629,4 +629,4 @@ def map():
 
 if __name__ == "__main__":
     parks = get_all_parks()
-    app.run(debug=True)
+    app.run(debug=False)
