@@ -573,7 +573,7 @@ def get_full_map():
         ).add_to(feature_group)
     feature_group.add_to(m)
     
-    feature_group = folium.FeatureGroup(name="no dogs allowed", overlay=True, show=False)
+    feature_group = folium.FeatureGroup(name="no dogs allowed", overlay=True, show=True)
     layer_color = 'red'
     for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '3']:
         name = park['attributes']['NAME']
