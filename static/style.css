@@ -43,12 +43,16 @@ body {
 .fade_in {
   animation: fade-in 0.04s ease-in-out;
 }
-.slow_fade_in {
+.slow_fade_in{
+  animation: fade-in 2s ease-in-out;
+  animation-fill-mode: forwards;
+}
+.slow_fade_in_with_delay {
   animation: fade-in 2s ease-in-out;
   animation-delay: 5s;
   animation-fill-mode: forwards;
 }
-.very_slow_fade_in {
+.slow_fade_in_with_long_delay {
   animation: fade-in 2s ease-in-out;
   animation-delay: 8s;
   animation-fill-mode: forwards;
@@ -417,7 +421,7 @@ hr.top_landing_spacing {
 #location_not_enabled {
   color: var(--highlight);
 }
-.slow_fade_in, .very_slow_fade_in{
+.slow_fade_in_with_delay, .slow_fade_in_with_long_delay{
   visibility: hidden;
 }
 /* #search_container {
