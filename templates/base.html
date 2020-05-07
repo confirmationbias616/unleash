@@ -25,15 +25,14 @@
     <div class="navbar">
         <a class="title" href={{ url_for('index') }} style="padding: 0.2em 0;">
             <img src="mobile_icon.png" alt="" style='float:left; width: 1.8em; height: 1.8em; border-radius: 0.3em; border: 0.12em solid black;'>
-            <div class='slow_fade_in' style="float: left; padding: 0.3em 0em;">
+            <div style="float: left; padding: 0.3em 0em;">
                 &nbsp;
-                
-                {% if self._TemplateReference__context.name.rstrip('.html') == 'index' %}
+                {% if self._TemplateReference__context.name.replace('.html', '') in ['index', 'about'] %}
                 <span style="letter-spacing: 0.2em;">
                     OttLeash
                 </span>
                 {% else %}
-                <span>
+                <span class='slow_fade_in'>
                     <- back
                 </span>
                 {% endif %}
