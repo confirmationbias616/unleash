@@ -386,7 +386,7 @@ def get_full_map():
                     f'center: [{lat}, {lng}]'
                 )
                 reloc_map = reloc_map.replace(
-                    'zoom: 12',
+                    'zoom: 14',
                     'zoom: 16'
                 )
                 return reloc_map
@@ -434,7 +434,7 @@ def get_full_map():
         </details>
     """
 
-    m = folium.Map(tile=None, name='', location=(45.4096666, -75.6944444), zoom_start=13, width='100%', height='100%', disable_3D=False)
+    m = folium.Map(tile=None, name='', location=(45.4096666, -75.6944444), zoom_start=14, width='100%', height='100%', disable_3D=False)
     folium.TileLayer('openstreetmap', control=False, overlay=False, name='').add_to(m)
 
     feature_group = folium.FeatureGroup(name="off leash", overlay=True, show=True)
