@@ -12,10 +12,38 @@
   <div class='landing'>
     <h2>Helping Ottawans find places for their dogs to spend some energy – on or off leash.</h2>
   </div>
+  <div class='blocktext + FAQ'>
+    <details><summary id='FAQ_main'>FAQ</summary>
+    <ul>
+      <details><summary>Why does it keep asking for my location?</summary>
+      <ul>
+        Some of this website's feautres require your device's location - that's just the way it is.
+        If you're asking to show parks nearby or whether or not you can let your dog off leash, the site needs to know where you are.
+        Otherwise, feel free to skip straight to the map, where you can browse all Ottawa parks without ever divulging your location.
+      </ul>
+      </details><br>
+      <details><summary>I don't mind giving my location. Why isn't it working?</summary>
+      <ul>
+        If you're having a hard time with location services, please visit <a href="https://stroly.zendesk.com/hc/en-us/articles/360034274111-How-to-turn-on-Location-Services-GPS-">this guide</a> and come back once you're ready!
+      </ul>
+      </details><br>
+      <details><summary>I found something wrong with the data. Can I report it?</summary>
+      <ul>
+        There's an upcoming feautre to allow you to report issues throught this very app. Reports will go directly to the city. Please hang on to those details for now!
+      </ul>
+      </details><br>
+      <details><summary>Why is some of the data erroneous?</summary>
+      <ul>
+        Most of the data comes straight from the City of Ottawa's Open Data API. The city updates its parks database on a regular basis and these changes automatically get reflected on this app. You can have a look at <a href='https://open.ottawa.ca/datasets/cfb079e407494c33b038e86c7e05288e_24'>their API</a> if you're curious.
+      </ul>
+      </details><br>
+    </ul>
+    </details>
+  </div>
   <div class='blocktext + sweep_right'>
     <br><br>
-    <button onclick="window.open('https://open.ottawa.ca/datasets/cfb079e407494c33b038e86c7e05288e_24', '_blank', 'noopener')"><i class="fas fa-external-link-alt"></i>&nbsp;&nbsp;<b>dataset</b></button>
-    <br><br>
+    <!-- <button onclick="window.open('https://open.ottawa.ca/datasets/cfb079e407494c33b038e86c7e05288e_24', '_blank', 'noopener')"><i class="fas fa-external-link-alt"></i>&nbsp;&nbsp;<b>dataset</b></button>
+    <br><br> -->
     <button id='hire_me_button' class='white_button + direction_button' style='font-size: 90%; color: var(--hire_me_text)' onclick="show_hire_me()"><b>hire me :)</b></button>
       <div id='hire_me_container' style='display: none'>
         <div class="LI-profile-badge"  data-version="v1" data-size="medium" data-locale="en_US" data-type="vertical" data-theme="dark" data-vanity="alexroycv"><a class="LI-simple-link" href='https://ca.linkedin.com/in/alexroycv?trk=profile-badge'>Alex Roy</a></div>
