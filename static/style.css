@@ -65,6 +65,7 @@ u {
   text-decoration-color: var(--highlight);
 }
 button {
+  transition: box-shadow 0.5s;
   background-color: var(--dark);
   border: none;
   color: var(--text_alternate);
@@ -107,6 +108,7 @@ button:hover {
   padding: 0.5em 1.5em;
 }
 .landing_button {
+  transition: box-shadow 0.5s;
   background-color: var(--dark);
   border: none;
   color: var(--text_alternate);
