@@ -358,8 +358,24 @@ def get_full_map():
             return {}
         info = api_call(f"{address_input}")
         if info:
-            return info['geometry']['location']
-        return {}
+            lat_diff = (
+                info['geometry']['viewport']['northeast']['lat'] - 
+                info['geometry']['viewport']['southwest']['lat']
+            )
+            if lat_diff < 0.04:
+                zoom = 17
+            elif lat_diff < 0.05:
+                zoom = 16
+            elif lat_diff < 0.06:
+                zoom = 15
+            elif lat_diff < 0.08:
+                zoom = 14
+            else:
+                zoom = 13
+            print(lat_diff)
+            print(zoom)
+            return info['geometry']['location'], zoom
+        return {}, 14
         
     try:
         locate = request.args.get('locate')
@@ -374,10 +390,10 @@ def get_full_map():
                     lat = park['attributes']['LATITUDE']
                     lng = park['attributes']['LONGITUDE']
             if not lat:  # get google to geocode it
-                geocode_result = get_address_latlng(locate)
-                logger.info(f"geocode_result: {geocode_result}")
-                lat = geocode_result.get('lat')
-                lng = geocode_result.get('lng')
+                geocode_center, zoom_level = get_address_latlng(locate)
+                logger.info(f"geocode_center: {geocode_center}")
+                lat = geocode_center.get('lat')
+                lng = geocode_center.get('lng')
             if lat: 
                 with open('templates/full_map.html', 'r+') as f:
                     reloc_map = f.read()
@@ -387,7 +403,7 @@ def get_full_map():
                 )
                 reloc_map = reloc_map.replace(
                     'zoom: 14',
-                    'zoom: 16'
+                    f'zoom: {zoom_level}'
                 )
                 return reloc_map
         else: # location not found or not specified
