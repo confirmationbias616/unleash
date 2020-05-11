@@ -380,6 +380,7 @@ def get_full_map():
     try:
         locate = request.args.get('locate')
         if locate:
+            zoom_level = 14
             lat, lng = None, None
             try:
                 parks
