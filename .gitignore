@@ -25,6 +25,9 @@ templates/full_map.html
 # ignore all CSV
 *.csv
 
+# ignore all geojson
+*.geojson
+
 # ignore passwords and API keys
 .secret.json
 
