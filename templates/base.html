@@ -2,10 +2,19 @@
 
 <html>
 <head>
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="OttLeash">
+    <meta name="apple-mobile-web-app-title" content="OttLeash">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="msapplication-starturl" content="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" sizes="128x128" href="mobile_icon.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="128x128" href="mobile_icon.png">
     <title>OttLeash</title>
     <link href="{{ url_for('static',filename='style.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.13.0/css/all.css">
-    <link rel="apple-touch-icon" sizes="128x128" href="static/mobile_icon.png">
     <link rel=icon href=/static/favicon.png>
     <link rel="prefetch" href="templates/full_map.html">
     <link rel="prerender" href="{{ url_for('map') }}">

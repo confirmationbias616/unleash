@@ -1,16 +1,16 @@
 {
-    "name": "OttLeash",
-    "short_name": "OttLeash",
-    "start_url": "/index.html",
-    "display": "standalone",
-    "background_color": "#F4F4F4",
-    "theme_color": "#F4F4F4",
-    "orientation": "portrait-primary",
-    "icons": [
-        {
-            "src": "/static/mobile_icon.png",
-            "type": "image/png",
-            "sizes": "128x128"
-        }
-    ]
+  "name": "OttLeash",
+  "short_name": "OttLeash",
+  "description": "Helping Ottawans find places for their dogs to spend some energy – on or off leash.",
+  "lang": "en-ca",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "mobile_icon.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ]
 }
