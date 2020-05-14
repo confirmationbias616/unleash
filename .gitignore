@@ -14,7 +14,16 @@ cache*
 templates/mini_map*
 templates/full_map.html
 
+# ignore all notebooks
+*.ipynb
 
+# ignore all temporary maps rsulting from EDA
+*_map_*
+*_map-*
+*choropleth*
+
+# ignore all CSV
+*.csv
 
 # ignore passwords and API keys
 .secret.json
