@@ -5,6 +5,13 @@
   {% extends 'base.html' %}
   {% block head %}
   <!-- <meta http-equiv="refresh" content="10"> -->
+  <!-- below is for PWA-->
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/static/mobile_icon.png">
+  <meta name="apple-mobile-web-app-status-bar" content=var(--background)>
+  <meta name="theme-color" content=var(--background)>
+  <!-- <script src="/app.js"></script> -->
+  <!--done with PWA stuff-->
   {% endblock %}
 </head>
 <body>
