@@ -18,6 +18,7 @@ templates/full_map.html
 *.ipynb
 
 # ignore all temporary maps rsulting from EDA
+/html_maps/*
 *_map_*
 *_map-*
 *choropleth*
