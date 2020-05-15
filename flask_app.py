@@ -633,6 +633,26 @@ def get_full_map():
             line_weight=line_weight
         ).add_to(feature_group)
     feature_group.add_to(m)
+    with open('enclosures.json', 'r') as f:
+        enclosures = json.loads(f.read())
+    feature_group = folium.FeatureGroup(name="off-leash enclosures", overlay=True, show=True)
+    layer_color = 'orange'
+    for enclosure in enclosures:
+        print(enclosure)
+        print(enclosures)
+        name = enclosure['name']
+        lat = enclosure['lat']
+        lng = enclosure['lng']
+        size_text = 'N/A'
+        details = 'Off-leash enclosure'
+        directions = f"https://www.google.com/maps/dir/?api=1&destination={lat}%2C{lng}"
+        popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, lat, lng, details), max_width='220', max_height='200')
+        folium.Marker(
+            [lat, lng],
+            popup=popup,
+            icon=folium.Icon(prefix='fa', icon='paw', color=layer_color)
+        ).add_to(feature_group)
+    feature_group.add_to(m)
 
     folium.LayerControl(collapsed=True).add_to(m)
     LocateControl().add_to(m)

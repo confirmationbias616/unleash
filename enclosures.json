@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Big Bird Park Enclosure",
+        "address": "936 Lawnsberry Drive, Cumberland",
+        "lat": 45.486954,
+        "lng": -75.508182
+    },
+    {
+        "name": "Coyote Trail Park Enclosure",
+        "address": "1829 Trim Road",
+        "lat": 45.477759,
+        "lng": -75.450519
+    },
+    {
+        "name": "Evergreen Park Enclosure",
+        "address": "906 Denison Crescent, Ottawa",
+        "lat": 45.373028,
+        "lng": -75.75352
+    },
+    {
+        "name": "Hampton Park Enclosure",
+        "address": "645 Parkview Road, Ottawa",
+        "lat": 45.388635,
+        "lng": -75.736034
+    },
+    {
+        "name": "Jack Purcell Park Enclosure",
+        "address": "320 Jack Purcell Lane, Ottawa",
+        "lat": 45.414942,
+        "lng": -75.68908
+    },
+    {
+        "name": "Queenswood Ridge Park Enclosure",
+        "address": "346 Kennedy Lane East, Cumberland",
+        "lat": 45.477604,
+        "lng": -75.501592
+    },
+    {
+        "name": "Rideau View Park Enclosure",
+        "address": "910 Earl Armstrong Road, Gloucester",
+        "lat": 45.273047,
+        "lng": -75.68587
+    },
+    {
+        "name": "Shefford Sports Park Enclosure",
+        "address": "815 Shefford Road / 845 Shefford Road / 750 Green Creek Drive",
+        "lat": 45.455122,
+        "lng": -75.589055
+    },
+    {
+        "name": "Sylvia Holden Park Enclosure",
+        "address": "641 O'Connor Street, Ottawa",
+        "lat": 45.401776,
+        "lng": -75.681373
+    },
+    {
+        "name": "Don Boudria Park Enclosure",
+        "address": "655 Decoeur Drive",
+        "lat": 45.445155,
+        "lng": -75.489302
+    }
+]
