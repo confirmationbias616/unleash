@@ -13,8 +13,8 @@
   <div class='sweep_up' align='center'>
     <div id='search_container' style='width: 80vw; margin-left: 10vw; margin-right: 10vw; position: relative; z-index: 100000;'>
       <form style="display: inline;" action="" onsubmit="return refresh()">
-        <input type="text" id="locate" name="locate" placeholder="park, address, or location" style="display: inline; box-shadow: 0px 4px 10px 3px var(--inactive_shadow); border-radius: 0.4em; font-size: calc(12px + 1vw);">
-        <span id='search_spinner' style="display: none; text-align: right; position: relative; margin-left: -2em; color: var(--highlight); z-index: 100001; font-size: calc(12px + 1vw);"><i class="fas fa-asterisk fa-spin fa-fw"></i></span>
+        <input type="text" id="locate" name="locate" placeholder="park, address, or location" style="display: inline; box-shadow: 0px 4px 10px 3px var(--inactive_shadow); border-radius: 0.4em; font-size: calc(12px + 0.5vw);">
+        <span id='search_spinner' style="display: none; text-align: right; position: relative; margin-left: -2em; color: var(--highlight); z-index: 100001; font-size: calc(12px + 0.5vw);"><i class="fas fa-asterisk fa-spin fa-fw"></i></span>
       </form>
     </div>
     <iframe id='main_popup_map' src="{{ url_for('get_full_map') }}" class='full_map' onload='map_loaded()'></iframe>
