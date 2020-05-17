@@ -654,8 +654,6 @@ def get_full_map():
     feature_group = folium.FeatureGroup(name="off-leash enclosures", overlay=True, show=True)
     layer_color = 'orange'
     for enclosure in enclosures:
-        print(enclosure)
-        print(enclosures)
         name = enclosure['name']
         lat = enclosure['lat']
         lng = enclosure['lng']
