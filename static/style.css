@@ -1,5 +1,6 @@
 body {
   --background_main: rgba(210,195,190,0.75);
+  --background_main_darker: rgba(177, 163, 159, 0.75);
   --background_secondary: rgb(204,208,216);
   --background_details: rgba(209, 207, 206, 0.75);
   --highlight: rgb(221,34,59);
@@ -147,6 +148,7 @@ h2 {
 @media screen and (max-width: 745px) {
   body {
     --background_main: rgba(133, 117, 99, 0.8);
+    --background_main_darker: rgba(102, 89, 75, 0.8);
     --background_secondary: rgb(60,60,60);
     --background_details: rgba(209, 207, 206, 0.75);
     --highlight: rgb(126,67,29);
@@ -251,7 +253,7 @@ body {
   -ms-overflow-style: none;
 }
 .advertise_banner_container{
-  background-color: var(--background_main);
+  background-color: var(--background_main_darker);
   /* display: flex; */
   justify-content: center;
   /* display: none; */
