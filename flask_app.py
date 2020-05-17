@@ -83,6 +83,11 @@ def get_all_pits():
             pit['geometry'].update({'rings': [[[y,x] for x,y in pit['geometry']['rings'][0]]]})
     return pits
 
+def get_all_enclosures():
+    with open('enclosures.json', 'r') as f:
+        enclosures = json.loads(f.read())
+    return enclosures
+
 @app.route('/', methods=["POST", "GET"])
 def index():
     return render_template('index.html')
@@ -640,8 +645,6 @@ def get_full_map():
             line_weight=line_weight
         ).add_to(feature_group)
     feature_group.add_to(m)
-    with open('enclosures.json', 'r') as f:
-        enclosures = json.loads(f.read())
     feature_group = folium.FeatureGroup(name="off-leash enclosures", overlay=True, show=True)
     layer_color = 'orange'
     for enclosure in enclosures:
@@ -712,4 +715,5 @@ def map():
 if __name__ == "__main__":
     parks = get_all_parks()
     app.run(debug=False)
+    enclosures = get_all_enclosures()
     pits = get_all_pits()
