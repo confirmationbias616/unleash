@@ -308,6 +308,8 @@ def get_mini_map_3():
         parks
     except NameError:
         parks = get_all_parks()
+        enclosures = get_all_enclosures()
+        pits = get_all_pits()
     logger.info('done loading...')
     parks_in_focus = [park for park in parks if park['attributes']['NAME'] == focus]
     fill_opacity = 0.08
@@ -398,6 +400,8 @@ def get_full_map():
                 parks
             except NameError:
                 parks = get_all_parks()
+                enclosures = get_all_enclosures()
+                pits = get_all_pits()
             for park in parks:  # see if query is park name
                 if locate.lower() in park['attributes']['NAME'].lower():
                     lat = park['attributes']['LATITUDE']
@@ -472,6 +476,8 @@ def get_full_map():
         parks
     except NameError:
         parks = get_all_parks()
+        enclosures = get_all_enclosures()
+        pits = get_all_pits()
     for park in [park for park in parks if park['attributes']['DOG_DESIGNATION'] == '0']:
         name = park['attributes']['NAME']
         lat = park['attributes']['LATITUDE']
