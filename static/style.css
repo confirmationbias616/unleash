@@ -221,7 +221,7 @@ h2 {
 }
 @keyframes sweep-from-bottom {
   0%    {transform: translateY(950vh)}
-  100%    {transform: translateY(-8vh)}
+  100%    {transform: translateY(-1vh)}
 }
 #search_container {
   transform: translateY(40px);
@@ -333,7 +333,7 @@ button.mini_map {
   }
   @keyframes sweep-from-bottom {
     0%    {transform: translateY(950vh)}
-    100%    {transform: translateY(-7vh)}
+    100%    {transform: translateY(-1vh)}
   }
   #search_container {
     transform: translateY(50px);
@@ -342,7 +342,7 @@ button.mini_map {
 @media screen and (min-width: 1000px) {
   @keyframes sweep-from-bottom {
     0%    {transform: translateY(950vh)}
-    100%    {transform: translateY(-10vh)}
+    100%    {transform: translateY(-1vh)}
   }
   #search_container {
     transform: translateY(60px);
@@ -361,7 +361,7 @@ button.mini_map {
   }
   @keyframes sweep-from-bottom {
     0%    {transform: translateY(950vh)}
-    100%    {transform: translateY(-20vh)}
+    100%    {transform: translateY(-1vh)}
   }
 }
 .open_blank {
