@@ -76,6 +76,13 @@ def get_all_parks():
         except requests.ConnectionError:
             sleep(1)
 
+def get_all_pits():
+    with open('ncc_pits.json', 'r') as f:
+        pits = json.loads(f.read())
+        for pit in pits:  # swap lat and lng to conform with City of Ottawa JSON format
+            pit['geometry'].update({'rings': [[[y,x] for x,y in pit['geometry']['rings'][0]]]})
+    return pits
+
 @app.route('/', methods=["POST", "GET"])
 def index():
     return render_template('index.html')
@@ -653,6 +660,44 @@ def get_full_map():
             icon=folium.Icon(prefix='fa', icon='paw', color=layer_color)
         ).add_to(feature_group)
     feature_group.add_to(m)
+    layer_color = 'darkgreen'
+    for pit in pits:
+        feature_group = folium.FeatureGroup(name="off leash pits", overlay=True, show=True)
+        name = pit['attributes']['name']
+        lat = pit['attributes']['lat']
+        lng = pit['attributes']['lng']
+        size = 'N/A'  # calculate later!
+        details = pit['attributes']['details']
+        directions = f"https://www.google.com/maps/dir/?api=1&destination={lat}%2C{lng}"
+        popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, lat, lng, details), max_width='220', max_height='200')
+        folium.Marker(
+            [lat, lng],
+            popup=popup,
+            icon=folium.Icon(prefix='fa', icon='circle', color=layer_color)
+        ).add_to(feature_group)
+        geojson = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            ring for ring in pit['geometry']['rings']
+                        ]
+                    },
+                },
+            ]
+        }
+        folium.features.Choropleth(
+            geo_data=geojson,
+            highlight=False,
+            line_color=layer_color,
+            fill_color=layer_color,
+            fill_opacity = fill_opacity,
+            line_weight=line_weight
+        ).add_to(feature_group)
+    feature_group.add_to(m)
 
     folium.LayerControl(collapsed=True).add_to(m)
     LocateControl().add_to(m)
@@ -667,3 +712,4 @@ def map():
 if __name__ == "__main__":
     parks = get_all_parks()
     app.run(debug=False)
+    pits = get_all_pits()
