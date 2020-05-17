@@ -668,8 +668,8 @@ def get_full_map():
         ).add_to(feature_group)
     feature_group.add_to(m)
     layer_color = 'darkgreen'
+    feature_group = folium.FeatureGroup(name="off leash pits", overlay=True, show=True)
     for pit in pits:
-        feature_group = folium.FeatureGroup(name="off leash pits", overlay=True, show=True)
         name = pit['attributes']['name']
         lat = pit['attributes']['lat']
         lng = pit['attributes']['lng']
