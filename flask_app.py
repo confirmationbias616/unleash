@@ -468,6 +468,8 @@ def get_full_map():
         <details open>
             <summary><b>details</b></summary>
             <i>{}</i> 
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
         </details>
     """
     website_html = """
