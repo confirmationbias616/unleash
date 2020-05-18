@@ -91,6 +91,9 @@ def get_all_enclosures():
         enclosures = json.loads(f.read())
     return enclosures
 
+def m2_to_acres(area):
+    return float(area) * 0.000247105
+
 @app.route('/', methods=["POST", "GET"])
 def index():
     return render_template('index.html')
@@ -228,7 +231,7 @@ def get_mini_map():
     lng = request.args.get('lng')
     size = request.args.get('size')
     if size:
-        size_in_acres = round(float(size)*0.00024710538146717,1)
+        size_in_acres = round(m2_to_acres(size),1)
         size_text= f"{size_in_acres} acres"
         zoom_start = int(15 + 10 / size_in_acres)
     else:
@@ -269,7 +272,7 @@ def get_mini_map_2():
     designation = int(request.args.get('designation'))
     designation = 1 if designation == 4 else designation
     if size:
-        size_in_acres = round(float(size)*0.00024710538146717,1)
+        size_in_acres = round(m2_to_acres(size),1)
         size_text= f"{size_in_acres} acres"
         zoom_start = int(15 + 10 / size_in_acres)
     else:
@@ -301,7 +304,7 @@ def get_mini_map_3():
     size = request.args.get('size')
     designation = str(request.args.get('designation'))
     if size:
-        size_in_acres = round(float(size)*0.00024710538146717,1)
+        size_in_acres = round(m2_to_acres(size),1)
         size_text= f"{size_in_acres} acres"
         zoom_start = int(14 + 10 / size_in_acres)
     else:
@@ -495,7 +498,7 @@ def get_full_map():
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
         directions = park['attributes']['directions']
         if size:
-            size_in_acres = round(float(size)*0.00024710538146717,1)
+            size_in_acres = round(m2_to_acres(size),1)
             size_text= f"{size_in_acres} acres"
         else:
             size_text = 'unknown size'
@@ -539,7 +542,7 @@ def get_full_map():
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
         directions = park['attributes']['directions']
         if size:
-            size_in_acres = round(float(size)*0.00024710538146717,1)
+            size_in_acres = round(m2_to_acres(size),1)
             size_text= f"{size_in_acres} acres"
         else:
             size_text = 'unknown size'
@@ -583,7 +586,7 @@ def get_full_map():
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
         directions = park['attributes']['directions']
         if size:
-            size_in_acres = round(float(size)*0.00024710538146717,1)
+            size_in_acres = round(m2_to_acres(size),1)
             size_text= f"{size_in_acres} acres"
         else:
             size_text = 'unknown size'
@@ -627,7 +630,7 @@ def get_full_map():
         details = park['attributes']['DOG_DESIGNATION_DETAILS']
         directions = park['attributes']['directions']
         if size:
-            size_in_acres = round(float(size)*0.00024710538146717,1)
+            size_in_acres = round(m2_to_acres(size),1)
             size_text= f"{size_in_acres} acres"
         else:
             size_text = 'unknown size'
