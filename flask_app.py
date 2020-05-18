@@ -447,6 +447,7 @@ def get_full_map():
         <h6 align='center'>{}</h6>
         <div align='center'>
             <button onclick="window.open('{}', '_blank', 'noopener')" style='font-weight: bold;'>directions</button>
+            {}
             <br><br>
             <table align='center' style="width:100%">
                 <tr>
@@ -466,8 +467,11 @@ def get_full_map():
         <br>
         <details open>
             <summary><b>details</b></summary>
-            <i>{}</i>
+            <i>{}</i> 
         </details>
+    """
+    website_html = """
+        <button onclick="window.open('{}', '_blank', 'noopener')" style='font-weight: bold;'>website</button>
     """
 
     m = folium.Map(tile=None, name='', location=(45.4096666, -75.6944444), zoom_start=14, width='100%', height='100%', disable_3D=False)
@@ -493,7 +497,7 @@ def get_full_map():
             size_text= f"{size_in_acres} acres"
         else:
             size_text = 'unknown size'
-        popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, lat, lng, details), max_width='220', max_height='200')
+        popup=folium.map.Popup(html=popup_html.format(name, directions, '', size_text, lat, lng, details), max_width='220', max_height='200')
         folium.Marker(
             [lat, lng],
             popup=popup,
@@ -537,7 +541,7 @@ def get_full_map():
             size_text= f"{size_in_acres} acres"
         else:
             size_text = 'unknown size'
-        popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, lat, lng, details), max_width='220', max_height='200')
+        popup=folium.map.Popup(html=popup_html.format(name, directions, '', size_text, lat, lng, details), max_width='220', max_height='200')
         folium.Marker(
             [lat, lng],
             popup=popup,
@@ -581,7 +585,7 @@ def get_full_map():
             size_text= f"{size_in_acres} acres"
         else:
             size_text = 'unknown size'
-        popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, lat, lng, details), max_width='220', max_height='200')
+        popup=folium.map.Popup(html=popup_html.format(name, directions, '', size_text, lat, lng, details), max_width='220', max_height='200')
         folium.Marker(
             [lat, lng],
             popup=popup,
@@ -625,7 +629,7 @@ def get_full_map():
             size_text= f"{size_in_acres} acres"
         else:
             size_text = 'unknown size'
-        popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, lat, lng, details), max_width='220', max_height='200')
+        popup=folium.map.Popup(html=popup_html.format(name, directions, '', size_text, lat, lng, details), max_width='220', max_height='200')
         folium.Marker(
             [lat, lng],
             popup=popup,
@@ -663,7 +667,7 @@ def get_full_map():
         size_text = 'N/A'
         details = 'Off-leash enclosure'
         directions = f"https://www.google.com/maps/dir/?api=1&destination={lat}%2C{lng}"
-        popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, lat, lng, details), max_width='220', max_height='200')
+        popup=folium.map.Popup(html=popup_html.format(name, directions, '', size_text, lat, lng, details), max_width='220', max_height='200')
         folium.Marker(
             [lat, lng],
             popup=popup,
@@ -678,12 +682,14 @@ def get_full_map():
         lng = pit['attributes']['lng']
         size = 'N/A'  # calculate later!
         details = pit['attributes']['details']
+        subscription = pit['attributes'].get('subscription', None)
+        website = pit['attributes'].get('website')
         directions = f"https://www.google.com/maps/dir/?api=1&destination={lat}%2C{lng}"
-        popup=folium.map.Popup(html=popup_html.format(name, directions, size_text, lat, lng, details), max_width='220', max_height='200')
+        popup=folium.map.Popup(html=popup_html.format(name, directions, website_html.format(website) if website else '', size_text, lat, lng, details), max_width='220', max_height='200')
         folium.Marker(
             [lat, lng],
             popup=popup,
-            icon=folium.Icon(prefix='fa', icon='circle', color=layer_color)
+            icon=folium.Icon(prefix='fa', icon='dollar' if subscription else 'circle', color=layer_color)
         ).add_to(feature_group)
         geojson = {
             "type": "FeatureCollection",

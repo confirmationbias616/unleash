@@ -6,7 +6,8 @@
 	        "address": "7580 Fernbank Road",
 	        "lat": 45.2036111,
 	        "lng": -75.97368055,
-	        "details": "Privately owned with paid membership fees",
+	        "details": "Privately owned with paid membership",
+	        "subscription": "paid",
 	        "website": "http://boogity.ca"
 		},
 		"geometry":{
