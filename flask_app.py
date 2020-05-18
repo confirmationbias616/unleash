@@ -78,9 +78,12 @@ def get_all_parks():
 
 def get_all_pits():
     with open('ncc_pits.json', 'r') as f:
-        pits = json.loads(f.read())
-        for pit in pits:  # swap lat and lng to conform with City of Ottawa JSON format
-            pit['geometry'].update({'rings': [[[y,x] for x,y in pit['geometry']['rings'][0]]]})
+        ncc_pits = json.loads(f.read())
+    with open('private_pits.json', 'r') as f:
+        private_pits = json.loads(f.read())
+    pits = ncc_pits + private_pits
+    for pit in pits:  # swap lat and lng to conform with City of Ottawa JSON format
+        pit['geometry'].update({'rings': [[[y,x] for x,y in pit['geometry']['rings'][0]]]})
     return pits
 
 def get_all_enclosures():

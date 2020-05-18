@@ -1,0 +1,33 @@
+[
+	{
+		
+	    "attributes":{
+	        "name": "Barkwood Forest",
+	        "address": "7580 Fernbank Road",
+	        "lat": 45.2036111,
+	        "lng": -75.97368055,
+	        "details": "Privately owned with paid membership fees",
+	        "website": "http://boogity.ca"
+		},
+		"geometry":{
+			"rings":[
+				[
+					[
+						45.2077778, -75.9761111
+					],
+					[
+						45.2011111, -75.9683333
+					],
+					[
+						45.1994444, -75.9711111
+					],
+					[
+						45.2061111, -75.9791667
+					]
+				]
+			]
+
+		}
+		
+	}
+]
