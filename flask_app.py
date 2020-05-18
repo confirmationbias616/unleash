@@ -91,6 +91,9 @@ def get_all_enclosures():
         enclosures = json.loads(f.read())
     return enclosures
 
+def coordinate_area_to_m2(area):
+    return float(area) * 8684148731
+
 def m2_to_acres(area):
     return float(area) * 0.000247105
 
@@ -685,11 +688,16 @@ def get_full_map():
         name = pit['attributes']['name']
         lat = pit['attributes']['lat']
         lng = pit['attributes']['lng']
-        size = 'N/A'  # calculate later!
+        size = coordinate_area_to_m2(Polygon(pit['geometry']['rings'][0]).area)
         details = pit['attributes']['details']
         subscription = pit['attributes'].get('subscription', None)
         website = pit['attributes'].get('website')
         directions = f"https://www.google.com/maps/dir/?api=1&destination={lat}%2C{lng}"
+        if size:
+            size_in_acres = round(m2_to_acres(size),1)
+            size_text= f"{size_in_acres} acres"
+        else:
+            size_text = 'unknown size'
         popup=folium.map.Popup(html=popup_html.format(name, directions, website_html.format(website) if website else '', size_text, lat, lng, details), max_width='220', max_height='200')
         folium.Marker(
             [lat, lng],
