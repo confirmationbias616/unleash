@@ -61,9 +61,9 @@
         </div>
         {% endif %}
         <div id='nearby' class='blocktext + sweep_right' style='display: {% if skip == 'False' %} none {% else %} inline {% endif %}; font-size: 100%;'>
-          {% if not offleash_parks.values %}
-            <br><span class='blocktext + sweep_right'>No parks found... too far from Ottawa!</span><br><br
           <span style="font-size: 120%;"><u>off leash</u></span>
+          {% if offleash_parks.empty %}
+            <br><span class='blocktext + sweep_right'>No parks found... too far from Ottawa!</span><br><br>
           {% endif %}
           {% for p in offleash_parks[:8] %}
           <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--background_details); border-radius: 0.4em; padding: 0.2em 0.8em;'>
@@ -86,9 +86,9 @@
           </details>
           {% endfor %}
           <br>
-          {% if not offleash_parks.values %}
-            <br><span class='blocktext + sweep_right'>No parks found... too far from Ottawa!</span><br><br
           <span {% if skip == 'True' %} class='blocktext + sweep_right' {% endif %} style="font-size: 120%;"><u>on leash</u></span>
+          {% if offleash_parks.empty %}
+            <br><span class='blocktext + sweep_right'>No parks found... too far from Ottawa!</span><br><br>
           {% endif %}
           {% for p in parks[:8] %}
           <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--background_details); border-radius: 0.4em; padding: 0.2em 0.8em;'>
