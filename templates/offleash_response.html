@@ -11,9 +11,9 @@
     <div class='blocktext + question'>
       <h3 style="color: var(--text_question)";>
         {% if skip == 'False' %}
-          "Can I take my dog off leash?"
+          "Can my dog be off leash <u>here</u>?"
         {% else %}
-          "Where can I bring my dog?"
+          "<u>Where</u> can I bring my dog?"
         {% endif %}
       </h3>
     </div>
@@ -50,11 +50,11 @@
             </div>
           {% else %}
             <p>
-              You are not in a City of Ottawa park!
+              You are not in an area desigated off-leash dogs.
             </p>
             <p class='details'>
-              Therefore, your dog must remain on leash. That is unless you're on private property or NCC land and
-              have been advised otherwise.
+              Unless you're on private property and have the owner's
+              permission, your dog must remain on leash.
             </p>
           </div>
           {% endif %}
@@ -62,6 +62,9 @@
         {% endif %}
         <div id='nearby' class='blocktext + sweep_right' style='display: {% if skip == 'False' %} none {% else %} inline {% endif %}; font-size: 100%;'>
           <span style="font-size: 120%;"><u>offleash parks</u></span>
+          {% if not offleash_parks.values %}
+            <br><span class='blocktext + sweep_right'>No parks found... too far from Ottawa!</span><br><br
+          {% endif %}
           {% for p in offleash_parks[:8] %}
           <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--background_details); border-radius: 0.4em; padding: 0.2em 0.8em;'>
             <summary> {{ p['attributes']['NAME'] }} </summary>
@@ -84,6 +87,9 @@
           {% endfor %}
           <br>
           <span {% if skip == 'True' %} class='blocktext + sweep_right' {% endif %} style="font-size: 120%;"><u>other nearby parks</u></span>
+          {% if not offleash_parks.values %}
+            <br><span class='blocktext + sweep_right'>No parks found... too far from Ottawa!</span><br><br
+          {% endif %}
           {% for p in parks[:8] %}
           <details class='blocktext + sweep_right' style='margin-left: 3vw; margin-top: 0.6em; background-color: var(--background_details); border-radius: 0.4em; padding: 0.2em 0.8em;'>
             <summary> {{ p['attributes']['NAME'] }} </summary>

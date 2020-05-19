@@ -16,32 +16,19 @@
   </div>
   <div class='landing + sweep_right'>
     <hr class='top_landing_spacing'></hr>
-    <button class='landing_button + sweep_left_landing' onclick="window.open('{{ url_for('offleash') }}', '_self')">
-      "Can I take my dog off leash?"
-    </button>
-    <hr class='landing_spacing'>
-    <button class='landing_button + sweep_right_landing' onclick="window.open('{{ url_for('offleash', skip='True') }}', '_self')">
-      "Where should I bring my dog?"
-    </button>
-    <hr class='landing_spacing'>
     <button class='landing_button + sweep_left_landing' onclick="window.open('{{ url_for('map') }}', '_self')">
-      "Let me explore!"
+      Explore map
+    </button>
+    <hr class='landing_spacing'>
+    <i class="fas fa-location-arrow"></i>&nbsp<span style='font-size: 110%;'>based on current location</span>&nbsp<i class="fa fa-hand-o-down"></i><br><br>
+    <button class='landing_button + sweep_left_landing' onclick="window.open('{{ url_for('offleash') }}', '_self')">
+      "Can my dog be off leash <u>here</u>?"
+    </button>
+    <br><br>
+    <button class='landing_button + sweep_right_landing' onclick="window.open('{{ url_for('offleash', skip='True') }}', '_self')">
+      "<u>Where</u> can I bring my dog?"
     </button>
   </div>
-  <!-- <div class='landing'>
-    <hr class='top_landing_spacing'>
-    <button class='landing_button + sweep_left_landing' onclick="window.open('{{ url_for('offleash') }}', '_self')">
-      "Can I take my dog off leash?"
-    </button>
-    <hr class='landing_spacing'>
-    <button class='landing_button + sweep_right_landing' onclick="window.open('{{ url_for('offleash', skip='True') }}', '_self')">
-      "Where should I bring my dog?"
-    </button>
-    <hr class='landing_spacing'>
-    <button class='landing_button + sweep_left_landing' onclick="window.open('{{ url_for('map') }}', '_self')">
-      "Let me explore!"
-    </button>
-  </div> -->
   {% endblock %}
 </body>
 </html>

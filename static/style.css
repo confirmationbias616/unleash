@@ -396,10 +396,10 @@ hr.top_landing_spacing {
     display: inline-block;
   }
   hr.landing_spacing {
-    height: 2vh;
+    height: 8vh;
   }
   hr.top_landing_spacing {
-    height: 0vh;
+    height: 3vh;
   }
 }
 .navbar {
