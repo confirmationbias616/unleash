@@ -414,7 +414,7 @@ def get_full_map():
                 parks = get_all_parks()
                 enclosures = get_all_enclosures()
                 pits = get_all_pits()
-            for park in parks:  # see if query is park name
+            for park in parks + pits + enclosures:  # see if query is park name
                 if locate.lower() in park['attributes']['NAME'].lower():
                     lat = park['attributes']['LATITUDE']
                     lng = park['attributes']['LONGITUDE']
