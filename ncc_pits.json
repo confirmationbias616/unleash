@@ -2,11 +2,13 @@
 	{
 		
 	    "attributes":{
-	        "name": "Conroy Pit",
-	        "address": "Conroy Rd, Ottawa, ON K1T 3S4",
-	        "lat": 45.358886,
-	        "lng": -75.621059,
-	        "details": "NCC property"
+	        "NAME": "Conroy Pit",
+	        "ADDRESS": "Conroy Rd, Ottawa, ON K1T 3S4",
+	        "LATITUDE": 45.358886,
+	        "LONGITUDE": -75.621059,
+			"details": "NCC property",
+			"subscription": "",
+	        "website": ""
 		},
 		"geometry":{
 			"rings":[
@@ -89,11 +91,13 @@
 	{
 		
 	    "attributes":{
-	        "name": "Bruce Pit",
-	        "address": "Cedarview Rd, Ottawa, ON K2H 5S3",
-	        "lat": 45.326110,
-	        "lng": -75.799876,
-	        "details": "NCC property"
+	        "NAME": "Bruce Pit",
+	        "ADDRESS": "Cedarview Rd, Ottawa, ON K2H 5S3",
+	        "LATITUDE": 45.326110,
+	        "LONGITUDE": -75.799876,
+			"details": "NCC property",
+			"subscription": "",
+	        "website": ""
 		},
 		"geometry":{
 			"rings":[

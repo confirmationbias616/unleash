@@ -672,9 +672,9 @@ def get_full_map():
     feature_group = folium.FeatureGroup(name="off-leash enclosures", overlay=True, show=True)
     layer_color = 'orange'
     for enclosure in enclosures:
-        name = enclosure['name']
-        lat = enclosure['lat']
-        lng = enclosure['lng']
+        name = enclosure['attributes']['NAME']
+        lat = enclosure['attributes']['LATITUDE']
+        lng = enclosure['attributes']['LONGITUDE']
         size_text = 'N/A'
         details = 'Off-leash enclosure'
         directions = f"https://www.google.com/maps/dir/?api=1&destination={lat}%2C{lng}"
@@ -688,9 +688,9 @@ def get_full_map():
     layer_color = 'darkgreen'
     feature_group = folium.FeatureGroup(name="off leash pits", overlay=True, show=True)
     for pit in pits:
-        name = pit['attributes']['name']
-        lat = pit['attributes']['lat']
-        lng = pit['attributes']['lng']
+        name = pit['attributes']['NAME']
+        lat = pit['attributes']['LATITUDE']
+        lng = pit['attributes']['LONGITUDE']
         size = coordinate_area_to_m2(Polygon(pit['geometry']['rings'][0]).area)
         details = pit['attributes']['details']
         subscription = pit['attributes'].get('subscription', None)
