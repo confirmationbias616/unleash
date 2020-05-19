@@ -156,6 +156,9 @@ def offleash_response():
     # # Jack Purcell Park - Desgnation: 2
     # lat = 45.41522433
     # lng = -75.68931824
+    # # Thurso - frickin far
+    # lat = 45.626073
+    # lng = -75.167246
     current_location = Point(lng, lat)
     api_call = 'https://maps.ottawa.ca/arcgis/rest/services/Parks_Inventory/MapServer/24/query?where=1%3D1&outFields=NAME,DOG_DESIGNATION,LONGITUDE,Shape,LATITUDE,Shape_Area,DOG_DESIGNATION_DETAILS&geometry={},{},{},{}&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&returnCountOnly={}&outSR=4326&f=json'
     margin = 0.02
