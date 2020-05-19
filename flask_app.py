@@ -482,7 +482,7 @@ def get_full_map():
         </details>
     """
     website_html = """
-        <button onclick="window.open('{}', '_blank', 'noopener')" style='font-weight: bold;'>website</button>
+        <button onclick="window.open('{}', '_blank', 'noopener')" style="font-weight: bold; color: purple;">website</button>
     """
 
     m = folium.Map(tile=None, name='', location=(45.4096666, -75.6944444), zoom_start=14, width='100%', height='100%', disable_3D=False)
