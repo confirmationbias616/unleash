@@ -145,7 +145,7 @@ h2 {
   color: var(--highlight);
   margin-left: 2vw;
 }
-@media screen and (max-width: 745px) {
+@media screen and (max-width: 245px) {
   body {
     --background_main: rgba(133, 117, 99, 0.8);
     --background_main_darker: rgba(102, 89, 75, 0.8);
