@@ -20,7 +20,7 @@ body {
   --blurry-background: rgba(209, 180, 180, 0.75);
   --active_shadow: rgba(100,100,100,0.75);
   --hire_me_text: rgba(99, 8, 185,0.7);
-  background: var(--background_opaque);
+  background: rgba(210,195,190,1);
   font-family: 'Noto Sans', sans-serif;
   height: 100vh;
   font-size: 1vh + 0.5vw;
@@ -45,7 +45,8 @@ body {
       to bottom,
       var(--background_transparent) 0%, 
       var(--background_transparent) 90%, 
-      var(--background_opaque) 100%
+      var(--background_main_darker) 95%,
+      rgba(210,195,190,1) 100%
   ); 
 }
 .blocktext {
