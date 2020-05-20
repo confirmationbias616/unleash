@@ -22,7 +22,7 @@ templates/full_map.html
 *_map_*
 *_map-*
 *choropleth*
-*score.html
+score.html
 
 # ignore all CSV
 *.csv

@@ -109,6 +109,10 @@ def about():
 def score():
     return render_template('score.html')
 
+@app.route('/map_score', methods=["POST", "GET"])
+def map_score():
+    return render_template('map_score.html')
+
 @app.route('/offleash', methods=["POST", "GET"])
 def offleash():
     skip = request.args.get('skip', 'False')
