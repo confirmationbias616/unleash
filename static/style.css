@@ -19,7 +19,7 @@ body {
   font-family: 'Noto Sans', sans-serif;
   height: 100vh;
   font-size: 1vh + 0.5vw;
-  overflow-x: hidden
+  overflow-x: hidden;
  }
  .photo {
   position: absolute;
