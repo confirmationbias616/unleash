@@ -1,5 +1,7 @@
 body {
   --background_main: rgba(210,195,190,0.75);
+  --background_transparent: rgba(232, 232, 232, 0);
+  --background_opaque: rgba(232, 232, 232, 1);
   --background_main_darker: rgba(177, 163, 159, 0.75);
   --background_secondary: rgb(204,208,216);
   --background_details: rgba(209, 207, 206, 0.75);
@@ -13,14 +15,31 @@ body {
   --blurry-background: rgba(209, 180, 180, 0.75);
   --active_shadow: rgba(100,100,100,0.75);
   --hire_me_text: rgba(99, 8, 185,0.7);
-  background: var(--background_main);
-  background-image: url(bg10sm.jpg);
-  background-size: 1200px, cover;
-  background-repeat: repeat-x;
+  background: var(--background_opaque);
   font-family: 'Noto Sans', sans-serif;
   height: 100vh;
   font-size: 1vh + 0.5vw;
+  overflow-x: hidden
  }
+ .photo {
+  position: absolute;
+  z-index: -1;
+  width: 100vw;
+}
+#background_image {
+  width: 200vw;
+  margin-left: -12vw;
+}
+.picture-gradient {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background: linear-gradient(
+      to bottom,
+      var(--background_transparent) 0%, 
+      var(--background_transparent) 90%, 
+      var(--background_opaque) 100%
+  ); 
+}
 .blocktext {
   margin-left: min(10vw, 50px);
   width: min(50vw, 250px);
@@ -148,6 +167,8 @@ h2 {
 @media screen and (max-width: 245px) {
   body {
     --background_main: rgba(133, 117, 99, 0.8);
+    --background_transparent: rgba(232, 232, 232, 0);
+    --background_opaque: rgba(232, 232, 232, 1);
     --background_main_darker: rgba(102, 89, 75, 0.8);
     --background_secondary: rgb(60,60,60);
     --background_details: rgba(209, 207, 206, 0.75);
@@ -161,10 +182,6 @@ h2 {
     --blurry-background: rgba(160, 138, 122, 0.5);
     --active_shadow: rgba(0,0,0,0.7);
     --hire_me_text: rgba(99, 8, 185,0.7);
-    background: var(--background_secondary);
-    background-image: url(bg11sm.jpg);
-    background-size: 1200px, cover;
-    background-repeat: repeat-x;
   }
 }
 @media screen and (max-width: 500px) {
