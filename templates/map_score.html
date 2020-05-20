@@ -24,7 +24,7 @@
       var ifr = document.getElementById('main_popup_map');
       var locate = document.getElementById('locate').value;
       document.getElementById('search_spinner').style.display='inline';
-      ifr.src="{{ url_for('score') }}"+`?locate=${locate}`;
+      ifr.src="{{ url_for('map_score') }}"+`?locate=${locate}`;
       return false;
     }
     map_loaded = function() {
