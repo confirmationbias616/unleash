@@ -731,8 +731,8 @@ def get_full_map():
         ).add_to(feature_group)
     feature_group.add_to(m)
 
-    folium.LayerControl(collapsed=True).add_to(m)
     LocateControl().add_to(m)
+    folium.LayerControl(collapsed=True, position='topleft').add_to(m)
     logger.info('ok, map is ready')
     m.save('templates/full_map.html')
     return m.get_root().render()
