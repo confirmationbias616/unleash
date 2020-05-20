@@ -105,6 +105,10 @@ def index():
 def about():
     return render_template('about.html')
 
+@app.route('/score', methods=["POST", "GET"])
+def score():
+    return render_template('score.html')
+
 @app.route('/offleash', methods=["POST", "GET"])
 def offleash():
     skip = request.args.get('skip', 'False')

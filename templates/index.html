@@ -20,7 +20,12 @@
       <i class="fas fa-map-marked-alt"></i> &nbsp explore map
     </button>
     <hr class='landing_spacing'>
-    <i class="fas fa-location-arrow"></i>&nbsp<span style='font-size: 110%;'>based on current location</span>&nbsp<i class="fa fa-hand-o-down"></i><br><br>
+    <span style='font-size: 110%;'><i class="far fa-star"></i>&nbsp<span>beta feature</span>&nbsp<i class="fa fa-hand-o-down"></i></span><br><br>
+    <button class='landing_button + sweep_left_landing' onclick="window.open('{{ url_for('score') }}', '_self')">
+      Get your OffLeashScore
+    </button>
+    <hr class='landing_spacing'>
+    <i class="fas fa-location-arrow"></i>&nbsp<span style='font-size: 110%;'><span>based on current location</span>&nbsp<i class="fa fa-hand-o-down"></i></span><br><br>
     <button class='landing_button + sweep_left_landing' onclick="window.open('{{ url_for('offleash') }}', '_self')">
       "Can my dog be off leash <u>here</u>?"
     </button>
