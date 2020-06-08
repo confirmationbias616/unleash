@@ -16,7 +16,7 @@ from shapely.ops import cascaded_union
 import folium
 from folium.plugins import MarkerCluster, HeatMapWithTime, HeatMap, LocateControl
 from fetch_parks import get_all_parks, get_all_enclosures, get_all_pits
-from get_nh_scores import get_isochrones
+from get_nh_scores import get_isochrones, get_iso_walk_score, get_iso_drive_score
 
 
 logger = logging.getLogger(__name__)
