@@ -15,6 +15,7 @@ from shapely.geometry.polygon import Polygon
 from shapely.ops import cascaded_union
 import folium
 from folium.plugins import MarkerCluster, HeatMapWithTime, HeatMap, LocateControl
+from get_nh_scores import *
 
 
 logger = logging.getLogger(__name__)
@@ -136,6 +137,13 @@ def coordinate_area_to_m2(area):
 def m2_to_acres(area):
     return float(area) * 0.000247105
 
+def get_offleashscore(lat, lng):
+    isochrones = get_isochrones([[lat, lng]])
+    walk_score = int(get_iso_walk_score(isochrones[0]))
+    drive_score = int(get_iso_drive_score(isochrones[1]))
+    score = walk_score + drive_score
+    return score, walk_score, drive_score
+
 @app.route('/', methods=["POST", "GET"])
 def index():
     return render_template('index.html')
@@ -158,6 +166,7 @@ def map_score():
         logger.info(f"geocode_center: {geocode_center}")
         lat = geocode_center.get('lat')
         lng = geocode_center.get('lng')
+        score, walk_score, drive_score = get_offleashscore(lat, lng)
         if lat:
             with open('templates/score.html', 'r+') as f:
                 reloc_map = f.read()
@@ -169,7 +178,8 @@ def map_score():
                 'zoom: 11',
                 f'zoom: {zoom_level}'
             )
-            return reloc_map
+            # return reloc_map
+            return render_template('ols.html', score=score, walk_score=walk_score, drive_score=drive_score)
     return render_template('map_score.html') # location not found or not specified
 
 @app.route('/offleash', methods=["POST", "GET"])
