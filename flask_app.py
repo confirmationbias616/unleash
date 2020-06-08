@@ -87,8 +87,6 @@ def get_address_latlng(address_input):
             zoom = 14
         else:
             zoom = 13
-        print(lat_diff)
-        print(zoom)
         return info['geometry']['location'], zoom
     return {}, 14
 
