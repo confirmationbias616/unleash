@@ -104,7 +104,7 @@ for s in range(15, 1000, 2):
         print(f"{i}: {nh.Name}")
         seed_start, seed_end = s, s + 1 
         for seed in range(seed_start, seed_end + 1):
-            print("collecting isochrones for seed {seed}")
+            print(f"collecting isochrones for seed {seed}")
             zone_score(0, 0, 0, 0, nh=nh.Name, seed=seed)
     print("Done collecting isochrones for the day.")
     sleep(60 * 60 * 24 + 60 * 5)
