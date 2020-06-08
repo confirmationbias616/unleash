@@ -11,7 +11,7 @@ from shapely.geometry.polygon import Polygon
 from shapely.ops import unary_union, transform, cascaded_union
 from pprint import pprint
 from openrouteservice import client, isochrones
-from flask_app import get_all_parks, get_all_enclosures, get_all_pits
+from fetch_parks import get_all_parks, get_all_enclosures, get_all_pits
 import pandas_bokeh
 from functools import lru_cache
 import matplotlib.pyplot as plt
