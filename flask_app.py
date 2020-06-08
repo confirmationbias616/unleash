@@ -153,7 +153,6 @@ def score():
 @app.route('/map_score', methods=["POST", "GET"])
 def map_score():
     locate = request.args.get('locate')
-    print(locate)
     if locate:
         zoom_level = 14
         lat, lng = None, None
@@ -162,8 +161,6 @@ def map_score():
         lat = geocode_center.get('lat')
         lng = geocode_center.get('lng')
         if lat:
-            print(lat)
-            print(zoom_level)
             with open('templates/score.html', 'r+') as f:
                 reloc_map = f.read()
             reloc_map = reloc_map.replace(
