@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="{{ url_for('static',filename='style.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body style="background-color: rgba(0,0,0,0);">
+    <br><br><br><br>
+    <div class='blocktext'>
+        <h3>OttLeashScore: {{ score }}</h3>
+        <details>
+            <summary>details</summary>
+            <h5>Walk score: {{ walk_score }}</h5>
+            <h5>Drive score: {{ drive_score }}</h5>
+        </details>
+    </div>
+</body>
+</html>
