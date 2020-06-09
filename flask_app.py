@@ -100,10 +100,12 @@ def m2_to_acres(area):
 
 def get_offleashscore(lat, lng):
     isochrones = get_isochrones([[lat, lng]])
-    walk_score = int(get_iso_walk_score(isochrones[0]))
-    drive_score = int(get_iso_drive_score(isochrones[1]))
+    walk_iso = isochrones[0]
+    drive_iso = isochrones[1]
+    walk_score = int(get_iso_walk_score(walk_iso))
+    drive_score = int(get_iso_drive_score(drive_iso))
     score = walk_score + drive_score
-    return score, walk_score, drive_score
+    return score, walk_score, drive_score, walk_iso, drive_iso
 
 @app.route('/', methods=["POST", "GET"])
 def index():
@@ -127,21 +129,66 @@ def map_score():
         logger.info(f"geocode_center: {geocode_center}")
         lat = geocode_center.get('lat')
         lng = geocode_center.get('lng')
-        score, walk_score, drive_score = get_offleashscore(lat, lng)
+        score, walk_score, drive_score, walk_iso, drive_iso = get_offleashscore(lat, lng)
         if lat:
-            with open('templates/score.html', 'r+') as f:
-                reloc_map = f.read()
-            reloc_map = reloc_map.replace(
-                'center: [45.39, -75.65]',
-                f'center: [{lat}, {lng}]'
-            )
-            reloc_map = reloc_map.replace(
-                'zoom: 11',
-                f'zoom: {zoom_level}'
-            )
-            # return reloc_map
+            m = folium.Map(location=(lat, lng), zoom_start=11)
+            for isochrone, fill_opacity, weight in zip([walk_iso, drive_iso], [0.2, 0.1], [3, 1.5]):
+                folium.vector_layers.Polygon(
+                    isochrone,
+                    color='black',
+                    fill_color='rgb(225,225,40)',
+                    fill_opacity=fill_opacity,
+                    weight=weight,
+                ).add_to(m)
+            for park in parks + pits:
+                try:
+                    if park['attributes']['DOG_DESIGNATION'] != '0':
+                        continue
+                except KeyError:
+                    pass
+                # point = [park['attributes']['LATITUDE'], park['attributes']['LONGITUDE']]
+                # folium.Marker(
+                #     point,
+                #     icon=folium.Icon(color='red')
+                # ).add_to(m)
+                geojson = {
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Polygon",
+                                "coordinates": [
+                                    ring for ring in park['geometry']['rings']
+                                ]
+                            },
+                        },
+                    ]
+                }
+                folium.features.Choropleth(
+                    geo_data=geojson,
+                    highlight=False,
+                    fill_opacity = 0.3,
+                ).add_to(m)
+            m.save('templates/temp_iso_map.html')
+
+        #     with open('templates/score.html', 'r+') as f:
+        #         reloc_map = f.read()
+        #     reloc_map = reloc_map.replace(
+        #         'center: [45.39, -75.65]',
+        #         f'center: [{lat}, {lng}]'
+        #     )
+        #     reloc_map = reloc_map.replace(
+        #         'zoom: 11',
+        #         f'zoom: {zoom_level}'
+        #     )
+        #     return reloc_map
             return render_template('ols.html', score=score, walk_score=walk_score, drive_score=drive_score)
     return render_template('map_score.html') # location not found or not specified
+
+@app.route('/get_ols_map', methods=["POST", "GET"])
+def get_ols_map():
+    return render_template('temp_iso_map.html')
 
 @app.route('/offleash', methods=["POST", "GET"])
 def offleash():
