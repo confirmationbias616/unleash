@@ -140,6 +140,12 @@ def map_score():
                     fill_opacity=fill_opacity,
                     weight=weight,
                 ).add_to(m)
+            try:
+                parks
+            except NameError:
+                parks = get_all_parks()
+                enclosures = get_all_enclosures()
+                pits = get_all_pits()
             for park in parks + pits:
                 try:
                     if park['attributes']['DOG_DESIGNATION'] != '0':
