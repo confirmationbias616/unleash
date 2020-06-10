@@ -131,14 +131,15 @@ def map_score():
         lng = geocode_center.get('lng')
         score, walk_score, drive_score, walk_iso, drive_iso = get_offleashscore(lat, lng)
         if lat:
-            m = folium.Map(location=(lat, lng), zoom_start=11)
-            for isochrone, fill_opacity, weight in zip([walk_iso, drive_iso], [0.2, 0.1], [3, 1.5]):
+            m = folium.Map(location=(lat, lng), zoom_start=11, tiles='cartodbpositron')
+            for isochrone, label, fill_opacity, weight in zip([drive_iso, walk_iso], ['within - 8min drive', 'within - 20min walk'], [0.1, 0.2], [1.5, 3]):
                 folium.vector_layers.Polygon(
                     isochrone,
                     color='black',
-                    fill_color='rgb(225,225,40)',
+                    fill_color='rgb(150,150,200)',
                     fill_opacity=fill_opacity,
                     weight=weight,
+                    tooltip=f"{label}",
                 ).add_to(m)
             try:
                 parks
@@ -174,7 +175,8 @@ def map_score():
                 folium.features.Choropleth(
                     geo_data=geojson,
                     highlight=False,
-                    fill_opacity = 0.3,
+                    fill_opacity=0.3,
+                    fill_color='rgb(200,150,150)',
                 ).add_to(m)
             m.save('templates/temp_iso_map.html')
 
