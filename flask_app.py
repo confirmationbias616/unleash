@@ -12,6 +12,7 @@ from time import sleep
 import requests
 from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
+from folium.vector_layers import Circle
 from shapely.ops import cascaded_union
 import folium
 from folium.plugins import MarkerCluster, HeatMapWithTime, HeatMap, LocateControl
@@ -132,14 +133,14 @@ def map_score():
         score, walk_score, drive_score, walk_iso, drive_iso = get_offleashscore(lat, lng)
         if lat:
             m = folium.Map(location=(lat, lng), zoom_start=11, tiles='cartodbpositron')
-            for isochrone, label, fill_opacity, weight in zip([drive_iso, walk_iso], ['within - 8min drive', 'within - 20min walk'], [0.1, 0.2], [1.5, 3]):
+            for isochrone, label, fill_opacity, weight in zip([drive_iso, walk_iso], ['8min drive', '20min walk'], [0.1, 0.2], [1.5, 3]):
                 folium.vector_layers.Polygon(
                     isochrone,
                     color='black',
                     fill_color='rgb(150,150,200)',
                     fill_opacity=fill_opacity,
                     weight=weight,
-                    tooltip=f"{label}",
+                    tooltip=f"within {label}",
                 ).add_to(m)
             try:
                 parks
@@ -153,11 +154,6 @@ def map_score():
                         continue
                 except KeyError:
                     pass
-                # point = [park['attributes']['LATITUDE'], park['attributes']['LONGITUDE']]
-                # folium.Marker(
-                #     point,
-                #     icon=folium.Icon(color='red')
-                # ).add_to(m)
                 geojson = {
                     "type": "FeatureCollection",
                     "features": [
@@ -177,20 +173,20 @@ def map_score():
                     highlight=False,
                     fill_opacity=0.3,
                     fill_color='rgb(200,150,150)',
+                    line_color='rgb(200,150,150)',
+                    line_weight=1,
+                ).add_to(m)
+            for park in enclosures:
+                point = [park['attributes']['LATITUDE'], park['attributes']['LONGITUDE']]
+                folium.vector_layers.Circle(
+                    point,
+                    fill_opacity=0.5,
+                    fill_color='rgb(200,150,150)',
+                    color='rgb(200,150,150)',
+                    weight=3,
+                    radius=10,
                 ).add_to(m)
             m.save('templates/temp_iso_map.html')
-
-        #     with open('templates/score.html', 'r+') as f:
-        #         reloc_map = f.read()
-        #     reloc_map = reloc_map.replace(
-        #         'center: [45.39, -75.65]',
-        #         f'center: [{lat}, {lng}]'
-        #     )
-        #     reloc_map = reloc_map.replace(
-        #         'zoom: 11',
-        #         f'zoom: {zoom_level}'
-        #     )
-        #     return reloc_map
             return render_template('ols.html', score=score, walk_score=walk_score, drive_score=drive_score)
     return render_template('map_score.html') # location not found or not specified
 
