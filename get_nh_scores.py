@@ -113,13 +113,12 @@ def get_iso_walk_score(isochrone):
     for _, park in parks[(parks.type_of_park == 'park') | (parks.type_of_park == 'pit')].iterrows():
         for ring in park['geometry']['rings']:
             walk_area += Polygon(ring).intersection(iso_walk).area
-        walk_area = 20 if walk_area < 20 else walk_area
     enclosure_near = False
     for _, park in parks[parks.type_of_park == 'enclosure'].iterrows():
         if Point(park.LONGITUDE, park.LATITUDE).within(iso_walk):
             enclosure_near = True
             break
-    score = ((walk_area**0.8) * 50000 + enclosure_near * 10) * 2
+    score = (max(10 if walk_area else 0,(walk_area**0.8) * 80000) + enclosure_near * 8) * 2
     return score
 
 def get_iso_drive_score(iso_walk, iso_drive):
@@ -140,7 +139,7 @@ def get_iso_drive_score(iso_walk, iso_drive):
             if not Point(park.LONGITUDE, park.LATITUDE).within(iso_walk):
                 enclosure_near = True
                 break
-    score = ((walk_area**0.8) * 5000 + enclosure_near * 5 + drive_reach) * 2
+    score = ((walk_area**0.8) * 5000 + enclosure_near * 4 + drive_reach) * 2
     return score
 
 def zone_score(curr_lng, curr_lat, lng_diff, lat_diff, ward_num=False, nh=False, seed=0):
