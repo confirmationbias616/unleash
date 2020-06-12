@@ -113,6 +113,7 @@ def get_iso_walk_score(isochrone):
     for _, park in parks[(parks.type_of_park == 'park') | (parks.type_of_park == 'pit')].iterrows():
         for ring in park['geometry']['rings']:
             walk_area += Polygon(ring).intersection(iso_walk).area
+        walk_area = 20 if walk_area < 20 else walk_area
     enclosure_near = False
     for _, park in parks[parks.type_of_park == 'enclosure'].iterrows():
         if Point(park.LONGITUDE, park.LATITUDE).within(iso_walk):
