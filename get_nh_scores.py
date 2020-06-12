@@ -118,7 +118,7 @@ def get_iso_walk_score(isochrone):
         if Point(park.LONGITUDE, park.LATITUDE).within(iso_walk):
             enclosure_near = True
             break
-    score = ((walk_area**0.5) * 1000 + enclosure_near * 10) * 2
+    score = ((walk_area**0.8) * 50000 + enclosure_near * 10) * 2
     return score
 
 def get_iso_drive_score(iso_walk, iso_drive):
@@ -139,7 +139,7 @@ def get_iso_drive_score(iso_walk, iso_drive):
             if not Point(park.LONGITUDE, park.LATITUDE).within(iso_walk):
                 enclosure_near = True
                 break
-    score = ((walk_area**0.5) * 100 + enclosure_near * 5 + drive_reach) * 2
+    score = ((walk_area**0.8) * 5000 + enclosure_near * 5 + drive_reach) * 2
     return score
 
 def zone_score(curr_lng, curr_lat, lng_diff, lat_diff, ward_num=False, nh=False, seed=0):
