@@ -103,7 +103,7 @@ def get_offleashscore(lat, lng):
     walk_iso = isochrones[0]
     drive_iso = isochrones[1]
     walk_score = int(get_iso_walk_score(walk_iso))
-    drive_score = int(get_iso_drive_score(drive_iso))
+    drive_score = int(get_iso_drive_score(walk_iso, drive_iso))
     score = walk_score + drive_score
     return score, walk_score, drive_score, walk_iso, drive_iso
 

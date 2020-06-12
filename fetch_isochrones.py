@@ -88,6 +88,16 @@ def json_to_df(data):
     df = df.drop('properties', axis=1)
     return df
 
+parks = json_to_df(get_all_parks())
+parks = parks[parks.DOG_DESIGNATION == '0'][['NAME', 'LONGITUDE', 'LATITUDE', 'geometry']]
+parks['type_of_park'] = 'park'
+enclosures = json_to_df(get_all_enclosures())
+enclosures['type_of_park'] = 'enclosure'
+pits = json_to_df(get_all_pits())
+pits = pits[pits.subscription != 'paid']
+pits['type_of_park'] = 'pit'
+parks = parks.append(enclosures).append(pits)
+
 for s in range(15, 1000, 2):
     with open(".secret.json") as f:
         api_key = json.load(f)["ors_api_key"]

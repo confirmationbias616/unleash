@@ -118,22 +118,28 @@ def get_iso_walk_score(isochrone):
         if Point(park.LONGITUDE, park.LATITUDE).within(iso_walk):
             enclosure_near = True
             break
-    score = walk_area * 1000000 + enclosure_near * 15
+    score = ((walk_area**0.5) * 1000 + enclosure_near * 10) * 2
     return score
 
-def get_iso_drive_score(isochrone):
-    iso_drive = Polygon(isochrone)
+def get_iso_drive_score(iso_walk, iso_drive):
+    iso_drive = Polygon(iso_drive)
+    iso_walk = Polygon(iso_walk)
     iso_drive = transform(lambda x, y: (y, x), iso_drive)
+    iso_walk = transform(lambda x, y: (y, x), iso_walk)
+    walk_area = 0
     drive_reach = 0
     for _, park in parks[(parks.type_of_park == 'park') | (parks.type_of_park == 'pit')].iterrows():
         for ring in park['geometry']['rings']:
-            drive_reach += 1 if Polygon(ring).intersects(iso_drive) else 0
+            if Polygon(ring).intersects(iso_drive):
+                drive_reach += 1 if not Polygon(ring).intersects(iso_walk) else 0
+                walk_area += Polygon(ring).area - Polygon(ring).intersection(iso_walk).area
     enclosure_near = False
     for _, park in parks[parks.type_of_park == 'enclosure'].iterrows():
         if Point(park.LONGITUDE, park.LATITUDE).within(iso_drive):
-            enclosure_near = True
-            break
-    score = drive_reach + enclosure_near * 15
+            if not Point(park.LONGITUDE, park.LATITUDE).within(iso_walk):
+                enclosure_near = True
+                break
+    score = ((walk_area**0.5) * 100 + enclosure_near * 5 + drive_reach) * 2
     return score
 
 def zone_score(curr_lng, curr_lat, lng_diff, lat_diff, ward_num=False, nh=False, seed=0):
@@ -149,8 +155,9 @@ def zone_score(curr_lng, curr_lat, lng_diff, lat_diff, ward_num=False, nh=False,
     total_scores = []
     for isochrone_walk, isochrone_drive in zip(isochrones[:5], isochrones[5:]):
         walk_score = get_iso_walk_score(isochrone_walk)
-        drive_score = get_iso_drive_score(isochrone_drive)
+        drive_score = get_iso_drive_score(isochrone_walk, isochrone_drive)
         total_score = walk_score + drive_score
+        total_score = 100 if total_score > 100 else total_score
         total_scores.append(total_score)
     return total_scores
 
