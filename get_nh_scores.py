@@ -118,7 +118,8 @@ def get_iso_walk_score(isochrone):
         if Point(park.LONGITUDE, park.LATITUDE).within(iso_walk):
             enclosure_near = True
             break
-    score = (max(10 if walk_area else 0,(walk_area**0.8) * 80000) + enclosure_near * 8) * 2
+    score = ((walk_area**0.8) * 80000 + enclosure_near * 8) * 2
+    score = max(25, score) if score else 0
     return score
 
 def get_iso_drive_score(iso_walk, iso_drive):
