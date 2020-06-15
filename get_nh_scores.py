@@ -140,8 +140,8 @@ def get_iso_walk_score(short_walk_iso, long_walk_iso):
             enclosure_near_short += 1
         elif Point(park.LONGITUDE, park.LATITUDE).within(long_walk_iso):
             enclosure_near_long += 1
-    score = ((short_walk_area**0.8) * 100000 + ((max(long_walk_area - short_walk_area, 0))**0.8) * 40000 + enclosure_near_short * 8 + enclosure_near_long * 4) * 2
-    # score = max(15, score) if score else 0
+    score = ((short_walk_area**0.8) * 150000 + ((max(long_walk_area - short_walk_area, 0))**0.8) * 80000 + enclosure_near_short * 8 + enclosure_near_long * 4) * 2
+    score = max(20, score) if (short_walk_area or enclosure_near_short) else score
     return score
 
 def get_iso_drive_score(long_walk_iso, drive_iso):
@@ -162,7 +162,7 @@ def get_iso_drive_score(long_walk_iso, drive_iso):
             if not Point(park.LONGITUDE, park.LATITUDE).within(long_walk_iso):
                 enclosure_near = True
                 break
-    score = ((walk_area**0.8) * 5000 + enclosure_near * 4 + drive_reach) * 2
+    score = ((walk_area**0.8) * 20000 + enclosure_near * 4 + drive_reach**0.5) * 2
     return score
 
 def zone_score(curr_lng, curr_lat, lng_diff, lat_diff, ward_num=False, nh=False, seed=0):
