@@ -19,9 +19,9 @@ def zone_score(curr_lng, curr_lat, lng_diff, lat_diff, ward_num=False, nh=False,
 
 def json_to_df(data):
     df = pd.DataFrame(data)
-    for attr in df.iloc[0]['properties'].keys():
-        df[attr] = df.properties.apply(lambda x: x[attr])
-    df = df.drop('properties', axis=1)
+    for attr in df.iloc[0]['attributes'].keys():
+        df[attr] = df.attributes.apply(lambda x: x[attr])
+    df = df.drop('attributes', axis=1)
     return df
 
 parks = json_to_df(get_all_parks())
@@ -33,6 +33,13 @@ pits = json_to_df(get_all_pits())
 pits = pits[pits.subscription != 'paid']
 pits['type_of_park'] = 'pit'
 parks = parks.append(enclosures).append(pits)
+
+def json_to_df(data):
+    df = pd.DataFrame(data)
+    for attr in df.iloc[0]['properties'].keys():
+        df[attr] = df.properties.apply(lambda x: x[attr])
+    df = df.drop('properties', axis=1)
+    return df
 
 for s in range(4, 1000, 2):
     with open(".secret.json") as f:
