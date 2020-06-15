@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 from openrouteservice import client
 from get_nh_scores import get_isochrones, get_random_addresses
+from fetch_parks import get_all_parks, get_all_enclosures, get_all_pits
 
 
 def zone_score(curr_lng, curr_lat, lng_diff, lat_diff, ward_num=False, nh=False, seed=0):
