@@ -4,73 +4,8 @@ import requests
 import numpy as np
 import pandas as pd
 from openrouteservice import client
+from get_nh_scores import get_isochrones, get_random_addresses
 
-
-def get_isochrones(points):
-    input_points = points
-    df_iso = pd.read_csv('isochrone_cache.csv')
-    match = df_iso[df_iso.points == repr(points)]
-    if len(match):
-        return eval(list(match.isochrones)[-1])
-    else:
-        points = [[y, x] for x, y in points]  # switch lat/lng order
-        walk_query = {
-            "locations":points,
-            "range":[1200],
-            "profile":'foot-walking'
-        }
-        drive_query = {
-            "locations":points,
-            "range":[480],
-            "profile":'driving-car'
-        }
-        while True:
-            try:
-                print('calling for walk isochrone')
-                walk_isochrone = clnt.isochrones(**walk_query)['features']
-                break
-            except:
-                pass
-        sleep(2.5)
-        while True:
-            try:
-                print('calling for drive isochrone')
-                drive_isochrone = clnt.isochrones(**drive_query)['features']
-                break
-            except:
-                pass
-        features = walk_isochrone + drive_isochrone
-        isochrones = [feautre['geometry']['coordinates'][0] for feautre in features]
-        isochrones = [[(y,x) for x,y in isochrone] for isochrone in isochrones]
-        df_iso = df_iso.append({'points': input_points, 'isochrones': isochrones}, ignore_index=True)
-        df_iso.to_csv('isochrone_cache.csv', index=False)
-        return isochrones
-    
-def get_random_addresses(lat, lng, lat_diff, lng_diff, ward_num=False, nh=False, seed=0):
-    if ward_num or nh:
-        df = pd.read_csv('addresses_wards_nhs.csv')
-        if nh:
-            df = df[df.nh == nh][['lat', 'lng']]
-        else:
-            df = df[df.ward_num == ward_num][['lat', 'lng']]
-        address_points = list(df.to_records(index=False))
-    else:
-        api_call = f"https://maps.ottawa.ca/arcgis/rest/services/Municipal_Address/MapServer/0/query?where=1%3D1&outFields=*&geometry={lng - lng_diff}%2C{lat - lat_diff}%2C{lng + lng_diff}%2C{lat + lat_diff}&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelContains&outSR=4326&f=json"
-        addresses = json.loads(requests.get(api_call).content)['features']
-        address_points = [address['geometry'] for address in addresses]
-        address_points = [(address_point['y'], address_point['x']) for address_point in address_points]
-    address_points = np.array(address_points)
-    np.random.seed(seed)
-    if len(address_points) >= 5:
-        idx = np.random.choice(len(address_points), 5, replace=False)
-        selected_points = address_points[idx]
-    elif len(address_points) >= 1:
-        idx = np.random.choice(len(address_points), 1, replace=False)
-        selected_points = np.array(list(address_points[idx])*5)
-    else:
-        selected_points = np.array([list(np.array([lat, lng]))]*5)
-    selected_points = [selected_point.tolist() for selected_point in selected_points]
-    return selected_points
 
 def zone_score(curr_lng, curr_lat, lng_diff, lat_diff, ward_num=False, nh=False, seed=0):
     selected_points = get_random_addresses(curr_lat, curr_lng, lat_diff, lng_diff, ward_num=ward_num, nh=nh, seed=seed)
@@ -98,7 +33,7 @@ pits = pits[pits.subscription != 'paid']
 pits['type_of_park'] = 'pit'
 parks = parks.append(enclosures).append(pits)
 
-for s in range(15, 1000, 2):
+for s in range(4, 1000, 2):
     with open(".secret.json") as f:
         api_key = json.load(f)["ors_api_key"]
     clnt = client.Client(key=api_key)

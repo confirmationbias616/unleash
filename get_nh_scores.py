@@ -39,17 +39,26 @@ clnt = client.Client(key=api_key)
 #     df = df.drop('attributes', axis=1)
 #     return df
 
+
 def get_isochrones(points):
     input_points = points
     df_iso = pd.read_csv('isochrone_cache.csv')
-    match = df_iso[df_iso.points == repr(points)]
-    if len(match):
-        return eval(list(match.isochrones)[-1])
+    short_walk_iso, long_walk_iso, drive_iso = [], [], []
+    for point in points:
+        lat, lng = point[0], point[1]
+        match = df_iso[(round(df_iso['lat'], 7) == round(lat, 7)) & (round(df_iso['lng'], 7) == round(lng, 7))]
+        if len(match) and match.iloc[-1].short_walk_iso:
+            short_walk_iso.append(eval(list(match.short_walk_iso)[-1]))
+            long_walk_iso.append(eval(list(match.long_walk_iso)[-1]))
+            drive_iso.append(eval(list(match.drive_iso)[-1]))
+    if len(short_walk_iso) == len(points):
+        print("utilized cache to bypass ORS API!")
+        return short_walk_iso + long_walk_iso + drive_iso
     else:
         points = [[y, x] for x, y in points]  # switch lat/lng order
-        walk_query = {
+        walk_queries = {
             "locations":points,
-            "range":[1200],
+            "range":[450, 1200],
             "profile":'foot-walking'
         }
         drive_query = {
@@ -59,8 +68,10 @@ def get_isochrones(points):
         }
         while True:
             try:
-                print('calling for walk isochrone')
-                walk_isochrone = clnt.isochrones(**walk_query)['features']
+                print('calling for short and long walk isochrones')
+                walk_isos = clnt.isochrones(**walk_queries)['features']
+                short_walk_iso = walk_isos[::2]
+                long_walk_iso = walk_isos[1::2]
                 break
             except:
                 pass
@@ -68,14 +79,21 @@ def get_isochrones(points):
         while True:
             try:
                 print('calling for drive isochrone')
-                drive_isochrone = clnt.isochrones(**drive_query)['features']
+                drive_iso = clnt.isochrones(**drive_query)['features']
                 break
             except:
                 pass
-        features = walk_isochrone + drive_isochrone
+        features = short_walk_iso + long_walk_iso + drive_iso
         isochrones = [feautre['geometry']['coordinates'][0] for feautre in features]
         isochrones = [[(y,x) for x,y in isochrone] for isochrone in isochrones]
-        df_iso = df_iso.append({'points': input_points, 'isochrones': isochrones}, ignore_index=True)
+        for i in range(len(input_points)):
+            df_iso = df_iso.append({
+                'lat': input_points[i][0],
+                'lng': input_points[i][1],
+                'short_walk_iso': isochrones[i],
+                'long_walk_iso': isochrones[i+1],
+                'drive_iso': isochrones[i+2],
+            }, ignore_index=True)
         df_iso.to_csv('isochrone_cache.csv', index=False)
         return isochrones
     
@@ -101,43 +119,47 @@ def get_random_addresses(lat, lng, lat_diff, lng_diff, ward_num=False, nh=False,
     elif len(address_points) >= 1:
         idx = np.random.choice(len(address_points), 1, replace=False)
         selected_points = np.array(list(address_points[idx])*5)
-    else:
-        selected_points = np.array([list(np.array([lat, lng]))]*5)
     selected_points = [selected_point.tolist() for selected_point in selected_points]
     return selected_points
 
-def get_iso_walk_score(isochrone):
-    iso_walk = Polygon(isochrone)
-    iso_walk = transform(lambda x, y: (y, x), iso_walk)
-    walk_area = 0
+def get_iso_walk_score(short_walk_iso, long_walk_iso):
+    short_walk_iso = Polygon(short_walk_iso)
+    short_walk_iso = transform(lambda x, y: (y, x), short_walk_iso)
+    short_walk_area = 0
+    long_walk_iso = Polygon(long_walk_iso)
+    long_walk_iso = transform(lambda x, y: (y, x), long_walk_iso)
+    long_walk_area = 0
     for _, park in parks[(parks.type_of_park == 'park') | (parks.type_of_park == 'pit')].iterrows():
         for ring in park['geometry']['rings']:
-            walk_area += Polygon(ring).intersection(iso_walk).area
-    enclosure_near = False
+            short_walk_area += Polygon(ring).intersection(short_walk_iso).area
+            long_walk_area += Polygon(ring).intersection(long_walk_iso).area
+    enclosure_near_short = 0
+    enclosure_near_long = 0
     for _, park in parks[parks.type_of_park == 'enclosure'].iterrows():
-        if Point(park.LONGITUDE, park.LATITUDE).within(iso_walk):
-            enclosure_near = True
-            break
-    score = ((walk_area**0.8) * 80000 + enclosure_near * 8) * 2
-    score = max(25, score) if score else 0
+        if Point(park.LONGITUDE, park.LATITUDE).within(short_walk_iso):
+            enclosure_near_short += 1
+        elif Point(park.LONGITUDE, park.LATITUDE).within(long_walk_iso):
+            enclosure_near_long += 1
+    score = ((short_walk_area**0.8) * 100000 + ((max(long_walk_area - short_walk_area, 0))**0.8) * 40000 + enclosure_near_short * 8 + enclosure_near_long * 4) * 2
+    # score = max(15, score) if score else 0
     return score
 
-def get_iso_drive_score(iso_walk, iso_drive):
-    iso_drive = Polygon(iso_drive)
-    iso_walk = Polygon(iso_walk)
-    iso_drive = transform(lambda x, y: (y, x), iso_drive)
-    iso_walk = transform(lambda x, y: (y, x), iso_walk)
+def get_iso_drive_score(long_walk_iso, drive_iso):
+    drive_iso = Polygon(drive_iso)
+    long_walk_iso = Polygon(long_walk_iso)
+    drive_iso = transform(lambda x, y: (y, x), drive_iso)
+    long_walk_iso = transform(lambda x, y: (y, x), long_walk_iso)
     walk_area = 0
     drive_reach = 0
     for _, park in parks[(parks.type_of_park == 'park') | (parks.type_of_park == 'pit')].iterrows():
         for ring in park['geometry']['rings']:
-            if Polygon(ring).intersects(iso_drive):
-                drive_reach += 1 if not Polygon(ring).intersects(iso_walk) else 0
-                walk_area += Polygon(ring).area - Polygon(ring).intersection(iso_walk).area
+            if Polygon(ring).intersects(drive_iso):
+                drive_reach += 1 if not Polygon(ring).intersects(long_walk_iso) else 0
+                walk_area += Polygon(ring).area - Polygon(ring).intersection(long_walk_iso).area
     enclosure_near = False
     for _, park in parks[parks.type_of_park == 'enclosure'].iterrows():
-        if Point(park.LONGITUDE, park.LATITUDE).within(iso_drive):
-            if not Point(park.LONGITUDE, park.LATITUDE).within(iso_walk):
+        if Point(park.LONGITUDE, park.LATITUDE).within(drive_iso):
+            if not Point(park.LONGITUDE, park.LATITUDE).within(long_walk_iso):
                 enclosure_near = True
                 break
     score = ((walk_area**0.8) * 5000 + enclosure_near * 4 + drive_reach) * 2

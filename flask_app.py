@@ -101,12 +101,13 @@ def m2_to_acres(area):
 
 def get_offleashscore(lat, lng):
     isochrones = get_isochrones([[lat, lng]])
-    walk_iso = isochrones[0]
-    drive_iso = isochrones[1]
-    walk_score = int(get_iso_walk_score(walk_iso))
-    drive_score = int(get_iso_drive_score(walk_iso, drive_iso))
+    short_walk_iso = isochrones[0]
+    long_walk_iso = isochrones[1]
+    drive_iso = isochrones[2]
+    walk_score = int(get_iso_walk_score(short_walk_iso, long_walk_iso))
+    drive_score = int(get_iso_drive_score(long_walk_iso, drive_iso))
     score = walk_score + drive_score
-    return score, walk_score, drive_score, walk_iso, drive_iso
+    return score, walk_score, drive_score, short_walk_iso, long_walk_iso, drive_iso
 
 @app.route('/', methods=["POST", "GET"])
 def index():
@@ -128,12 +129,12 @@ def map_score():
         lat, lng = None, None
         geocode_center, zoom_level = get_address_latlng(locate)
         logger.info(f"geocode_center: {geocode_center}")
-        lat = geocode_center.get('lat')
-        lng = geocode_center.get('lng')
-        score, walk_score, drive_score, walk_iso, drive_iso = get_offleashscore(lat, lng)
+        lat = float(geocode_center.get('lat'))
+        lng = float(geocode_center.get('lng'))
+        score, walk_score, drive_score, short_walk_iso, long_walk_iso, drive_iso = get_offleashscore(lat, lng)
         if lat:
             m = folium.Map(location=(lat, lng), zoom_start=11, tiles='cartodbpositron')
-            for isochrone, label, fill_opacity, weight in zip([drive_iso, walk_iso], ['8min drive', '20min walk'], [0.1, 0.2], [1.5, 3]):
+            for isochrone, label, fill_opacity, weight in zip([drive_iso, long_walk_iso, short_walk_iso], ['8 min drive', '20 min walk', '7.5 min walk'], [0.1, 0.15, 0.2], [1, 2, 3]):
                 folium.vector_layers.Polygon(
                     isochrone,
                     color='black',

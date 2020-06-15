@@ -7,11 +7,14 @@
 <body style="background-color: rgba(0,0,0,0);">
     <br><br><br><br>
     <div class='blocktext'>
-        <h3>OttLeashScore: {{ score }}</h3>
+        <h3>OttLeashScore: {{ 100 if score > 100 else score }}</h3>
         <details>
             <summary>details</summary>
             <h5>Walk score: {{ walk_score }}</h5>
             <h5>Drive score: {{ drive_score }}</h5>
+            {% if score >= 100 %}
+                <h5><i>Total score is maxed out and capped at 100.</i></h5>
+            {% endif %}
         </details>
         <br><br>
         <iframe id="ols_map" src="{{ url_for('get_ols_map') }}"></iframe>
