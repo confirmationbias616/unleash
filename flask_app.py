@@ -60,7 +60,7 @@ try:
 except FileNotFoundError:  # no `.secret.json` file if running in CI
     api_key = None
 
-def api_call(address_param):
+def geolocate(address_param):
     if not api_key:
         return {}
     api_request = "https://maps.googleapis.com/maps/api/geocode/json?address={}, Ottawa, Ontario, Canada&bounds=41.6765559,-95.1562271|56.931393,-74.3206479&key={}"
@@ -74,7 +74,7 @@ def api_call(address_param):
 def get_address_latlng(address_input):
     if (not address_input) or (address_input == 'null'):
         return {}
-    info = api_call(f"{address_input}")
+    info = geolocate(f"{address_input}")
     if info:
         lat_diff = (
             info['geometry']['viewport']['northeast']['lat'] - 
