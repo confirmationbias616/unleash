@@ -295,6 +295,9 @@ body {
 .advertise_banner_text a:hover{
   color: var(--highlight);
 }
+.advertise_banner a {
+  color: var(--text_color);
+}
 /* @media screen and (min-width: 500px) and (min-height: 500px) {
   advertise_banner {
     font-size: 16px;
