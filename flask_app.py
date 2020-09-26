@@ -793,4 +793,4 @@ if __name__ == "__main__":
     parks = get_all_parks()
     enclosures = get_all_enclosures()
     pits = get_all_pits()
-    app.run(debug=True)
+    app.run(debug=False)
